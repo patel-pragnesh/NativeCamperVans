@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:views="clr-namespace:NativeCamperVans.Views" 
+            xmlns:local="clr-namespace:NativeCamperVans.MarkupExtensions"
+            mc:Ignorable="d"
+            x:Class="NativeCamperVans.Views.HomeTabbedPage"
+            xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+            ios:Page.UseSafeArea="False"
+            BackgroundColor="Transparent"
+            BarBackgroundColor="Transparent"
+            NavigationPage.HasNavigationBar="False">
+    <!--Pages can be added as references or inline-->
+    <views:HomePageDetail
+        x:Name="Dashboard"
+        Title="Home"
+        Icon="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconRedDashboard.png}" />
+    <views:VehicleDetailPage
+        x:Name="bookingPage"
+        Title="Book Now"
+        Icon="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconRedCar.png}" />
+    <views:MyProfile
+        x:Name="MembershipScreen"
+        Title="MyProfile"
+        Icon="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconRedUser.png}" />
+    <views:HelpFunnelPage
+        x:Name="AcountPage"
+        Title="Contact Us"
+        Icon="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconRedHelp.png}" />
+    <views:LogoutPage Title="Logout" Icon="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconLogout.png}" />
+</TabbedPage>
