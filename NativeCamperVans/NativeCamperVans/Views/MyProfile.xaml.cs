@@ -116,10 +116,14 @@ namespace NativeCamperVans.Views
                         {
                             if (PortalDetailsMobileResponse.customerReview != null)
                             {
-                                if (PortalDetailsMobileResponse.customerReview.CustomerImages[PortalDetailsMobileResponse.customerReview.CustomerImages.Count - 1].Base64 != null)
+                                if (PortalDetailsMobileResponse.customerReview.CustomerImages.Count > 0)
                                 {
-                                    byte[] Base64Stream = Convert.FromBase64String(PortalDetailsMobileResponse.customerReview.CustomerImages[PortalDetailsMobileResponse.customerReview.CustomerImages.Count - 1].Base64);
-                                    profileImage.Source = ImageSource.FromStream(() => new MemoryStream(Base64Stream));
+                                    if (PortalDetailsMobileResponse.customerReview.CustomerImages[PortalDetailsMobileResponse.customerReview.CustomerImages.Count - 1].Base64 != null)
+                                    {
+                                        byte[] Base64Stream = Convert.FromBase64String(PortalDetailsMobileResponse.customerReview.CustomerImages[PortalDetailsMobileResponse.customerReview.CustomerImages.Count - 1].Base64);
+                                        profileImage.Source = ImageSource.FromStream(() => new MemoryStream(Base64Stream));
+                                    }
+
                                 }
                             }
                         }

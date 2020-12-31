@@ -45,6 +45,7 @@ namespace NativeCamperVans.Views
         bool isAgreeRefreshed;
         int lastAgreementId;
         string lastAgreementStatus;
+        bool busy;
 
         public HomePageDetail()
         {
@@ -109,7 +110,7 @@ namespace NativeCamperVans.Views
             Common.mMasterPage.Master = new HomePageMaster();
             Common.mMasterPage.IsPresented = false;
 
-            bool busy = false;
+             busy = false;
             if (!busy)
             {
                 try
@@ -178,74 +179,17 @@ namespace NativeCamperVans.Views
             {
                 if (registrationDBModel.Reservations.Count > 0)
                 {
-                    if (registrationDBModel.Reservations[0].Status == "Open" || registrationDBModel.Reservations[0].Status == "New" || registrationDBModel.Reservations[0].Status == "Quote" || registrationDBModel.Reservations[0].Status == "Canceled")
+                    if (registrationDBModel.Reservations[0].Status == "Open" || registrationDBModel.Reservations[0].Status == "New" || registrationDBModel.Reservations[0].Status == "Quote" )
                     {
-                        isreservation = true;
-                        isAgreement = false;
-                        reservationByIDMobileRequest.ReservationID = registrationDBModel.Reservations[0].ReservationId;
 
-                        busy = false;
-                        if (!busy)
-                        {
-                            try
-                            {
-                                busy = true;
-                                grdRentals.IsVisible = false;
-                                lastAgreementStack.IsVisible = false;
-                                LoadingStack.IsVisible = true;
-                                await Task.Run(() =>
-                                {
-                                    try
-                                    {
-                                        reservationByIDMobileResponse = getReservationByID(reservationByIDMobileRequest, _token);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        PopupNavigation.Instance.PushAsync(new ErrorWithClosePagePopup(ex.Message));
-                                    }
-                                });
-                            }
-                            finally
-                            {
-                                busy = false;
-                                grdRentals.IsVisible = true;
-                                LoadingStack.IsVisible = false;
-                                lastAgreementStack.IsVisible = false;
-                                reservationByIDMobileResponse.reservationData.Reservationview.StartDateStr =((DateTime) reservationByIDMobileResponse.reservationData.Reservationview.StartDate).ToString("dddd, dd MMMM yyyy hh:mm tt");
-                                reservationByIDMobileResponse.reservationData.Reservationview.EndDateStr =((DateTime) reservationByIDMobileResponse.reservationData.Reservationview.EndDate).ToString("dddd, dd MMMM yyyy hh:mm tt");
-                                reservationByIDMobileResponse.reservationData.Reservationview.PageTitle = Enum.GetName(typeof(ReservationStatuses), reservationByIDMobileResponse.reservationData.Reservationview.Status);
-                                if(reservationByIDMobileResponse.reservationData.Reservationview.Status== (short)ReservationStatuses.Quote)
-                                {
-                                    reservationByIDMobileResponse.reservationData.Reservationview.PageTitle = "Pending";
-                                }
-                                if (reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.Open)
-                                {
-                                    reservationByIDMobileResponse.reservationData.Reservationview.PageTitle = "Active";
-                                }
-                                reservationByIDMobileResponse.isTimerVisible = false;
-                                List<GetReservationByIDMobileResponse> upreserItemSource = new List<GetReservationByIDMobileResponse>();
-                                upreserItemSource.Add(reservationByIDMobileResponse);
-                                upcomingReservation.ItemsSource = upreserItemSource;
-                                upcomingReservation.HeightRequest = 400;
-                                if (reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.Canceled)
-                                {
-                                    BooknowBtn.IsVisible = true;
-                                    isbookingBtnVisible = true;
-                                }
-                                else
-                                {
-                                    BooknowBtn.IsVisible = false;
-                                    isbookingBtnVisible = false ;
-                                }
-                            }
-
-                        }
+                        ViewReservation(registrationDBModel);
+                       
                         //if(registrationDBModel.Reservations[0].Status == "Canceled")
                         //{
                         //    BooknowBtn.IsVisible = true;
                         //}
                     }
-                    else if (registrationDBModel.Reservations[0].Status == "CheckOut")
+                    else if (registrationDBModel.Reservations[0].Status == "CheckOut" || registrationDBModel.Reservations[0].Status == "Canceled")
                     {
                         isreservation = false;
                         isAgreement = true;
@@ -253,64 +197,10 @@ namespace NativeCamperVans.Views
                         {
                             if (registrationDBModel.Agreements[0].Status == "Open")
                             {
-                                isAgreement = true;
-                                agreementTimerList = new List<Event>() { new Event { Date = registrationDBModel.Agreements[0].CheckinDate} };
-                                Setup();
-                                agreementIdMobileRequest.agreementId = registrationDBModel.Agreements[0].AgreementId;
-                                agreementId = registrationDBModel.Agreements[0].AgreementId;
-                                int vehicleID= registrationDBModel.Agreements[0].VehicleId;
-                                vehicleId = vehicleID;
+                                viewAgreement(registrationDBModel);
 
-                                busy = false;
-                                if (!busy)
-                                {
-                                    try
-                                    {
-                                        busy = true;
-                                        grdRentals.IsVisible = false;
-                                        lastAgreementStack.IsVisible = false;
-                                        LoadingStack.IsVisible = true;
-                                        await Task.Run(() =>
-                                        {
-                                            try
-                                            {
-                                                agreementIdMobileResponse = getAgreement(agreementIdMobileRequest, _token, vehicleID);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                PopupNavigation.Instance.PushAsync(new ErrorWithClosePagePopup(ex.Message));
-                                            }
-                                        });
-                                    }
-                                    finally
-                                    {
-                                        busy = false;
-                                        grdRentals.IsVisible = false;
-                                        LoadingStack.IsVisible = false;
-                                        lastAgreementStack.IsVisible = true;
-                                        AgreementNumberLabel.Text = agreementIdMobileResponse.custAgreement.AgreementDetail.AgreementNumber;
-                                        AgreementReviewDetailSet agreement = agreementIdMobileResponse.custAgreement;
-                                        string agrStatus = Enum.GetName(typeof(AgreementStatusConst), agreementIdMobileResponse.custAgreement.AgreementDetail.Status);
-                                        statusLabel.Text = Enum.GetName(typeof(AgreementStatusConst), agreementIdMobileResponse.custAgreement.AgreementDetail.Status);
-                                        if (agrStatus == "Open")
-                                        {
-                                            statusLabel.Text = "Active";
-                                        }
-                                        vehicleNameLabel.Text= agreement.AgreementDetail.VehicleMakeName + " " + agreement.AgreementDetail.ModelName + " " + agreement.AgreementDetail.Year;
-                                        VehicleTypeLabel.Text = agreement.AgreementDetail.VehicleType;
-                                        seatsCount.Text = agreementIdMobileResponse.agreementVehicle.Seats;
-                                        bagsCount.Text = agreementIdMobileResponse.agreementVehicle.Baggages.ToString();
-                                        TransType.Text = agreementIdMobileResponse.agreementVehicle.Transmission;
-                                        totalAmountLabel.Text= "$" + ((decimal)agreement.AgreementTotal.TotalAmount).ToString("0.00");
-                                        pickUpLocationLabel.Text = agreement.AgreementDetail.CheckoutLocationName;
-                                        pickUpDateLabel.Text = agreement.AgreementDetail.CheckoutDate.ToString("dddd, dd MMMM yyyy hh:mm tt");
-                                        dropOffLocationLabel.Text = agreement.AgreementDetail.CheckinLocationName;
-                                        dropOffDateLabel.Text = agreement.AgreementDetail.CheckinDate.ToString("dddd, dd MMMM yyyy hh:mm tt");
-                                        VehicleImage.Source = ImageSource.FromUri(new Uri(agreementIdMobileResponse.agreementVehicle.ImageUrl));
+                                
 
-                                    }
-
-                                }
                             }
                             else
                             {
@@ -323,6 +213,24 @@ namespace NativeCamperVans.Views
                         }
                     }
 
+                }
+                else if (registrationDBModel.Agreements.Count > 0)
+                {
+                    if (registrationDBModel.Agreements[0].Status == "Open")
+                    {
+                        viewAgreement(registrationDBModel);
+
+
+
+                    }
+                    else
+                    {
+                        isAgreement = false;
+                        isreservation = false;
+                        upcomingReservation.IsVisible = false;
+                        emptyReservation.IsVisible = true;
+                        BooknowBtn.IsVisible = true;
+                    }
                 }
                 else
                 {
@@ -404,6 +312,130 @@ namespace NativeCamperVans.Views
 
 
 
+        }
+
+        private async void viewAgreement(RegistrationDBModel registrationDBModel)
+        {
+            isAgreement = true;
+            agreementTimerList = new List<Event>() { new Event { Date = registrationDBModel.Agreements[0].CheckinDate } };
+            Setup();
+            agreementIdMobileRequest.agreementId = registrationDBModel.Agreements[0].AgreementId;
+            agreementId = registrationDBModel.Agreements[0].AgreementId;
+            int vehicleID = registrationDBModel.Agreements[0].VehicleId;
+            vehicleId = vehicleID;
+
+            busy = false;
+            if (!busy)
+            {
+                try
+                {
+                    busy = true;
+                    grdRentals.IsVisible = false;
+                    lastAgreementStack.IsVisible = false;
+                    LoadingStack.IsVisible = true;
+                    await Task.Run(() =>
+                    {
+                        try
+                        {
+                            agreementIdMobileResponse = getAgreement(agreementIdMobileRequest, _token, vehicleID);
+                        }
+                        catch (Exception ex)
+                        {
+                            PopupNavigation.Instance.PushAsync(new ErrorWithClosePagePopup(ex.Message));
+                        }
+                    });
+                }
+                finally
+                {
+                    busy = false;
+                    grdRentals.IsVisible = false;
+                    LoadingStack.IsVisible = false;
+                    lastAgreementStack.IsVisible = true;
+                    AgreementNumberLabel.Text = agreementIdMobileResponse.custAgreement.AgreementDetail.AgreementNumber;
+                    AgreementReviewDetailSet agreement = agreementIdMobileResponse.custAgreement;
+                    string agrStatus = Enum.GetName(typeof(AgreementStatusConst), agreementIdMobileResponse.custAgreement.AgreementDetail.Status);
+                    statusLabel.Text = Enum.GetName(typeof(AgreementStatusConst), agreementIdMobileResponse.custAgreement.AgreementDetail.Status);
+                    if (agrStatus == "Open")
+                    {
+                        statusLabel.Text = "Active";
+                    }
+                    vehicleNameLabel.Text = agreement.AgreementDetail.VehicleMakeName + " " + agreement.AgreementDetail.ModelName + " " + agreement.AgreementDetail.Year;
+                    VehicleTypeLabel.Text = agreement.AgreementDetail.VehicleType;
+                    seatsCount.Text = agreementIdMobileResponse.agreementVehicle.Seats;
+                    bagsCount.Text = agreementIdMobileResponse.agreementVehicle.Baggages.ToString();
+                    TransType.Text = agreementIdMobileResponse.agreementVehicle.Transmission;
+                    totalAmountLabel.Text = "$" + ((decimal)agreement.AgreementTotal.TotalAmount).ToString("0.00");
+                    pickUpLocationLabel.Text = agreement.AgreementDetail.CheckoutLocationName;
+                    pickUpDateLabel.Text = agreement.AgreementDetail.CheckoutDate.ToString("dddd, dd MMMM yyyy hh:mm tt");
+                    dropOffLocationLabel.Text = agreement.AgreementDetail.CheckinLocationName;
+                    dropOffDateLabel.Text = agreement.AgreementDetail.CheckinDate.ToString("dddd, dd MMMM yyyy hh:mm tt");
+                    VehicleImage.Source = ImageSource.FromUri(new Uri(agreementIdMobileResponse.agreementVehicle.ImageUrl));
+
+                }
+            }
+        }
+
+        private async void ViewReservation(RegistrationDBModel registrationDBModel)
+        {
+            isreservation = true;
+            isAgreement = false;
+            reservationByIDMobileRequest.ReservationID = registrationDBModel.Reservations[0].ReservationId;
+
+            busy = false;
+            if (!busy)
+            {
+                try
+                {
+                    busy = true;
+                    grdRentals.IsVisible = false;
+                    lastAgreementStack.IsVisible = false;
+                    LoadingStack.IsVisible = true;
+                    await Task.Run(() =>
+                    {
+                        try
+                        {
+                            reservationByIDMobileResponse = getReservationByID(reservationByIDMobileRequest, _token);
+                        }
+                        catch (Exception ex)
+                        {
+                            PopupNavigation.Instance.PushAsync(new ErrorWithClosePagePopup(ex.Message));
+                        }
+                    });
+                }
+                finally
+                {
+                    busy = false;
+                    grdRentals.IsVisible = true;
+                    LoadingStack.IsVisible = false;
+                    lastAgreementStack.IsVisible = false;
+                    reservationByIDMobileResponse.reservationData.Reservationview.StartDateStr = ((DateTime)reservationByIDMobileResponse.reservationData.Reservationview.StartDate).ToString("dddd, dd MMMM yyyy hh:mm tt");
+                    reservationByIDMobileResponse.reservationData.Reservationview.EndDateStr = ((DateTime)reservationByIDMobileResponse.reservationData.Reservationview.EndDate).ToString("dddd, dd MMMM yyyy hh:mm tt");
+                    reservationByIDMobileResponse.reservationData.Reservationview.PageTitle = Enum.GetName(typeof(ReservationStatuses), reservationByIDMobileResponse.reservationData.Reservationview.Status);
+                    if (reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.Quote)
+                    {
+                        reservationByIDMobileResponse.reservationData.Reservationview.PageTitle = "Pending";
+                    }
+                    if (reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.Open)
+                    {
+                        reservationByIDMobileResponse.reservationData.Reservationview.PageTitle = "Active";
+                    }
+                    reservationByIDMobileResponse.isTimerVisible = false;
+                    List<GetReservationByIDMobileResponse> upreserItemSource = new List<GetReservationByIDMobileResponse>();
+                    upreserItemSource.Add(reservationByIDMobileResponse);
+                    upcomingReservation.ItemsSource = upreserItemSource;
+                    upcomingReservation.HeightRequest = 400;
+                    //if (reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.Canceled)
+                    //{
+                    //    BooknowBtn.IsVisible = true;
+                    //    isbookingBtnVisible = true;
+                    //}
+                    //else
+                    //{
+                    //    BooknowBtn.IsVisible = false;
+                    //    isbookingBtnVisible = false ;
+                    //}
+                }
+            }
         }
 
         private List<CustomerAgreementModel> getReservations(int customerId, string token)

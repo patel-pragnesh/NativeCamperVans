@@ -194,6 +194,25 @@ namespace NativeCamperVans.Views
             }
         }
 
+        private void updateConstantCustomerDetails(GetCustomerPortalDetailsMobileRequest portalDetailsMobileRequest)
+        {
+            GetCustomerPortalDetailsMobileResponse response = new GetCustomerPortalDetailsMobileResponse();
+            CustomerController customoerController = new CustomerController();
+            try
+            {
+                response = customoerController.getCustomerDetailsWithProfilePic(portalDetailsMobileRequest, token);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            if (response.customerReview != null)
+            {
+                Constants.customerDetails = response.customerReview;
+            }
+        }
+
+
         private void SignUpBtn_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new RegisterPage());

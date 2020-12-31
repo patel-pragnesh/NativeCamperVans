@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:renders="clr-namespace:NativeCamperVans.Renders"
     Title="Master"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    BackgroundColor="Transparent">
     <Frame
         Padding="0"
         BorderColor="Transparent"
@@ -29,10 +30,10 @@
 
                 <Image
                     x:Name="logoImage"
-                    Margin="0,20,0,0"
+                    Margin="10,20,10,10"
                     Aspect="AspectFit"
                     HeightRequest="100"
-                    Source="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconMenuLogo.png}"
+                    Source="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.logo_high_resolution_white-1.png}"
                     VerticalOptions="CenterAndExpand" />
                 <!--<Frame
                     Padding="0"

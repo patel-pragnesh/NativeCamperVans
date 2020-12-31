@@ -55,7 +55,8 @@ namespace NativeCamperVans.Views
             base.OnAppearing();
             if(Constants.customerDetails != null)
             {
-                if(Constants.customerDetails.CustomerId != (int)Application.Current.Properties["CustomerId"])
+                welcomeText.Text = "Welcome " + Constants.customerDetails.FirstName;
+                if (Constants.customerDetails.CustomerId != (int)Application.Current.Properties["CustomerId"])
                 {
                     getCustomerRevieAndUpdateImage();
                 }
@@ -94,6 +95,7 @@ namespace NativeCamperVans.Views
                             profileImage.Source = ImageSource.FromStream(() => new MemoryStream(Base64Stream));
                         }
                     }
+                    welcomeText.Text = "Welcome " + PortalDetailsMobileResponse.customerReview.FirstName;
                 }
             }
 
@@ -123,8 +125,6 @@ namespace NativeCamperVans.Views
                 {
 
                     new HomePageMasterMenuItem { Id = 0,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteDashboard.png"),  Title = "Dashboard" },
-                    new HomePageMasterMenuItem { Id = 1,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteCar.png"), Title = "Book Now" },
-                    new HomePageMasterMenuItem { Id = 2,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteRental.png"), Title = "My Rentals " },
                     new HomePageMasterMenuItem { Id = 4,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteUser.png"), Title = "My Profile" },
                     new HomePageMasterMenuItem { Id = 3,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteHelp.png"), Title = "Help" },
                     new HomePageMasterMenuItem { Id = 5,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteLogout.png"), Title = "Log out" },
