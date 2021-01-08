@@ -855,7 +855,7 @@
                             </Grid.RowDefinitions>
                             <Label
                                 FontFamily="Roboto-Regular"
-                                Text="photos as possible of the following: damage to all vehicles involved, license plates and registrations of all vehicles involved, driver license/ID of all person involved.&#x0a;  &#x0a;Please be sure to get the name, precint, and police report number from the reporting officer.   &#x0a;  &#x0a;Click HERE to upload all photos and details of your accident.   &#x0a;  &#x0a;If the vehicle is safe to drive, please return the vehicle to Jax Rideshare Rentals at [ADDRESS]. If it is unsafe to drive, please contact a tow truck driver at [NUMBER]. "
+                                Text="photos as possible of the following: damage to all vehicles involved, license plates and registrations of all vehicles involved, driver license/ID of all person involved.&#x0a;  &#x0a;Please be sure to get the name, precint, and police report number from the reporting officer.   &#x0a;  &#x0a;Click HERE to upload all photos and details of your accident.   &#x0a;  &#x0a;If the vehicle is safe to drive, please return the vehicle to Native Camper Vans at [ADDRESS]. If it is unsafe to drive, please contact a tow truck driver at [NUMBER]. "
                                 TextColor="{StaticResource MaxVonBlack}"
                                 VerticalOptions="CenterAndExpand">
                                 <Label.FontSize>
@@ -990,7 +990,7 @@
                             </Grid.RowDefinitions>
                             <Label
                                 FontFamily="Roboto-Regular"
-                                Text="If the vehicle is safe to drive, please return the vehicle to Jax Rideshare Rentals at [ADDRESS] for an inspection. If it is unsafe to drive, please contact a tow truck driver at [NUMBER]. If it is outside normal business hours, please......"
+                                Text="If the vehicle is safe to drive, please return the vehicle to Native Camper Vans at [ADDRESS] for an inspection. If it is unsafe to drive, please contact a tow truck driver at [NUMBER]. If it is outside normal business hours, please......"
                                 TextColor="{StaticResource MaxVonBlack}"
                                 VerticalOptions="CenterAndExpand">
                                 <Label.FontSize>
@@ -1125,7 +1125,7 @@
                             </Grid.RowDefinitions>
                             <Label
                                 FontFamily="Roboto-Regular"
-                                Text="If the vehicle is safe to drive, please return the vehicle to Jax Rideshare Rentals at [ADDRESS] for an inspection. If it is unsafe to drive, please contact a tow truck driver at [NUMBER]. If it is outside normal business hours, please......"
+                                Text="If the vehicle is safe to drive, please return the vehicle to Native Camper Vans at [ADDRESS] for an inspection. If it is unsafe to drive, please contact a tow truck driver at [NUMBER]. If it is outside normal business hours, please......"
                                 TextColor="{StaticResource MaxVonBlack}"
                                 VerticalOptions="CenterAndExpand">
                                 <Label.FontSize>

@@ -219,5 +219,28 @@ namespace NativeCamperVans.Views
             App.Current.Properties["CustomerId"] = 0;
             Navigation.PushAsync(new WelcomPage());
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            Type type = typeof(HomePage);
+            if (PopupNavigation.Instance.PopupStack.Count > 0) { return true; }
+ 
+
+            int c = Navigation.NavigationStack.Count;
+            for (var counter = 1; counter < c; counter++)
+            {
+                if(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2].GetType() != type)
+                {
+                    Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
+
+                }
+            }
+            return false;
+
+
+            // Always return true because this method is not asynchronous.
+            // We must handle the action ourselves: see above.
+
+        }
     }
 }

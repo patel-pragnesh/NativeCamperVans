@@ -11,6 +11,7 @@ namespace NativeCamperVansModel.AccessModels
     {
         public ReservationViewModel reservationData { get; set; }
         public VehicleTypeWithRatesViewModel vehicleTypeModel { get; set; }
+        public VehicleWithRatesViewModel vehicleModel { get; set; }
         public bool isTimerVisible { get; set; }
 
         public ApiMessage message { get; set; }

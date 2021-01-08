@@ -53,17 +53,7 @@ namespace NativeCamperVans.Popups
 
         private async void GaleryBtn_Clicked(object sender, EventArgs e)
         {
-            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>();
-            var mediaLibraryStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<MediaLibraryPermission>();
-            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
-
-            if (mediaLibraryStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-            {
-                mediaLibraryStatus = await CrossPermissions.Current.RequestPermissionAsync<MediaLibraryPermission>();
-                storageStatus = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
-            }
-            if (mediaLibraryStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
-            {
+            try { 
                 await CrossMedia.Current.Initialize();
                 if (!CrossMedia.Current.IsPickPhotoSupported)
                 {
@@ -108,7 +98,7 @@ namespace NativeCamperVans.Popups
 
                 }
             }
-            else
+            catch
             {
                 await DisplayAlert("Permissions Denied", "Unable to access gallery.", "OK");
                 //On iOS you may want to send your user to the settings screen.
@@ -120,16 +110,7 @@ namespace NativeCamperVans.Popups
 
         private async void cameraBtn_Clicked(object sender, EventArgs e)
         {
-            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>();
-            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
-
-            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-            {
-                cameraStatus = await CrossPermissions.Current.RequestPermissionAsync<CameraPermission>();
-                storageStatus = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
-            }
-
-            if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
+            try
             {
 
 
@@ -178,7 +159,7 @@ namespace NativeCamperVans.Popups
                 }
 
             }
-            else
+            catch
             {
                 await DisplayAlert("Permissions Denied", "Unable to take photos.", "OK");
                 //On iOS you may want to send your user to the settings screen.

@@ -159,7 +159,11 @@ namespace NativeCamperVansController
             try
             {
                 getReservationByID = registerservice.getReservationByID(reservationByIDMobileRequest, token);
-                if (getReservationByID.reservationData.Reservationview.VehicleTypeID > 0)
+                if (getReservationByID.reservationData.Reservationview.VehicleId > 0)
+                {
+                    getReservationByID.vehicleModel = registerservice.GetVehicleWithRates(getReservationByID.reservationData.Reservationview.VehicleTypeID, getReservationByID.reservationData.Reservationview.VehicleId, token);
+                }
+                else if (getReservationByID.reservationData.Reservationview.VehicleTypeID > 0)
                 {
                     getReservationByID.vehicleTypeModel = registerservice.GetVehicleTypesWithRates(getReservationByID.reservationData.Reservationview.VehicleTypeID, token);
                 }

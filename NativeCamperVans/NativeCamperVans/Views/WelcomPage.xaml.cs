@@ -213,13 +213,13 @@ namespace NativeCamperVans.Views
                 }
                 else
                 {
+                    StartAnimation();
                     IsBusy = false;
+
                     if (!IsBusy)
                     {
 
-                        // HomeBtn.IsVisible = false;
-                        //  LoginLoader.IsVisible = true;
-                        // LoginSpinner.IsRunning = true;
+                       
                         IsBusy = true;
 
                         try
@@ -248,6 +248,12 @@ namespace NativeCamperVans.Views
                 //  LoginLoader.IsVisible = true;
                 // LoginSpinner.IsRunning = true;
             }
+        }
+
+        private async void StartAnimation()
+        {
+            await HomeBtn.FadeTo(0, 50);
+            await HomeBtn.FadeTo(1, 50);
         }
 
         private void btnSignup_Clicked(object sender, EventArgs e)

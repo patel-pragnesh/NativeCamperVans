@@ -108,7 +108,7 @@ namespace NativeCamperVans
             }
             else
             {
-                MainPage = new NavigationPage(new HomePage());
+                MainPage = new NavigationPage(new WelcomPage());
             }
 
 
