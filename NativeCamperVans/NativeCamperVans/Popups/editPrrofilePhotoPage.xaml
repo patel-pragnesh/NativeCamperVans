@@ -70,7 +70,8 @@
                 <Grid
                     Grid.Row="0"
                     Margin="10,10,10,0"
-                    HeightRequest="50">
+                    HeightRequest="70"
+                    HorizontalOptions="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40" />
                         <ColumnDefinition Width="*" />

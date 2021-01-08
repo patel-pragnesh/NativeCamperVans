@@ -38,9 +38,9 @@ namespace NativeCamperVans.Views
             {
                 doorCountLabel.Text = selectedVehicle.doors.ToString() + " Doors";
             }
-            if (selectedVehicle.IsVehicleAvailableDescription != null)
+            if (selectedVehicle.HtmlContent != null)
             {
-                VehicleDiscription.Text = selectedVehicle.IsVehicleAvailableDescription;
+                VehicleDiscription.Text = selectedVehicle.HtmlContent.Replace("<p>", "").Replace("</p>", "").Replace("&nbsp;&nbsp;", "");
             }
             totalAmtLabel.Text = "$ " + selectedVehicle.RateDetail.RateTotal.ToString("0.00");
             //if (selectedVehicle.HtmlContent != null)

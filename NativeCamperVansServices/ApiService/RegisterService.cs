@@ -184,6 +184,38 @@ namespace NativeCamperVansServices.ApiService
             return resp;
         }
 
+        public VehicleWithRatesViewModel GetVehicleWithRates(int? vehicleTypeID, int? vehicleId, string token)
+        {
+            VehicleWithRatesViewModel vehicle = null;
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConstantData.ApiURL.ToString() + "Vehicle/Getvehicle");
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                    var url = string.Format(
+                    client.BaseAddress +
+                    "?vehicleTypeId=" +
+                    (int)vehicleTypeID) +
+                    "&id=" +
+                    vehicleId;
+
+                    var response = client.GetAsync(url).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseStream = response.Content.ReadAsStringAsync().Result;
+                        vehicle = JsonConvert.DeserializeObject<VehicleWithRatesViewModel>(responseStream);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return vehicle;
+        }
+
         public GetReservationAgreementMobileResponse getMobileRegistrationDBModel(GetReservationAgreementMobileRequest registrationDBModelRequest, string token)
         {
             GetReservationAgreementMobileResponse resp = null;

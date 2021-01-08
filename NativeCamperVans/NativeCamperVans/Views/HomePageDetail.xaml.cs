@@ -208,7 +208,7 @@ namespace NativeCamperVans.Views
                                 isreservation = false;
                                 upcomingReservation.IsVisible = false;
                                 emptyReservation.IsVisible = true;
-                                BooknowBtn.IsVisible = true;
+                                //BooknowBtn.IsVisible = true;
                             }
                         }
                     }
@@ -229,14 +229,14 @@ namespace NativeCamperVans.Views
                         isreservation = false;
                         upcomingReservation.IsVisible = false;
                         emptyReservation.IsVisible = true;
-                        BooknowBtn.IsVisible = true;
+                        //BooknowBtn.IsVisible = true;
                     }
                 }
                 else
                 {
                     upcomingReservation.IsVisible = false;
                     emptyReservation.IsVisible = true;
-                    BooknowBtn.IsVisible = true;
+                    //BooknowBtn.IsVisible = true;
                     // upReserveFrame.HeightRequest = 290;
                 }
 
@@ -258,7 +258,7 @@ namespace NativeCamperVans.Views
                         {
                             if(camfl.Status != null)
                             {
-                                if (camfl.Status == "Close")
+                                if (camfl.Status == "Close"|| camfl.Status == "Pending_Payment")
                                 {
                                     camfl.custAgreement.AgreementTotal.totalAmountStr = ((decimal)camfl.custAgreement.AgreementTotal.TotalAmount).ToString("0.00");
                                     agreementItemSource.Add(camfl);
@@ -419,6 +419,11 @@ namespace NativeCamperVans.Views
                     {
                         reservationByIDMobileResponse.reservationData.Reservationview.PageTitle = "Active";
                     }
+                    if (reservationByIDMobileResponse.vehicleTypeModel == null)
+                    {
+                        reservationByIDMobileResponse = FixAsResponsibleToReservationByVehicle(reservationByIDMobileResponse);
+                    }
+
                     reservationByIDMobileResponse.isTimerVisible = false;
                     List<GetReservationByIDMobileResponse> upreserItemSource = new List<GetReservationByIDMobileResponse>();
                     upreserItemSource.Add(reservationByIDMobileResponse);
@@ -436,6 +441,21 @@ namespace NativeCamperVans.Views
                     //}
                 }
             }
+        }
+
+        private GetReservationByIDMobileResponse FixAsResponsibleToReservationByVehicle(GetReservationByIDMobileResponse reservationByIDMobileResponse)
+        {
+            if (reservationByIDMobileResponse.vehicleModel != null)
+            {
+                reservationByIDMobileResponse.vehicleTypeModel = new VehicleTypeWithRatesViewModel();
+                reservationByIDMobileResponse.vehicleTypeModel.ImageUrl = reservationByIDMobileResponse.vehicleModel.ImageUrl;
+                reservationByIDMobileResponse.vehicleTypeModel.Seats = reservationByIDMobileResponse.vehicleModel.Seats;
+                reservationByIDMobileResponse.vehicleTypeModel.Baggages = reservationByIDMobileResponse.vehicleModel.Baggages;
+                reservationByIDMobileResponse.vehicleTypeModel.Transmission = reservationByIDMobileResponse.vehicleModel.Transmission;
+                reservationByIDMobileResponse.vehicleTypeModel.VehicleTypeName = reservationByIDMobileResponse.vehicleModel.VehicleType;
+                reservationByIDMobileResponse.vehicleTypeModel.Sample = reservationByIDMobileResponse.vehicleModel.Year.ToString() + " " + reservationByIDMobileResponse.vehicleModel.Make + " " + reservationByIDMobileResponse.vehicleModel.Model;
+            }
+            return reservationByIDMobileResponse;
         }
 
         private List<CustomerAgreementModel> getReservations(int customerId, string token)
@@ -502,7 +522,7 @@ namespace NativeCamperVans.Views
             if (isreservation)
             {
                 grdRentals.IsVisible = true;
-                BooknowBtn.IsVisible = isbookingBtnVisible;
+                //BooknowBtn.IsVisible = isbookingBtnVisible;
             }
             else if(isAgreement)
             {
@@ -512,7 +532,7 @@ namespace NativeCamperVans.Views
             {
                 grdRentals.IsVisible = true;
                 emptyReservation.IsVisible = true;
-                BooknowBtn.IsVisible = true;
+                //BooknowBtn.IsVisible = true;
             }
         }
 

@@ -207,7 +207,7 @@
                         </Frame>
 
 
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="2" IsVisible="false">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -262,7 +262,7 @@
                                 </Button.HeightRequest>
                             </Button>
 
-                            <Button
+                            <!--<Button
                                 x:Name="HomeBtn"
                                 Grid.Column="1"
                                 Margin="0,10,0,0"
@@ -308,23 +308,23 @@
                                         </On>
                                     </OnPlatform>
                                 </Button.HeightRequest>
-                            </Button>
+                            </Button>-->
 
                         </Grid>
 
                         <Button
-                            x:Name="forgetPasswordBtn"
+                            x:Name="HomeBtn"
                             Grid.Row="3"
                             Margin="0,10,0,0"
                             BackgroundColor="Transparent"
                             BorderColor="{StaticResource MaxVonWhite}"
                             BorderWidth="2"
-                            Clicked="forgetPasswordBtn_Clicked"
+                            Clicked="HomeBtn_Clicked"
                             CornerRadius="10"
                             FontFamily="Roboto-Medium"
                             HorizontalOptions="FillAndExpand"
                             StyleClass="bouncy"
-                            Text="Forgot Password"
+                            Text="Continue"
                             TextColor="{StaticResource MaxVonWhite}"
                             VerticalOptions="End">
                             <Button.FontSize>
@@ -360,6 +360,46 @@
                                 </OnPlatform>
                             </Button.HeightRequest>
                         </Button>
+
+
+                        <Frame
+                            x:Name="continueLoader"
+                            BorderColor="{StaticResource MaxVonWhite}"
+                            Grid.Row="3"
+                            Margin="0,10,0,0"
+                            BackgroundColor="Transparent"
+                            Padding="0"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            IsVisible="False"
+                            VerticalOptions="End"
+                            >
+                            <ActivityIndicator
+                                x:Name="continueSpinner"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                IsRunning="True"
+                                VerticalOptions="Center"
+                                Color="White" />
+                            <Frame.HeightRequest>
+                                <OnPlatform x:TypeArguments="x:Double">
+                                    <On Platform="iOS">
+                                        <OnIdiom
+                                            x:TypeArguments="x:Double"
+                                            Phone="50"
+                                            Tablet="60" />
+                                    </On>
+                                    <On Platform="Android,Windows">
+                                        <OnIdiom
+                                            x:TypeArguments="x:Double"
+                                            Phone="50"
+                                            Tablet="60" />
+                                    </On>
+                                </OnPlatform>
+                            </Frame.HeightRequest>
+                        </Frame>
+
+
                     </Grid>
                 </Grid>
             </ScrollView>

@@ -30,6 +30,8 @@ namespace NativeCamperVans.Popups
         GetReservationConfigurationResponse vehicleMobileResponse;
         ReservationConfigurationVehicleSearch search;
         UpdateReservationMobileResponse response;
+        GetCalculateSummaryMobileRequest summaryMobileRequest;
+        GetCalculateSummaryMobileResponsecs summaryMobileResponsecs;
 
 
         ReferenceType type;
@@ -87,6 +89,8 @@ namespace NativeCamperVans.Popups
 
 
             type = ReferenceType.Reservation;
+            summaryMobileRequest = new GetCalculateSummaryMobileRequest();
+            summaryMobileResponsecs = null;
         }
 
         private void btnClose_Tapped(object sender, EventArgs e)
@@ -255,6 +259,8 @@ namespace NativeCamperVans.Popups
             reservationView.EndDate = endDate;
             reservationView.EndDateStr = endDateStr;
             vehicleMobileRequest.search.EndDate = endDate;
+            if (reservationView.VehicleId > 0) { vehicleMobileRequest.search.VehicleId = reservationView.VehicleId; };
+
 
 
 
@@ -272,8 +278,6 @@ namespace NativeCamperVans.Popups
                         try
                         {
                             vehicleMobileResponse = getVehicleTypesMobileNew(vehicleMobileRequest, _token);
-                            //vehicleResults = getVehicleTypes(token);
-                            //vehicleResponse= getVehicleTypesMobile(token);
 
 
                         }
@@ -290,32 +294,54 @@ namespace NativeCamperVans.Popups
                 {
 
                     busy = false;
+                    await PopupNavigation.Instance.PopAsync();
                     if (vehicleMobileResponse != null)
                     {
                         if (vehicleMobileResponse.listVehicle != null)
                         {
                             if (vehicleMobileResponse.listVehicle.Count > 0)
                             {
-                                foreach (ReservationVehicleSearchViewModel rvsvm in vehicleMobileResponse.listVehicle)
+                                if (reservationView.VehicleId > 0)
                                 {
-                                    if (rvsvm.VehicleTypeId == reservationView.VehicleTypeID)
+                                    foreach (ReservationVehicleSearchViewModel rvsvm in vehicleMobileResponse.listVehicle)
                                     {
-                                        Rates rates = JsonConvert.DeserializeObject<Rates>(JsonConvert.SerializeObject(rvsvm.RateDetail));
-                                        rates.RateId = rvsvm.RateDetail.RateID;
-                                        List<Rates> rateDewtails = new List<Rates>();
-                                        rates.StartDateStr = reservationView.StartDateStr;
-                                        rates.EndDateStr = reservationView.EndDateStr;
-                                        rateDewtails.Add(rates);
-                                        reservationView.RateDetailsList = rateDewtails;
-                                        reservationView.TotalDays = rates.TotalDays;
-                                        reservationView.RateTotal = (decimal)rates.RateTotal;
+                                        if (rvsvm.vehicleId == reservationView.VehicleId)
+                                        {
+                                            Rates rates = JsonConvert.DeserializeObject<Rates>(JsonConvert.SerializeObject(rvsvm.RateDetail));
+                                            rates.RateId = rvsvm.RateDetail.RateID;
+                                            List<Rates> rateDewtails = new List<Rates>();
+                                            rates.StartDateStr = reservationView.StartDateStr;
+                                            rates.EndDateStr = reservationView.EndDateStr;
+                                            rateDewtails.Add(rates);
+                                            reservationView.RateDetailsList = rateDewtails;
+                                            reservationView.TotalDays = rates.TotalDays;
+                                            reservationView.RateTotal = (decimal)rates.RateTotal;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (ReservationVehicleSearchViewModel rvsvm in vehicleMobileResponse.listVehicle)
+                                    {
+                                        if (rvsvm.VehicleTypeId == reservationView.VehicleTypeID)
+                                        {
+                                            Rates rates = JsonConvert.DeserializeObject<Rates>(JsonConvert.SerializeObject(rvsvm.RateDetail));
+                                            rates.RateId = rvsvm.RateDetail.RateID;
+                                            List<Rates> rateDewtails = new List<Rates>();
+                                            rates.StartDateStr = reservationView.StartDateStr;
+                                            rates.EndDateStr = reservationView.EndDateStr;
+                                            rateDewtails.Add(rates);
+                                            reservationView.RateDetailsList = rateDewtails;
+                                            reservationView.TotalDays = rates.TotalDays;
+                                            reservationView.RateTotal = (decimal)rates.RateTotal;
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                    await PopupNavigation.Instance.PopAsync();
-
                 }
             }
 
@@ -330,32 +356,112 @@ namespace NativeCamperVans.Popups
                 }
             }
 
+            if (reservationView.TaxList2 != null)
+            {
+                foreach (LocationTaxModel ltm in reservationView.TaxList2)
+                {
+                    ltm.IsSelected = true;
+                }
+            }
+
+            //ReservationMobileRequest.reservationData = reservationView;
+            //ReservationController reservationController = new ReservationController();
+            //try
+            //{
+            //    response = reservationController.updateReservationMobile(ReservationMobileRequest, _token);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+            //if (response != null)
+            //{
+            //    if (response.message.ErrorCode == "200")
+            //    {
+            //        MessagingCenter.Send(this, "reservationUpdated");
+            //        await PopupNavigation.Instance.PopAllAsync();
+            //    }
+            //    else
+            //    {
+            //        await PopupNavigation.Instance.PushAsync(new Error_popup(response.message.ErrorMessage));
+            //    }
+            //}
+
             ReservationMobileRequest.reservationData = reservationView;
             ReservationController reservationController = new ReservationController();
+
+            bool isbusy = false;
+            if (!isbusy)
+            {
+                try
+                {
+                    isbusy = true;
+                    await PopupNavigation.Instance.PushAsync(new LoadingPopup("checking bookable..."));
+                    await Task.Run(() =>
+                    {
+                        //update reservation in database
+                        try
+                        {
+                            response = reservationController.updateReservationMobile(ReservationMobileRequest, _token);
+                        }
+                        catch (Exception ex)
+                        {
+                            PopupNavigation.Instance.PushAsync(new ErrorWithClosePagePopup(ex.Message));
+                        }
+                    });
+
+                }
+                finally
+                {
+                    isbusy = false;
+                    
+
+                    if (response != null)
+                    {
+                        if (response.message.ErrorCode == "200")
+                        {
+                            MessagingCenter.Send(this, "reservationUpdated");
+                            if (PopupNavigation.Instance.PopupStack.Count == 1)
+                            {
+                                await PopupNavigation.Instance.PopAllAsync();
+                            }
+                            if (PopupNavigation.Instance.PopupStack.Count > 1)
+                            {
+                                if (PopupNavigation.Instance.PopupStack[PopupNavigation.Instance.PopupStack.Count - 1].GetType() != typeof(ErrorWithClosePagePopup))
+                                {
+                                    await PopupNavigation.Instance.PopAsync();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            await PopupNavigation.Instance.PushAsync(new Error_popup(response.message.ErrorMessage));
+                        }
+                    }
+                    else
+                    {
+                        await PopupNavigation.Instance.PushAsync(new Error_popup("Update failed"));
+                    }
+                }
+
+            }
+        }
+
+        private GetCalculateSummaryMobileResponsecs getSummaryDetails(GetCalculateSummaryMobileRequest summaryMobileRequest, string token)
+        {
+            GetCalculateSummaryMobileResponsecs summaryResponse = null;
+            ReservationController controller = new ReservationController();
             try
             {
-                response = reservationController.updateReservationMobile(ReservationMobileRequest, _token);
+                summaryResponse = controller.getSummaryDetails(summaryMobileRequest, token);
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            if (response != null)
-            {
-                if (response.message.ErrorCode == "200")
-                {
-                    MessagingCenter.Send(this, "reservationUpdated");
-                    await PopupNavigation.Instance.PopAllAsync();
-                }
-                else
-                {
-                    await PopupNavigation.Instance.PushAsync(new Error_popup(response.message.ErrorMessage));
-                }
-            }
-
-
+            return summaryResponse;
         }
-
         private GetReservationConfigurationResponse getVehicleTypesMobileNew(GetReservationConfigurationMobileRequest vehicleMobileRequest, string token)
         {
             GetReservationConfigurationResponse vehicleTypeResults = null;
@@ -372,7 +478,7 @@ namespace NativeCamperVans.Popups
             return vehicleTypeResults;
         }
 
-        private void updateAgreement()
+        private async void updateAgreement()
         {
             ExtendAgreementRequest request = new ExtendAgreementRequest();
             ExtendAgreementResponse response = null;
@@ -393,17 +499,41 @@ namespace NativeCamperVans.Popups
             //agreementReview.AgreementInsurance = new AgreementInsurence();
             //agreementReview.Customer = new Customer();
             AgreementController controller = new AgreementController();
-            response = controller.extendAgreement(request, _token);
-            if (response.message.ErrorCode == "200")
+            bool isAgBusy = false;
+            if (!isAgBusy)
             {
-                MessagingCenter.Send(this, "agreementUpdated");
-                PopupNavigation.Instance.PopAllAsync();
+                try
+                {
+                    isAgBusy = true;
+                    await PopupNavigation.Instance.PushAsync(new LoadingPopup(""));
+                    await Task.Run(() =>
+                    {
+                        response = controller.extendAgreement(request, _token);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    await PopupNavigation.Instance.PushAsync(new Error_popup(ex.Message));
+                }
+                finally
+                {
+                    isAgBusy = false;
+                    await PopupNavigation.Instance.PopAsync();
+                    if (response != null)
+                    {
+
+                        if (response.message.ErrorCode == "200")
+                        {
+                            MessagingCenter.Send(this, "agreementUpdated");
+                            await PopupNavigation.Instance.PopAllAsync();
+                        }
+                        else
+                        {
+                            await PopupNavigation.Instance.PushAsync(new Error_popup("Update failed. Please try again."));
+                        }
+                    }               
+                }
             }
-            else
-            {
-                PopupNavigation.Instance.PushAsync(new Error_popup("Update failed. Please try again."));
-            }
-            PopupNavigation.Instance.PopAllAsync();
         }
 
         private void NumberOfDaysArrow_Clicked(object sender, EventArgs e)

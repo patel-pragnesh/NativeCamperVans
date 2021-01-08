@@ -6,6 +6,7 @@ using NativeCamperVansModel.Constants;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,8 @@ namespace NativeCamperVans.Views
         public static CustomerImages licBackIamgeStat;
         AddLicenceImagesRequest LicenceImagesRequest;
         AddLicenceImageResponse licenceImageResponse;
+        string oldEmail;
+
 
         public UpdateProfile(CustomerReview customerReview)
         {
@@ -52,8 +55,8 @@ namespace NativeCamperVans.Views
             PortalDetailsMobileResponse = null;
             customoerController = new CustomerController();
             Images = null;
-            licenceIssueDate.MaximumDate = DateTime.Now;
-            licenceExpiryDate.MinimumDate = DateTime.Now;
+            //licenceIssueDate.MaximumDate = DateTime.Now;
+            //licenceExpiryDate.MinimumDate = DateTime.Now;
             licExpireDateSelected = false;
             licIssueDateSelected = false;
             licfrontIamgeStat = new CustomerImages();
@@ -97,23 +100,23 @@ namespace NativeCamperVans.Views
                 }
             }
 
-            MessagingCenter.Subscribe<AddCustomerPhotoPopup>(this, "LicenceFrontImageAdded", sender =>
-            {
-                if (licfrontIamgeStat != null)
-                {
-                    licFrontImage.Source = ImageSource.FromFile(licfrontIamgeStat.PhysicalPath);
-                }
+            //MessagingCenter.Subscribe<AddCustomerPhotoPopup>(this, "LicenceFrontImageAdded", sender =>
+            //{
+            //    if (licfrontIamgeStat != null)
+            //    {
+            //        licFrontImage.Source = ImageSource.FromFile(licfrontIamgeStat.PhysicalPath);
+            //    }
 
-            });
+            //});
 
-            MessagingCenter.Subscribe<AddCustomerPhotoPopup>(this, "LicenceBackImageAdded", sender =>
-            {
-                if (licBackIamgeStat != null)
-                {
-                    licBackImage.Source = ImageSource.FromFile(licBackIamgeStat.PhysicalPath);
-                }
+            //MessagingCenter.Subscribe<AddCustomerPhotoPopup>(this, "LicenceBackImageAdded", sender =>
+            //{
+            //    if (licBackIamgeStat != null)
+            //    {
+            //        licBackImage.Source = ImageSource.FromFile(licBackIamgeStat.PhysicalPath);
+            //    }
 
-            });
+            //});
 
             bool busy = false;
             if (!busy)
@@ -166,19 +169,23 @@ namespace NativeCamperVans.Views
                 }
                 List<string> countryList = new List<string>();
                 if (countryResponse.countryList.Count > 0) { foreach (Country k in countryResponse.countryList) { countryList.Add(k.CountryName); }; }
-                countryPicker.ItemsSource = countryList;
+                //countryPicker.ItemsSource = countryList;
                 FirstNameEntry.Text = customerReview.FirstName;
+
+                oldEmail = customerReview.Email;
+                emailEntry.Text = customerReview.Email;
+
                 LastNameEntry.Text = customerReview.LastName;
                 AddressEntry.Text = customerReview.Address1 + " " + customerReview.Address2;
                 CityEntry.Text = customerReview.City;
-                licenceNumber.Text = customerReview.LicenseNumber;
+                //licenceNumber.Text = customerReview.LicenseNumber;
                 DateOfBithEntry.Date = (DateTime)customerReview.DateOfbirth;
-                if (customerReview.LicenseIssueDate != null)
-                {
-                    licenceIssueDate.Date = (DateTime)customerReview.LicenseIssueDate;
-                }
-                licenceExpiryDate.Date = (DateTime)customerReview.LicenseExpiryDate;
-                countryPicker.SelectedItem = customerReview.CountryName;
+                //if (customerReview.LicenseIssueDate != null)
+                //{
+                //    licenceIssueDate.Date = (DateTime)customerReview.LicenseIssueDate;
+                //}
+                //licenceExpiryDate.Date = (DateTime)customerReview.LicenseExpiryDate;
+                //countryPicker.SelectedItem = customerReview.CountryName;
                 if (PortalDetailsMobileResponse.customerReview != null)
                 {
                     if (PortalDetailsMobileResponse.customerReview.CustomerImages.Count > 0)
@@ -205,14 +212,14 @@ namespace NativeCamperVans.Views
                     stateResponse = getStates(stateRequest, _token);
                     if (stateResponse.stateList.Count > 0) { foreach (State s in stateResponse.stateList) { stateList.Add(s.StateName); stateListForLicence.Add(s.StateCode); }; }
                     statePicker.ItemsSource = stateList;
-                    licenceStatePicker.ItemsSource = stateListForLicence;
+                    //licenceStatePicker.ItemsSource = stateListForLicence;
                 }
 
                 statePicker.SelectedItem = customerReview.StateName;
-                if (stateListForLicence.Contains(customerReview.LicenseIssueState))
-                {
-                    licenceStatePicker.SelectedItem = customerReview.LicenseIssueState;
-                }
+                //if (stateListForLicence.Contains(customerReview.LicenseIssueState))
+                //{
+                //    licenceStatePicker.SelectedItem = customerReview.LicenseIssueState;
+                //}
                 PostalCodeEntry.Text = customerReview.ZipCode;
                 ContactNoEntry.Text = customerReview.hPhone;
 
@@ -246,6 +253,11 @@ namespace NativeCamperVans.Views
             {
                 await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter a last name."));
             }
+
+            else if (!new EmailAddressAttribute().IsValid(emailEntry.Text) || string.IsNullOrEmpty(emailEntry.Text))
+            {
+                await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter a valid email address"));
+            }
             else if (string.IsNullOrEmpty(AddressEntry.Text))
             {
                 await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter your address."));
@@ -258,10 +270,10 @@ namespace NativeCamperVans.Views
             {
                 await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter your city."));
             }
-            else if (countryPicker.SelectedIndex == -1)
-            {
-                await PopupNavigation.Instance.PushAsync(new Error_popup("Please select your country"));
-            }
+            //else if (countryPicker.SelectedIndex == -1)
+            //{
+            //    await PopupNavigation.Instance.PushAsync(new Error_popup("Please select your country"));
+            //}
             else if (statePicker.SelectedIndex == -1)
             {
                 await PopupNavigation.Instance.PushAsync(new Error_popup("Please select your state"));
@@ -275,33 +287,33 @@ namespace NativeCamperVans.Views
                 await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter a valid contact number"));
             }
 
-            else if (string.IsNullOrEmpty(licenceNumber.Text))
-            {
-                await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter your drivers license number"));
-            }
-            else if (!licExpireDateSelected)
-            {
-                await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter your drivers license expiration date"));
-            }
-            else if (licenceExpiryDate.Date <= DateTime.Now)
-            {
-                await PopupNavigation.Instance.PushAsync(new Error_popup("Your license has expired"));
-            }
+            //else if (string.IsNullOrEmpty(licenceNumber.Text))
+            //{
+            //    await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter your drivers license number"));
+            //}
+            //else if (!licExpireDateSelected)
+            //{
+            //    await PopupNavigation.Instance.PushAsync(new Error_popup("Please enter your drivers license expiration date"));
+            //}
+            //else if (licenceExpiryDate.Date <= DateTime.Now)
+            //{
+            //    await PopupNavigation.Instance.PushAsync(new Error_popup("Your license has expired"));
+            //}
             else
             {
                 customerReview.FirstName = FirstNameEntry.Text;
                 customerReview.LastName = LastNameEntry.Text;
                 customerReview.Address1 = AddressEntry.Text;
                 customerReview.City = CityEntry.Text;
-                customerReview.CountryId = returnCountryIdByCountryName(countryPicker.SelectedItem.ToString());
-                customerReview.CountryName = countryPicker.SelectedItem.ToString();
+                //customerReview.CountryId = returnCountryIdByCountryName(countryPicker.SelectedItem.ToString());
+                //customerReview.CountryName = countryPicker.SelectedItem.ToString();
                 customerReview.StateId = returnStateIdByStateName(statePicker.SelectedItem.ToString());
                 customerReview.StateName = statePicker.SelectedItem.ToString();
                 customerReview.ZipCode = PostalCodeEntry.Text;
-                customerReview.hPhone = ContactNoEntry.Text;
+                customerReview.hPhone = ContactNoEntry.Text.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
                 customerReview.ClientId = Constants.ClientId;
-                customerReview.LicenseNumber = licenceNumber.Text;
-                customerReview.LicenseExpiryDate = licenceExpiryDate.Date;
+                //customerReview.LicenseNumber = licenceNumber.Text;
+                //customerReview.LicenseExpiryDate = licenceExpiryDate.Date;
                 customerReview.DateOfbirth = DateOfBithEntry.Date;
 
                 if (licfrontIamgeStat.Base64 != null || licBackIamgeStat.Base64 != null)
@@ -325,85 +337,113 @@ namespace NativeCamperVans.Views
 
                     }
 
-                    
+
                 }
 
 
 
-                if (!licIssueDateSelected)
+                //if (!licIssueDateSelected)
+                //{
+                //    customerReview.LicenseIssueDate = null;
+                //}
+                //else if (licIssueDateSelected)
+                //{
+                //    customerReview.LicenseIssueDate = licenceIssueDate.Date;
+                //}
+
+                //if (licenceStatePicker.SelectedIndex != -1)
+                //{
+                //    customerReview.LicenseIssueState = licenceStatePicker.SelectedItem.ToString();
+                //}
+                //else
+                //{
+                //    customerReview.LicenseIssueState = null;
+                //}
+
+                bool isExisting = false;
+
+                if (oldEmail.ToLower() != emailEntry.Text.Replace(" ", "").ToLower())
                 {
-                    customerReview.LicenseIssueDate = null;
-                }
-                else if (licIssueDateSelected)
-                {
-                    customerReview.LicenseIssueDate = licenceIssueDate.Date;
-                }
+                    CustomerSerach customerSerach = new CustomerSerach();
+                    customerSerach.Email = emailEntry.Text;
+                    customerSerach.Active = true;
+                    List<CustomerSeachResult> customerSeachResults = null;
 
-                if (licenceStatePicker.SelectedIndex != -1)
-                {
-                    customerReview.LicenseIssueState = licenceStatePicker.SelectedItem.ToString();
-                }
-                else
-                {
-                    customerReview.LicenseIssueState = null;
-                }
+                    customerSeachResults = customoerController.getCustomerByFilter(customerSerach, _token);
 
+                    if (customerSeachResults != null)
+                    {
+                        if (customerSeachResults.Count > 0)
+                        {
+                            foreach (CustomerSeachResult csr in customerSeachResults)
+                            {
+                                if (csr.Email.ToLower() == emailEntry.Text.ToLower())
+                                {
+                                    isExisting = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                customerReview.Email = emailEntry.Text;
                 ProfileDetailsMobileRequest.custReview = customerReview;
 
 
                 bool busy = false;
                 if (!busy)
                 {
-                    try
+                    if (!isExisting)
                     {
-                        busy = true;
-                        await PopupNavigation.Instance.PushAsync(new LoadingPopup("Updating your informations"));
-                        await Task.Run(() =>
+                        try
                         {
-                            RegisterController registerController = new RegisterController();
-
-                            try
+                            busy = true;
+                            await PopupNavigation.Instance.PushAsync(new LoadingPopup("Updating your informations"));
+                            await Task.Run(() =>
                             {
-                                profileDetailsMobileResponse = registerController.updateUser(ProfileDetailsMobileRequest, _token);
-                                if (licfrontIamgeStat.Base64 != null || licBackIamgeStat.Base64 != null)
+                                RegisterController registerController = new RegisterController();
+
+                                try
                                 {
-                                    licenceImageResponse = registerController.addLicenceImage(LicenceImagesRequest, _token);
+                                    profileDetailsMobileResponse = registerController.updateUser(ProfileDetailsMobileRequest, _token);
+                                    //if (licfrontIamgeStat.Base64 != null || licBackIamgeStat.Base64 != null)
+                                    //{
+                                    //    licenceImageResponse = registerController.addLicenceImage(LicenceImagesRequest, _token);
+                                    //}
+
                                 }
-
-                            }
-                            catch (Exception ex)
+                                catch (Exception ex)
+                                {
+                                    PopupNavigation.Instance.PushAsync(new ErrorWithClosePagePopup(ex.Message));
+                                }
+                            });
+                        }
+                        finally
+                        {
+                            busy = false;
+                            if (PopupNavigation.Instance.PopupStack.Count == 1)
                             {
-                                PopupNavigation.Instance.PushAsync(new ErrorWithClosePagePopup(ex.Message));
+                                await PopupNavigation.Instance.PopAsync();
                             }
-
-                        });
-                        
+                            if (PopupNavigation.Instance.PopupStack.Count > 1)
+                            {
+                                if (PopupNavigation.Instance.PopupStack[PopupNavigation.Instance.PopupStack.Count - 1].GetType() != typeof(ErrorWithClosePagePopup) && PopupNavigation.Instance.PopupStack[PopupNavigation.Instance.PopupStack.Count - 1].GetType() != typeof(SuccessWithClosePopup))
+                                {
+                                    await PopupNavigation.Instance.PopAllAsync();
+                                }
+                            }
+                            if (profileDetailsMobileResponse != null)
+                            {
+                                if (profileDetailsMobileResponse.message.ErrorCode == "200")
+                                {
+                                    await PopupNavigation.Instance.PushAsync(new SuccessPopUp("Profile updated successfully!", 2));
+                                }
+                            }
+                        }
                     }
-
-                    finally
+                    else
                     {
-                        busy = false;
-                        if (PopupNavigation.Instance.PopupStack.Count == 1)
-                        {
-                            await PopupNavigation.Instance.PopAsync();
-                        }
-                        if (PopupNavigation.Instance.PopupStack.Count > 1)
-                        {
-                            if (PopupNavigation.Instance.PopupStack[PopupNavigation.Instance.PopupStack.Count - 1].GetType() != typeof(ErrorWithClosePagePopup) && PopupNavigation.Instance.PopupStack[PopupNavigation.Instance.PopupStack.Count - 1].GetType() != typeof(SuccessWithClosePopup))
-                            {
-                                await PopupNavigation.Instance.PopAllAsync();
-                            }
-                        }
-                        if (profileDetailsMobileResponse != null)
-                        {
-                            if (profileDetailsMobileResponse.message.ErrorCode == "200")
-                            {
-                                await PopupNavigation.Instance.PushAsync(new SuccessPopUp("Profile updated successfully!", 2));
-                            }
-                        }
+                        await PopupNavigation.Instance.PushAsync(new Error_popup("Email address already exists.Please try a different email address."));
                     }
-
-
                 }
             }
         }
@@ -430,29 +470,29 @@ namespace NativeCamperVans.Views
             return countryResponse;
         }
 
-        private void CountryPicker_Unfocused(object sender, FocusEventArgs e)
-        {
-            if (countryPicker.SelectedIndex != -1)
-            {
-                string countryName = countryPicker.SelectedItem.ToString();
-                List<string> stateList = new List<string>();
-                List<string> stateListForLicence = new List<string>();
-                int? counid = null;
-                foreach (Country c in countryResponse.countryList) { if (c.CountryName == countryName) { counid = c.CountryId; } };
+        //private void CountryPicker_Unfocused(object sender, FocusEventArgs e)
+        //{
+        //    if (countryPicker.SelectedIndex != -1)
+        //    {
+        //        string countryName = countryPicker.SelectedItem.ToString();
+        //        List<string> stateList = new List<string>();
+        //        List<string> stateListForLicence = new List<string>();
+        //        int? counid = null;
+        //        foreach (Country c in countryResponse.countryList) { if (c.CountryName == countryName) { counid = c.CountryId; } };
 
-                if (counid != null)
-                {
-                    GetAllStateForMobileRequest stateRequest = new GetAllStateForMobileRequest();
-                    stateRequest.CountryID = counid.Value;
-                    stateResponse = getStates(stateRequest, _token);
-                    if (stateResponse.stateList.Count > 0) { foreach (State s in stateResponse.stateList) { stateList.Add(s.StateName); stateListForLicence.Add(s.StateCode); }; }
-                    statePicker.ItemsSource = stateList;
-                    licenceStatePicker.ItemsSource = stateListForLicence;
-                }
+        //        if (counid != null)
+        //        {
+        //            GetAllStateForMobileRequest stateRequest = new GetAllStateForMobileRequest();
+        //            stateRequest.CountryID = counid.Value;
+        //            stateResponse = getStates(stateRequest, _token);
+        //            if (stateResponse.stateList.Count > 0) { foreach (State s in stateResponse.stateList) { stateList.Add(s.StateName); stateListForLicence.Add(s.StateCode); }; }
+        //            statePicker.ItemsSource = stateList;
+        //            licenceStatePicker.ItemsSource = stateListForLicence;
+        //        }
 
-            }
+        //    }
 
-        }
+        //}
         private GetAllStateForMobileResponse getStates(GetAllStateForMobileRequest stateRequest, string token)
         {
             CommonController stateController = new CommonController();

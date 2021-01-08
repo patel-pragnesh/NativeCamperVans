@@ -71,7 +71,7 @@ namespace NativeCamperVans.Views
                         Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
 
                     }
-                    
+
 
                 }
             }
@@ -139,8 +139,8 @@ namespace NativeCamperVans.Views
                     {
                         status.Text = "Pending";
                     }
-                    
-                    
+
+
                     CheckOutLocation.Text = reservationByIDMobileResponse.reservationData.Reservationview.StartLocationName;
                     CheckOutDate.Text = reservationByIDMobileResponse.reservationData.Reservationview.StartDateStr;
                     CheckInLocation.Text = reservationByIDMobileResponse.reservationData.Reservationview.EndLocationName;
@@ -157,8 +157,13 @@ namespace NativeCamperVans.Views
                     //totalTax.Text = "$" + ((decimal)reservationByIDMobileResponse.reservationData.ReservationTotal.TotalTax).ToString("0.00");
                     //miscChargeNotax.Text = "$" + ((decimal)reservationByIDMobileResponse.reservationData.ReservationTotal.TotalMischargeWithOutTax).ToString("0.00");
                     estmateTotal.Text = "$" + ((decimal)reservationByIDMobileResponse.reservationData.ReservationTotal.TotalAmount).ToString("0.00");
-                    //amountPaid.Text = "$" + ((decimal)reservationByIDMobileResponse.reservationData.ReservationTotal.AmountPaid).ToString("0.00");
-                    //balancedue.Text = "$" + ((decimal)reservationByIDMobileResponse.reservationData.ReservationTotal.BalanceDue).ToString("0.00");
+                    amountPaid.Text = "$" + ((decimal)reservationByIDMobileResponse.reservationData.ReservationTotal.AmountPaid).ToString("0.00");
+                    balancedue.Text = "$" + ((decimal)reservationByIDMobileResponse.reservationData.ReservationTotal.BalanceDue).ToString("0.00");
+                    if (reservationByIDMobileResponse.vehicleTypeModel == null)
+                    {
+                        reservationByIDMobileResponse = FixAsResponsibleToReservationByVehicle(reservationByIDMobileResponse);
+                    }
+
                     vehicleSampleEntry.Text = reservationByIDMobileResponse.vehicleTypeModel.Sample;
                     seatCount.Text = reservationByIDMobileResponse.vehicleTypeModel.Seats;
                     bagCount.Text = reservationByIDMobileResponse.vehicleTypeModel.Baggages.ToString();
@@ -169,7 +174,7 @@ namespace NativeCamperVans.Views
                     {
                         if (reservationByIDMobileResponse.reservationData.Reservationview.CustomerDriverList.Count > 0)
                         {
-                           
+
                             additionalDriverList.IsVisible = true;
                             additionalDriverList.ItemsSource = reservationByIDMobileResponse.reservationData.Reservationview.CustomerDriverList;
                             additionalDriverList.HeightRequest = (reservationByIDMobileResponse.reservationData.Reservationview.CustomerDriverList.Count) * 130;
@@ -205,7 +210,7 @@ namespace NativeCamperVans.Views
                         if (result < 0)
                         {
                             //editBtn.IsVisible = false;
-                            
+
 
                         }
 
@@ -217,6 +222,21 @@ namespace NativeCamperVans.Views
                     await PopupNavigation.Instance.PushAsync(new Error_popup(reservationByIDMobileResponse.message.ErrorMessage));
                 }
             }
+        }
+
+        private GetReservationByIDMobileResponse FixAsResponsibleToReservationByVehicle(GetReservationByIDMobileResponse reservationByIDMobileResponse)
+        {
+            if (reservationByIDMobileResponse.vehicleModel != null)
+            {
+                reservationByIDMobileResponse.vehicleTypeModel = new VehicleTypeWithRatesViewModel();
+                reservationByIDMobileResponse.vehicleTypeModel.ImageUrl = reservationByIDMobileResponse.vehicleModel.ImageUrl;
+                reservationByIDMobileResponse.vehicleTypeModel.Seats = reservationByIDMobileResponse.vehicleModel.Seats;
+                reservationByIDMobileResponse.vehicleTypeModel.Baggages = reservationByIDMobileResponse.vehicleModel.Baggages;
+                reservationByIDMobileResponse.vehicleTypeModel.Transmission = reservationByIDMobileResponse.vehicleModel.Transmission;
+                reservationByIDMobileResponse.vehicleTypeModel.VehicleTypeName = reservationByIDMobileResponse.vehicleModel.VehicleType;
+                reservationByIDMobileResponse.vehicleTypeModel.Sample = reservationByIDMobileResponse.vehicleModel.Year.ToString() + ' ' + reservationByIDMobileResponse.vehicleModel.Make + " " + reservationByIDMobileResponse.vehicleModel.Model;
+            }
+            return reservationByIDMobileResponse;
         }
 
         private GetReservationByIDMobileResponse getReservationByID(GetReservationByIDMobileRequest reservationByIDMobileRequest, string token)
@@ -252,7 +272,7 @@ namespace NativeCamperVans.Views
         private void CancelBtn_Clicked(object sender, EventArgs e)
         {
             if (reservationByIDMobileResponse.reservationData.Reservationview.Status == 2 || reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.Quote || reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.New)
-            { 
+            {
                 cancelReservationMobileRequest.reservationNo = reservationByIDMobileResponse.reservationData.Reservationview.ReservationNumber.ToString();
                 cancelReservationMobileRequest.CurrentTime = DateTime.Now;
                 cancelReservationMobileRequest.isTwoHour = true;
@@ -314,7 +334,7 @@ namespace NativeCamperVans.Views
                     }
                 }
             }
-           
+
 
         }
 
@@ -363,6 +383,6 @@ namespace NativeCamperVans.Views
             MessagingCenter.Unsubscribe<Error_popup>(this, "reservationCancelled");
             MessagingCenter.Unsubscribe<FilterPopup>(this, "reservationUpdated");
         }
-       
+
     }
 }

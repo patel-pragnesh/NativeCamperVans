@@ -160,7 +160,7 @@ namespace NativeCamperVansServices.ApiService
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(ConstantData.ApiURL.ToString() + "Agreement/ExtendAgreement");
+                    client.BaseAddress = new Uri(ConstantData.ApiURL.ToString() + "Agreement/ExtendAgreementDetails");
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 

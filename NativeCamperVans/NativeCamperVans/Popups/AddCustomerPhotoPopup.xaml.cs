@@ -76,18 +76,8 @@ namespace NativeCamperVans.Popups
 
         private async void CameraBtn_Clicked(object sender, EventArgs e)
         {
-            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>();
-            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
-
-            if (cameraStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
+            try
             {
-                cameraStatus = await CrossPermissions.Current.RequestPermissionAsync<CameraPermission>();
-                storageStatus = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
-            }
-
-            if (cameraStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
-            {
-
 
                 await CrossMedia.Current.Initialize();
 
@@ -96,66 +86,59 @@ namespace NativeCamperVans.Popups
                     _ = DisplayAlert("No Camera", ":( No camera available.", "OK");
 
                 }
-
-
-                var files = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
-                {
-                    PhotoSize = PhotoSize.Medium,
-                    SaveToAlbum = true,
-                    ModalPresentationStyle = MediaPickerModalPresentationStyle.OverFullScreen
-                });
-
-                if (files == null)
-                {
-
-                    return;
-                }
                 else
                 {
-                    //imageBox.IsVisible = true;
-                    //                    stream = files.GetStream();
-                    selectedImage.Source = ImageSource.FromStream(() => files.GetStream());
-                    PhotoFrame.IsVisible = true;
-                    SaveBtn.IsVisible = true;
-                    cancelBtn.IsVisible = true;
+                    var files = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                    {
+                        PhotoSize = PhotoSize.Medium,
+                        SaveToAlbum = true,
+                        ModalPresentationStyle = MediaPickerModalPresentationStyle.OverFullScreen
+                    });
+
+                    if (files == null)
+                    {
+
+                        return;
+                    }
+                    else
+                    {
+                        //imageBox.IsVisible = true;
+                        //                    stream = files.GetStream();
+                        selectedImage.Source = ImageSource.FromStream(() => files.GetStream());
+                        PhotoFrame.IsVisible = true;
+                        SaveBtn.IsVisible = true;
+                        cancelBtn.IsVisible = true;
 
 
-                    // provide read access to the file
-                    FileStream fs = new FileStream(files.Path, FileMode.Open, FileAccess.Read);
-                    // Create a byte array of file stream length
-                    byte[] ImageData = new byte[fs.Length];
-                    //Read block of bytes from stream into the byte array
-                    fs.Read(ImageData, 0, System.Convert.ToInt32(fs.Length));
-                    //Close the File Stream
-                    fs.Close();
-                    PhysicalPath = files.Path;
-                    UploadedDate = DateTime.Now;
-                    _base64Image = Convert.ToBase64String(ImageData);
+                        // provide read access to the file
+                        FileStream fs = new FileStream(files.Path, FileMode.Open, FileAccess.Read);
+                        // Create a byte array of file stream length
+                        byte[] ImageData = new byte[fs.Length];
+                        //Read block of bytes from stream into the byte array
+                        fs.Read(ImageData, 0, System.Convert.ToInt32(fs.Length));
+                        //Close the File Stream
+                        fs.Close();
+                        PhysicalPath = files.Path;
+                        UploadedDate = DateTime.Now;
+                        _base64Image = Convert.ToBase64String(ImageData);
+                    }
+
                 }
 
-            }
-            else  
-            {
-                await DisplayAlert("Permissions Denied", "Unable to take photos.", "OK");
-                //On iOS you may want to send your user to the settings screen.
-                //CrossPermissions.Current.OpenAppSettings();
-            }
 
+
+            }
+            catch (Exception ex)
+            {
+                await PopupNavigation.Instance.PushAsync(new Error_popup(ex.Message));
+            }
         }
 
         private async void GaleryBtn_Clicked(object sender, EventArgs e)
         {
-            var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<CameraPermission>();
-            var mediaLibraryStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<MediaLibraryPermission>();
-            var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<StoragePermission>();
+            try
+            {
 
-            if (mediaLibraryStatus != PermissionStatus.Granted || storageStatus != PermissionStatus.Granted)
-            {
-                mediaLibraryStatus = await CrossPermissions.Current.RequestPermissionAsync<MediaLibraryPermission>();
-                storageStatus = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
-            }
-            if (mediaLibraryStatus == PermissionStatus.Granted && storageStatus == PermissionStatus.Granted)
-            {
                 await CrossMedia.Current.Initialize();
                 if (!CrossMedia.Current.IsPickPhotoSupported)
                 {
@@ -199,15 +182,12 @@ namespace NativeCamperVans.Popups
                     UploadedDate = DateTime.Now;
 
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                await DisplayAlert("Permissions Denied", "Unable to access gallery.", "OK");
-                //On iOS you may want to send your user to the settings screen.
-                //CrossPermissions.Current.OpenAppSettings();
+                await PopupNavigation.Instance.PushAsync(new Error_popup(ex.Message));
             }
-
-
         }
 
         private void CancelBtn_Clicked(object sender, EventArgs e)
