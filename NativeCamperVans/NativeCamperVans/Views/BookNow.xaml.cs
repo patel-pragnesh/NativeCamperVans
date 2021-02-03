@@ -188,12 +188,13 @@ namespace NativeCamperVans.Views
         {
             DateTime pickupDateTime = pickUpDate.Date + pickUpTime.Time;
 
-            if (pickupDateTime < DateTime.Now)
-            {
-                PopupNavigation.Instance.PushAsync(new Error_popup("Plese check your pick-up time."));
-            }
+            //if (pickupDateTime < DateTime.Now)
+            //{
+            //    PopupNavigation.Instance.PushAsync(new Error_popup("Plese check your pick-up time."));
+            //}
 
-            else if (pickUpLocation.SelectedIndex == -1)
+            //else 
+            if (pickUpLocation.SelectedIndex == -1)
             {
                 PopupNavigation.Instance.PushAsync(new Error_popup("Please select a pick-up location"));
             }

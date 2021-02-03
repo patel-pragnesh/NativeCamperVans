@@ -13,6 +13,7 @@ namespace NativeCamperVans.Views
 {
     public partial class HomePage : MasterDetailPage
     {
+        protected Stack<Page> TabStack { get; private set; } = new Stack<Page>();
         public HomePage()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace NativeCamperVans.Views
 
             if (PopupNavigation.Instance.PopupStack.Count > 0)
             {
-                PopupNavigation.Instance.PopAllAsync();
+                PopupNavigation.Instance.PopAllAsync(); 
             }
 
 
@@ -64,6 +65,7 @@ namespace NativeCamperVans.Views
                 Navigation.PushAsync(new WelcomPage());
             }
         }
+
         protected override bool OnBackButtonPressed()
         {
             Type type = typeof(WelcomPage);
@@ -72,12 +74,13 @@ namespace NativeCamperVans.Views
             {
                 Constants.IsHome = false;
 
+                
                 int c = Navigation.NavigationStack.Count;
                 for (var counter = 1; counter < c ; counter++)
                 {
                     Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
                 }
-
+                Navigation.InsertPageBefore(new HomePage(), this);
                 return false;
 
             }

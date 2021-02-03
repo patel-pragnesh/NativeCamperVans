@@ -1,5 +1,6 @@
 ﻿using NativeCamperVans.Utilties;
 using NativeCamperVansController;
+using NativeCamperVansModel;
 using NativeCamperVansModel.AccessModels;
 using System;
 using System.Collections.Generic;
@@ -125,6 +126,7 @@ namespace NativeCamperVans.Views
                 {
 
                     new HomePageMasterMenuItem { Id = 0,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteDashboard.png"),  Title = "Dashboard" },
+                    new HomePageMasterMenuItem { Id = 1,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteCar.png"), Title = "Book Now" },
                     new HomePageMasterMenuItem { Id = 4,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteUser.png"), Title = "My Profile" },
                     new HomePageMasterMenuItem { Id = 3,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteHelp.png"), Title = "Help" },
                     new HomePageMasterMenuItem { Id = 5,BgColor = Color.Transparent,IconSource=ImageSource.FromResource("NativeCamperVans.Assets.iconWhiteLogout.png"), Title = "Log out" },
@@ -156,7 +158,8 @@ namespace NativeCamperVans.Views
             }
             else if (item.Id == 1)
             {
-                Navigation.PushAsync(new BookNow());
+                ReservationView reservation = new ReservationView();
+                Navigation.PushAsync(new VehicleDetailPage(reservation));
 
             }
             else if (item.Id == 2)

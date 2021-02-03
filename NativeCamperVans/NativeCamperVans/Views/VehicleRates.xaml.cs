@@ -24,7 +24,9 @@ namespace NativeCamperVans.Views
         GetTaxMobileListRequest taxRequest;
         GetPromotionMobileRequest promotionMobileRequest;
         GetPromotionMobileResponse promotionMobileResponse;
-        IEnumerable<MischargeResultMobile> misChargeResults;
+        List<MiscChargeSearchReview> misChargeResults;
+        List<MiscChargeSearchReview> misChargeResultsNonSelectable;
+        List<MiscChargeSearchReview> misChargeResultsSelectable;
         GetMischargeSearchDetailsMobileResponse misChargeResponse;
         List<LocationTaxModel> taxResults;
         GetTaxMobileListResponse taxResponse;
@@ -87,10 +89,10 @@ namespace NativeCamperVans.Views
 
             if (PopupNavigation.Instance.PopupStack.Count > 0)
             {
-                if (PopupNavigation.Instance.PopupStack[PopupNavigation.Instance.PopupStack.Count - 1].GetType() == typeof(ErrorWithClosePagePopup))
-                {
-                    await PopupNavigation.Instance.PopAllAsync();
-                }
+                //if (PopupNavigation.Instance.PopupStack[PopupNavigation.Instance.PopupStack.Count - 1].GetType() == typeof(ErrorWithClosePagePopup))
+                //{
+                await PopupNavigation.Instance.PopAllAsync();
+                //}
             }
 
             bool busy = false;
@@ -172,36 +174,57 @@ namespace NativeCamperVans.Views
 
                     if (misChargeResponse.message.ErrorCode == "200")
                     {
-                        misChargeResults = misChargeResponse.MiscResult;
-                        foreach (MischargeResultMobile m in misChargeResults)
+                        misChargeResults = misChargeResponse.MischargeResultList;
+                        misChargeResultsSelectable = new List<MiscChargeSearchReview>();
+                        misChargeResultsNonSelectable = new List<MiscChargeSearchReview>();
+                        if (misChargeResults != null)
                         {
-                            m.ViewString = "( "+m.CalculationType+" $"+m.Value+" )";
-                            //if (m.IsQuantity) { m.price=(decimal)m.Value *(decimal)m.Unit; }
-                            //else
-                            //{
-                            //    m.price=m.Value;
-                            //}
-
-                            if (!m.IsOptional)
+                            foreach (MiscChargeSearchReview m in misChargeResults)
                             {
-                                m.isSelected = false;
-                                if(reservationView.MiscList2 != null)
+                                switch (m.CalculationType)
                                 {
-                                    if (reservationView.MiscList2.Count > 0)
+                                    case "Perday":
+                                        m.ViewString = "( " + m.CalculationType + " $" + m.Value + " ) x " + selectedVehicle.RateDetail.TotalDays;
+                                        m.price = (decimal)m.Value * (decimal)selectedVehicle.RateDetail.TotalDays;
+                                        break;
+                                    case "Fixed":
+                                        m.ViewString = "( " + m.CalculationType + " $" + m.Value + " )";
+                                        m.price = m.Value;
+                                        break;
+                                }
+
+                                //if (m.IsQuantity) { m.price=(decimal)m.Value *(decimal)m.Unit; }
+                                //else
+                                //{
+                                // m.price=m.Value;
+                                //}
+
+                                if (!m.IsOptional)
+                                {
+                                    m.IsSelected = false;
+                                    if (reservationView.MiscList2 != null)
                                     {
-                                        foreach(MiscChargeSearchReview msv in reservationView.MiscList2)
+                                        if (reservationView.MiscList2.Count > 0)
                                         {
-                                            if (msv.MiscChargeID == m.MiscChargeID)
+                                            foreach (MiscChargeSearchReview msv in reservationView.MiscList2)
                                             {
-                                                m.isSelected = true;
+                                                if (msv.MiscChargeID == m.MiscChargeID)
+                                                {
+                                                    m.IsSelected = true;
+                                                }
                                             }
                                         }
                                     }
+                                    misChargeResultsSelectable.Add(m);
+
                                 }
-                            }
-                            else
-                            {
-                                m.isSelected = true;
+                                else
+                                {
+                                    m.IsSelected = true;
+
+                                    misChargeResultsNonSelectable.Add(m);
+
+                                }
                             }
                         }
                     };
@@ -211,16 +234,26 @@ namespace NativeCamperVans.Views
                     };
 
 
-                    if (misChargeResults.Count() > 0)
+                    if (misChargeResultsNonSelectable.Count() > 0)
                     {
-                        RateList.ItemsSource = misChargeResults;
-                        RateList.HeightRequest = misChargeResults.Count() * 65;
+                        RateList.ItemsSource = misChargeResultsNonSelectable;
+                        RateList.HeightRequest = misChargeResultsNonSelectable.Count() * 65;
                     }
-                    if (misChargeResults.Count() == 0)
+                    if (misChargeResultsNonSelectable.Count() == 0)
                     {
                         RateList.IsVisible = false;
                     }
 
+
+                    if (misChargeResultsSelectable.Count() > 0)
+                    {
+                            RateListSelectLabel.ItemsSource = misChargeResultsSelectable;
+                            RateListSelectLabel.HeightRequest = misChargeResultsSelectable.Count() * 80;
+                    }
+                    if (misChargeResultsSelectable.Count() == 0)
+                    {
+                        RateListSelectLabel.IsVisible = false;
+                    }
 
                     if (taxResults.Count() > 0)
                     {
@@ -230,8 +263,8 @@ namespace NativeCamperVans.Views
                     if (taxResults.Count() == 0)
                     {
                         taxList.IsVisible = false;
+                        taxHeadingLabel.IsVisible = false;
                     }
-
 
                 }
 
@@ -270,38 +303,47 @@ namespace NativeCamperVans.Views
 
         private void NxtBtn_Clicked(object sender, EventArgs e)
         {
-            if (misChargeResults.Count() > 0)
+            List<MiscChargeSearchReview> miscChargeSearchReviews = new List<MiscChargeSearchReview>();
+
+            if (misChargeResultsNonSelectable.Count() > 0)
             {
-                List<MiscChargeSearchReview> miscChargeSearchReviews = new List<MiscChargeSearchReview>();
-                List<MischargeResultMobile> itemListMis = RateList.ItemsSource as List<MischargeResultMobile>;
-                foreach(MischargeResultMobile msr in itemListMis)
+                List<MiscChargeSearchReview> itemListMis = RateList.ItemsSource as List<MiscChargeSearchReview>;
+                foreach (MiscChargeSearchReview msr in itemListMis)
                 {
-                    MiscChargeSearchReview miscChargeSearchReview = new MiscChargeSearchReview();
-                    miscChargeSearchReview.VehicleTypeId = msr.VehicleTypeId;
-                    miscChargeSearchReview.LocationId = msr.LocationId;
-                    miscChargeSearchReview.MiscChargeID = msr.MiscChargeID;
-                    miscChargeSearchReview.Name = msr.Name;
-                    miscChargeSearchReview.Description = msr.Description;
-                    miscChargeSearchReview.CalculationType = msr.CalculationType;
-                    miscChargeSearchReview.Value = msr.Value;
-                    miscChargeSearchReview.MisChargeCode = msr.MisChargeCode;
-                    miscChargeSearchReview.IsOptional = msr.IsOptional;
-                    miscChargeSearchReview.Unit = msr.Unit;
-                    miscChargeSearchReview.TaxNotAvailable = msr.TaxNotAvailable;
-                    miscChargeSearchReview.isQuantity = msr.IsQuantity;
-                    miscChargeSearchReview.IsSelected = msr.isSelected;
-                    miscChargeSearchReview.StartDate = (DateTime)reservationView.StartDate;
-                    miscChargeSearchReview.EndDate = (DateTime)reservationView.EndDate;
-                    miscChargeSearchReview.StartDateString = reservationView.StartDateStr;
-                    miscChargeSearchReview.EndDateString= reservationView.EndDateStr;
-                    if (miscChargeSearchReview.IsSelected)
+
+                    msr.StartDate = (DateTime)reservationView.StartDate;
+                    msr.EndDate = (DateTime)reservationView.EndDate;
+                    msr.StartDateString = reservationView.StartDateStr;
+                    msr.EndDateString = reservationView.EndDateStr;
+                    if (msr.IsSelected)
                     {
-                        miscChargeSearchReviews.Add(miscChargeSearchReview);
+                        miscChargeSearchReviews.Add(msr);
                     }
-                    
+
                 }
-                reservationView.MiscList2 = miscChargeSearchReviews;
             }
+
+            if (misChargeResultsSelectable.Count() > 0)
+            {
+                List<MiscChargeSearchReview> itemListMis2 = RateListSelectLabel.ItemsSource as List<MiscChargeSearchReview>;
+                foreach (MiscChargeSearchReview msr in itemListMis2)
+                {
+
+                    msr.StartDate = (DateTime)reservationView.StartDate;
+                    msr.EndDate = (DateTime)reservationView.EndDate;
+                    msr.StartDateString = reservationView.StartDateStr;
+                    msr.EndDateString = reservationView.EndDateStr;
+                    if (msr.IsSelected)
+                    {
+                        miscChargeSearchReviews.Add(msr);
+                    }
+
+                }
+            }
+
+            reservationView.MiscList2 = miscChargeSearchReviews;
+
+
             if (taxResults.Count() > 0)
             {
                 List<LocationTaxModel> locationTaxModels = new List<LocationTaxModel>();
@@ -320,19 +362,18 @@ namespace NativeCamperVans.Views
                     {
                         locationTaxModels.Add(locationTaxModel);
                     }
-                   
+
                 }
                 reservationView.TaxList2 = locationTaxModels;
             }
-            Navigation.PushAsync(new SummaryOfChargesPage(reservationView,selectedVehicle));
+            Navigation.PushAsync(new SummaryOfChargesPage(reservationView, selectedVehicle));
         }
 
         private void CheckBox_CheckChanged(object sender, EventArgs e)
         {
             var item = (sender as Plugin.InputKit.Shared.Controls.CheckBox).BindingContext as MisChargeResult;
-            misChargeResults = (IEnumerable<MischargeResultMobile>)RateList.ItemsSource;
+            misChargeResults = (List<MiscChargeSearchReview>)RateList.ItemsSource;
         }
-
         private async void PromoBtn_Clicked(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(promoCodeEntry.Text))
@@ -386,6 +427,12 @@ namespace NativeCamperVans.Views
                     {
                         await PopupNavigation.Instance.PushAsync(new SuccessPopUp("Promo code has been applied successfully!"));
                         reservationView.PromotionCode = promoCodeEntry.Text;
+                        //if(reservationView.PromotionList== null)
+                        //{
+                        reservationView.PromotionList = new List<PromotionItem>();
+                        //}
+
+                        reservationView.PromotionList.Add(new PromotionItem() { PromotionID = promotionMobileResponse.PromResult.PromotionID, PromotionDiscount = (decimal)promotionMobileResponse.PromResult.DiscountValue });
                     }
                 }
             }
@@ -414,35 +461,107 @@ namespace NativeCamperVans.Views
 
         private void ExtStepper_AddClicked(object sender, EventArgs e)
         {
-            var obj = (ExtStepper)sender;
+            var obj = (Button)sender;
             var objGrid = (Grid)obj.Parent;
             var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            var data = obj.BindingContext as MischargeResultMobile;
-            foreach (MischargeResultMobile msrm in misChargeResults)
+            List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+
+            var data = objGrid.BindingContext as MiscChargeSearchReview;
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
-                    msrm.Unit = obj.Value;
+                    msrm._Quantity = msrm.Quantity + 1;
+                    msrm._price = msrm.Value * msrm._Quantity;
                  
                 }
             }
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
 
         private void ExtStepper_SubClicked(object sender, EventArgs e)
         {
-            var obj = (ExtStepper)sender;
+            var obj = (Button)sender;
             var objGrid = (Grid)obj.Parent;
             var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            var data = obj.BindingContext as MischargeResultMobile;
-            foreach (MischargeResultMobile msrm in misChargeResults)
+            List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+
+            var data = viewCell.BindingContext as MiscChargeSearchReview;
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
-                    msrm.Unit = obj.Value;
+                    if (msrm.Quantity > 0)
+                    {
+                        msrm._Quantity = msrm.Quantity - 1;
+                        msrm._price = msrm.Value * msrm._Quantity;
+                    }
+                    
                 }
             }
+
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
+        }
+
+        private void descriptionBtn_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDecrease_Clicked(object sender, EventArgs e)
+        {
+            var obj = (Button)sender;
+            var objGrid = (Grid)obj.Parent;
+//            var viewCell = (ExtendedViewCell)objGrid.Parent;
+
+            List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+
+            var data = objGrid.BindingContext as MiscChargeSearchReview;
+            foreach (MiscChargeSearchReview msrm in newList)
+            {
+                if (data.MiscChargeID == msrm.MiscChargeID)
+                {
+                    if (msrm.Quantity > 0)
+                    {
+                        msrm._Quantity = msrm.Quantity - 1;
+                        msrm._price = msrm.Value * msrm._Quantity;
+                    }
+
+                }
+            }
+
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
+        }
+
+        private void btnincrease_Clicked(object sender, EventArgs e)
+        {
+            var obj = (Button)sender;
+            var objGrid = (Grid)obj.Parent;
+   //         var viewCell = (ExtendedViewCell)objGrid.Parent;
+
+            List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+
+            var data = objGrid.BindingContext as MiscChargeSearchReview;
+            foreach (MiscChargeSearchReview msrm in newList)
+            {
+                if (data.MiscChargeID == msrm.MiscChargeID)
+                {
+                    msrm._Quantity = msrm.Quantity + 1;
+                    msrm._price = msrm.Value * msrm._Quantity;
+
+                }
+            }
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
     }
 }

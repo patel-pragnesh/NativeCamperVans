@@ -17,10 +17,10 @@
         x:Name="Dashboard"
         Title="Home"
         Icon="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconRedDashboard.png}" />
-    <!--<views:VehicleDetailPage
+    <views:VehicleDetailPage
         x:Name="bookingPage"
         Title="Book Now"
-        Icon="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconRedCar.png}" />-->
+        Icon="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconRedCar.png}" />
     <views:MyProfile
         x:Name="MembershipScreen"
         Title="MyProfile"

@@ -9,12 +9,13 @@
     xmlns:renders="clr-namespace:NativeCamperVans.Renders"
     Title="Master"
     mc:Ignorable="d"
-    BackgroundColor="Transparent">
+    BackgroundColor="Transparent"
+    NavigationPage.HasNavigationBar="False">
     <Frame
         Padding="0"
         BorderColor="Transparent"
         CornerRadius="10">
-        <Grid Padding="0">
+        <Grid Padding="0" BackgroundColor="Black" Opacity="0.8">
             <Image
                 Grid.Row="0"
                 Grid.RowSpan="2"

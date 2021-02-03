@@ -52,7 +52,6 @@
                             FontSize="16"
                             HorizontalOptions="FillAndExpand"
                             HorizontalTextAlignment="Center"
-                            Text="1"
                             TextColor="Black"
                             VerticalOptions="FillAndExpand"
                             VerticalTextAlignment="Center" />
