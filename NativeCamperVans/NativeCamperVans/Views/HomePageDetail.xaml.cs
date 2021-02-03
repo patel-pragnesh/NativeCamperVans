@@ -62,7 +62,7 @@ namespace NativeCamperVans.Views
             getAgreementByCustomerIdMobileRequest.customerId = customerId;
             customerAgreementModels = null;
             lastAgreementId = 0;
-            lastAgreementStatus=null;
+            lastAgreementStatus = null;
 
             reservationByIDMobileRequest = new GetReservationByIDMobileRequest();
             isreservation = false;
@@ -110,7 +110,7 @@ namespace NativeCamperVans.Views
             Common.mMasterPage.Master = new HomePageMaster();
             Common.mMasterPage.IsPresented = false;
 
-             busy = false;
+            busy = false;
             if (!busy)
             {
                 try
@@ -124,13 +124,11 @@ namespace NativeCamperVans.Views
                         {
                             //registrationDBModel = getRegistrationDBModel(customerId, _token);
                             registrationDBModelResponse = getMobileRegistrationDBModel(registrationDBModelRequest, _token);
-                            
 
-                            if (!isAgreeRefreshed)
-                            {
-                                customerAgreementModels = getReservations(customerId, _token);
-                            }
-                            isAgreeRefreshed = true;
+
+
+                            customerAgreementModels = getReservations(customerId, _token);
+
                         }
 
                         //registrationDBModel.Reservations[0].ReservationId
@@ -179,11 +177,11 @@ namespace NativeCamperVans.Views
             {
                 if (registrationDBModel.Reservations.Count > 0)
                 {
-                    if (registrationDBModel.Reservations[0].Status == "Open" || registrationDBModel.Reservations[0].Status == "New" || registrationDBModel.Reservations[0].Status == "Quote" )
+                    if (registrationDBModel.Reservations[0].Status == "Open" || registrationDBModel.Reservations[0].Status == "New" || registrationDBModel.Reservations[0].Status == "Quote")
                     {
 
                         ViewReservation(registrationDBModel);
-                       
+                        BooknowBtn.IsVisible = false;
                         //if(registrationDBModel.Reservations[0].Status == "Canceled")
                         //{
                         //    BooknowBtn.IsVisible = true;
@@ -198,8 +196,9 @@ namespace NativeCamperVans.Views
                             if (registrationDBModel.Agreements[0].Status == "Open")
                             {
                                 viewAgreement(registrationDBModel);
+                                BooknowBtn.IsVisible = false;
 
-                                
+
 
                             }
                             else
@@ -208,7 +207,7 @@ namespace NativeCamperVans.Views
                                 isreservation = false;
                                 upcomingReservation.IsVisible = false;
                                 emptyReservation.IsVisible = true;
-                                //BooknowBtn.IsVisible = true;
+                                BooknowBtn.IsVisible = true;
                             }
                         }
                     }
@@ -219,6 +218,7 @@ namespace NativeCamperVans.Views
                     if (registrationDBModel.Agreements[0].Status == "Open")
                     {
                         viewAgreement(registrationDBModel);
+                        BooknowBtn.IsVisible = true;
 
 
 
@@ -229,36 +229,36 @@ namespace NativeCamperVans.Views
                         isreservation = false;
                         upcomingReservation.IsVisible = false;
                         emptyReservation.IsVisible = true;
-                        //BooknowBtn.IsVisible = true;
+                        BooknowBtn.IsVisible = true;
                     }
                 }
                 else
                 {
                     upcomingReservation.IsVisible = false;
                     emptyReservation.IsVisible = true;
-                    //BooknowBtn.IsVisible = true;
+                    BooknowBtn.IsVisible = true;
                     // upReserveFrame.HeightRequest = 290;
                 }
 
 
-                if (customerAgreementModels!= null)
+                if (customerAgreementModels != null)
                 {
-                    if(customerAgreementModels.Count>0)
+                    if (customerAgreementModels.Count > 0)
                     {
                         lastAgreementId = registrationDBModel.Agreements[0].AgreementId;
                         lastAgreementStatus = registrationDBModel.Agreements[0].Status;
-                        if (customerAgreementModels[customerAgreementModels.Count - 1].Status== "Open")
+                        if (customerAgreementModels[customerAgreementModels.Count - 1].Status == "Open")
                         {
-                            customerAgreementModels.RemoveAt(customerAgreementModels.Count-1);
+                            customerAgreementModels.RemoveAt(customerAgreementModels.Count - 1);
                         }
 
                         List<CustomerAgreementModel> agreementItemSource = new List<CustomerAgreementModel>();
 
-                        foreach(CustomerAgreementModel camfl in customerAgreementModels)
+                        foreach (CustomerAgreementModel camfl in customerAgreementModels)
                         {
-                            if(camfl.Status != null)
+                            if (camfl.Status != null)
                             {
-                                if (camfl.Status == "Close"|| camfl.Status == "Pending_Payment")
+                                if (camfl.Status == "Close" || camfl.Status == "Pending_Payment")
                                 {
                                     camfl.custAgreement.AgreementTotal.totalAmountStr = ((decimal)camfl.custAgreement.AgreementTotal.TotalAmount).ToString("0.00");
                                     agreementItemSource.Add(camfl);
@@ -278,7 +278,7 @@ namespace NativeCamperVans.Views
                         myRentals.IsVisible = false;
                     }
                 }
-               
+
                 else
                 {
                     myRentals.IsVisible = false;
@@ -524,7 +524,7 @@ namespace NativeCamperVans.Views
                 grdRentals.IsVisible = true;
                 //BooknowBtn.IsVisible = isbookingBtnVisible;
             }
-            else if(isAgreement)
+            else if (isAgreement)
             {
                 lastAgreementStack.IsVisible = true;
             }
@@ -596,7 +596,7 @@ namespace NativeCamperVans.Views
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            if(agreementId>0 && vehicleId > 0)
+            if (agreementId > 0 && vehicleId > 0)
             {
                 Navigation.PushAsync(new AgreementScreen(agreementId, vehicleId));
             }
@@ -636,13 +636,13 @@ namespace NativeCamperVans.Views
                     }
                     else
                     {
-                        var timespan = DateTime.Now- evt.Date ;
+                        var timespan = DateTime.Now - evt.Date;
                         evt.Timespan = timespan;
                         evt.BgColor = "#DD0803";
                         timerLabel.Text = "Due time : ";
-                        timerLabel.TextColor =Color.FromHex("#DD0803");
+                        timerLabel.TextColor = Color.FromHex("#DD0803");
                     }
-                   
+
                 }
 
                 eventList.ItemsSource = null;
@@ -654,7 +654,7 @@ namespace NativeCamperVans.Views
 
         private void statusBtn_Clicked(object sender, EventArgs e)
         {
-            if(reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.Quote)
+            if (reservationByIDMobileResponse.reservationData.Reservationview.Status == (short)ReservationStatuses.Quote)
             {
                 PopupNavigation.Instance.PushAsync(new Error_popup("Waiting for background check results or waiting for insurance documents to be generated"));
             }

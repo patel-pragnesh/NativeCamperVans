@@ -118,7 +118,6 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <Button
@@ -207,7 +206,7 @@
                         </Frame>
 
 
-                        <Grid Grid.Row="2" IsVisible="false">
+                        <Grid Grid.Row="1" IsVisible="true">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -310,11 +309,11 @@
                                 </Button.HeightRequest>
                             </Button>-->
 
-                        </Grid>
 
-                        <Button
+                            <Button
                             x:Name="HomeBtn"
-                            Grid.Row="3"
+                            Grid.Row="0"
+                            Grid.Column="1"
                             Margin="0,10,0,0"
                             BackgroundColor="Transparent"
                             BorderColor="{StaticResource MaxVonWhite}"
@@ -324,45 +323,45 @@
                             FontFamily="Roboto-Medium"
                             HorizontalOptions="FillAndExpand"
                             StyleClass="bouncy"
-                            Text="Continue"
+                            Text="Login"
                             TextColor="{StaticResource MaxVonWhite}"
                             VerticalOptions="End">
-                            <Button.FontSize>
-                                <OnPlatform x:TypeArguments="x:Double">
-                                    <On Platform="iOS">
-                                        <OnIdiom
+                                <Button.FontSize>
+                                    <OnPlatform x:TypeArguments="x:Double">
+                                        <On Platform="iOS">
+                                            <OnIdiom
                                             x:TypeArguments="x:Double"
                                             Phone="14"
                                             Tablet="18" />
-                                    </On>
-                                    <On Platform="Android,Windows">
-                                        <OnIdiom
+                                        </On>
+                                        <On Platform="Android,Windows">
+                                            <OnIdiom
                                             x:TypeArguments="x:Double"
                                             Phone="16"
                                             Tablet="20" />
-                                    </On>
-                                </OnPlatform>
-                            </Button.FontSize>
-                            <Button.HeightRequest>
-                                <OnPlatform x:TypeArguments="x:Double">
-                                    <On Platform="iOS">
-                                        <OnIdiom
+                                        </On>
+                                    </OnPlatform>
+                                </Button.FontSize>
+                                <Button.HeightRequest>
+                                    <OnPlatform x:TypeArguments="x:Double">
+                                        <On Platform="iOS">
+                                            <OnIdiom
                                             x:TypeArguments="x:Double"
                                             Phone="50"
                                             Tablet="60" />
-                                    </On>
-                                    <On Platform="Android,Windows">
-                                        <OnIdiom
+                                        </On>
+                                        <On Platform="Android,Windows">
+                                            <OnIdiom
                                             x:TypeArguments="x:Double"
                                             Phone="50"
                                             Tablet="60" />
-                                    </On>
-                                </OnPlatform>
-                            </Button.HeightRequest>
-                        </Button>
+                                        </On>
+                                    </OnPlatform>
+                                </Button.HeightRequest>
+                            </Button>
+                        </Grid>
 
-
-                        <Frame
+                        <!--<Frame
                             x:Name="continueLoader"
                             BorderColor="{StaticResource MaxVonWhite}"
                             Grid.Row="3"
@@ -397,7 +396,7 @@
                                     </On>
                                 </OnPlatform>
                             </Frame.HeightRequest>
-                        </Frame>
+                        </Frame>-->
 
 
                     </Grid>

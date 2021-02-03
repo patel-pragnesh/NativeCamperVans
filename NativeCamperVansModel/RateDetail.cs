@@ -78,6 +78,7 @@ namespace NativeCamperVansModel
         public ReservationSummaryDetails ReservationSummary { get; set; }
     }
 
+
     [Serializable]
     public class ReservationSummaryDetails
     {
@@ -90,6 +91,10 @@ namespace NativeCamperVansModel
         public string EstimatedTotal { get; set; }
         public string BaseTaxRate { get; set; }
         public string BaseRate { get; set; }
+        public string FinalBaseRate { get; set; }
+        public string PromoDiscount { get; set; }
+        public List<PromotionItem> PromotionList { get; set; }
+
     }
 
     [Serializable]

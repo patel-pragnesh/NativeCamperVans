@@ -42,9 +42,9 @@ namespace NativeCamperVans.Views
                     if (!IsBusy)
                     {
 
-                        
+
                         IsBusy = true;
-                        await HomeBtn.FadeTo(0,100, Easing.SinInOut);
+                        await HomeBtn.FadeTo(0, 100, Easing.SinInOut);
                         //await loginBtnFrame.FadeTo(0, 100, Easing.SinInOut);
                         try
                         {
@@ -52,7 +52,7 @@ namespace NativeCamperVans.Views
                             {
                                 await Navigation.PushAsync(new HomePage());
                             }
-                               
+
                         }
                         finally
                         {
@@ -61,7 +61,7 @@ namespace NativeCamperVans.Views
                             //await loginBtnFrame.FadeTo(1, 1000);
 
                         }
-                    } 
+                    }
                 }
             };
             //loginBtnFrame.GestureRecognizers.Add(loginTap);
@@ -85,7 +85,7 @@ namespace NativeCamperVans.Views
             int c = Navigation.NavigationStack.Count;
             if (c > 0)
             {
-                for (var counter = 1; counter < c-1; counter++)
+                for (var counter = 1; counter < c - 1; counter++)
                 {
                     Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
                 }
@@ -105,7 +105,7 @@ namespace NativeCamperVans.Views
                     BooknowBtn.IsVisible = false;
                     bookNowLoader.IsVisible = true;
                     bookNowSpinner.IsRunning = true;
-                    
+
                     await Task.Run(async () =>
                     {
                         GetClientSecretTokenRequest getClientSecretTokenRequest = new GetClientSecretTokenRequest();
@@ -114,13 +114,13 @@ namespace NativeCamperVans.Views
                         GetClientSecretTokenResponse clientSecretTokenResponse = null;
                         try
                         {
-                            clientSecretTokenResponse=apiController.GetClientSecretToken(getClientSecretTokenRequest);
+                            clientSecretTokenResponse = apiController.GetClientSecretToken(getClientSecretTokenRequest);
                         }
                         catch (Exception ex)
                         {
                             await PopupNavigation.Instance.PushAsync(new Error_popup(ex.Message));
                         }
-                        if(clientSecretTokenResponse!= null)
+                        if (clientSecretTokenResponse != null)
                         {
                             GetAccessTokenRequest tokenRequest = new GetAccessTokenRequest();
                             tokenRequest.client_id = clientSecretTokenResponse.apiConsumerId;
@@ -150,9 +150,9 @@ namespace NativeCamperVans.Views
                                 }
 
 
-                                if(getClientDetailsForMobile != null)
+                                if (getClientDetailsForMobile != null)
                                 {
-                                    if(getClientDetailsForMobile.admin!= null)
+                                    if (getClientDetailsForMobile.admin != null)
                                     {
                                         Constants.admin = getClientDetailsForMobile.admin;
                                     }
@@ -167,21 +167,22 @@ namespace NativeCamperVans.Views
                                     App.Current.Properties.Add("currentToken", _token);
                                 }
                             }
-                                
+
 
                         }
 
 
                     });
                 }
-                
+
                 finally
                 {
-                    if (apiToken!= null) {
+                    if (apiToken != null)
+                    {
                         ReservationView reservation = new ReservationView();
                         await Navigation.PushAsync(new VehicleDetailPage(reservation));
                     }
-                    
+
                     busy = false;
                     BooknowBtn.IsVisible = true;
                     bookNowLoader.IsVisible = false;
@@ -193,13 +194,12 @@ namespace NativeCamperVans.Views
         protected override bool OnBackButtonPressed()
         {
             if (PopupNavigation.Instance.PopupStack.Count > 0) { return true; }
-            else if (Navigation.NavigationStack.Count > 2)
+            else
             {
                 return true;
             }
             // Always return true because this method is not asynchronous.
             // We must handle the action ourselves: see above.
-            return false;
         }
 
         private async void HomeBtn_Clicked(object sender, EventArgs e)
@@ -213,29 +213,22 @@ namespace NativeCamperVans.Views
                 }
                 else
                 {
-                    StartAnimation();
-                    IsBusy = false;
 
-                    if (!IsBusy)
+
+                    try
                     {
-
-                       
-                        IsBusy = true;
-
-                        try
+                        if (Navigation.NavigationStack[Navigation.NavigationStack.Count - 1].GetType() != typeof(HomePage))
                         {
-                            if (Navigation.NavigationStack[Navigation.NavigationStack.Count - 1].GetType() != typeof(HomePage))
-                            {
-                                await Navigation.PushAsync(new HomePage());
-                            }
-
+                            await Navigation.PushAsync(new HomePage());
                         }
-                        finally
-                        {
-                            IsBusy = false;
 
-                        }
                     }
+                    finally
+                    {
+                        IsBusy = false;
+
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -280,5 +273,7 @@ namespace NativeCamperVans.Views
         //        Navigation.PushAsync(new HomePage());
         //    }
         //}
+
+        
     }
 }

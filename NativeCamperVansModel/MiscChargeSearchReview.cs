@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NativeCamperVansModel
 {
-    [Serializable]
-    public class MiscChargeSearchReview
+    public class MiscChargeSearchReview : INotifyPropertyChanged
     {
-        public int LocationMischargeId { get; set; }
+        public int LocationMiscChargeID { get; set; }
         public int VehicleTypeId { get; set; }
         public int MiscChargeID { get; set; }
         public string Name { get; set; }
@@ -40,14 +41,20 @@ namespace NativeCamperVansModel
         public bool TaxNotAvailable { get; set; }
 
         public bool isFreeze { get; set; }
-
         public bool isAlreadySelected { get; set; }
         public bool IsDeductible { get; set; }
-
         public int LocationId { get; set; }
         public string LocationName { get; set; }
         public string VehicleType { get; set; }
-
+        public string GLcode { get; set; }
+        public List<MiscChargeTaxModel> MiscTaxList { get; set; }
+        public bool IsTaxable { get; set; }
+        public string LocationTaxIds { get; set; }
+        public bool IsChargeByPeriod { get; set; }
+        public decimal Totaltax { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal? AmountPaid { get; set; }
+        public decimal? AmountRemaining { get; set; }
         [Serializable]
         public enum CalcType
         {
@@ -55,6 +62,77 @@ namespace NativeCamperVansModel
             Percentage = 2,
             Perday = 3,
             Replace = 4
+        }
+
+        public string ViewString { get; set; }
+
+        public bool IsMantatory { get { return !IsOptional; } }
+
+        public decimal price
+        {
+            get;
+            //{
+            // //if (IsQuantity)
+            // //{
+            // // return Value * Unit;
+            // //}
+            // //else
+            // //{
+            // // return Value;
+            // //}
+            //}
+            set;
+
+        }
+
+        public decimal _price
+        {
+            get => price;
+            //{
+            // //if (IsQuantity)
+            // //{
+            // // return Value * Unit;
+            // //}
+            // //else
+            // //{
+            // // return Value;
+            // //}
+            //}
+            set
+            {
+                if (isQuantity)
+                {
+                    price= Value * Quantity;
+                    PropertyChanged(this, new PropertyChangedEventArgs("_price"));
+                }
+                else
+                {
+                    price = Value;
+                    PropertyChanged(this, new PropertyChangedEventArgs("_price"));
+                }
+            }
+
+        }
+
+        public int _Quantity
+        {
+            get => Quantity;
+            set
+            {
+                if (Quantity != value)
+                {
+                    Quantity = value;
+                    PropertyChanged(this, new PropertyChangedEventArgs("_Quantity"));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

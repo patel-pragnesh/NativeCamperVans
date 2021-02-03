@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\Thanah\AppData\Local\Temp\vs516B.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>C:\Users\Thanah\AppData\Local\Temp\vs516B.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +47,9 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="Xamarin.Essentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Essentials.1.6.1\lib\netstandard2.0\Xamarin.Essentials.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessModels\AddAgreementSignMobileRequest.cs" />
@@ -138,6 +143,7 @@
     <Compile Include="InsuranceClaimStatusModel.cs" />
     <Compile Include="LoadvehicleViewImagesReq.cs" />
     <Compile Include="LoadvehicleViewImagesResponse.cs" />
+    <Compile Include="MiscChargeTaxModel.cs" />
     <Compile Include="MischargeResultMobile.cs" />
     <Compile Include="AccessModels\TaxFilter.cs" />
     <Compile Include="AgreementReservationMileageBreakdownViewModel.cs" />

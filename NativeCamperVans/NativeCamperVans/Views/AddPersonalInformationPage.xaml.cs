@@ -339,11 +339,11 @@ namespace NativeCamperVans.Views
         {
             Navigation.PopAsync();
         }
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            MessagingCenter.Unsubscribe<AddCustomerPhotoPopup>(this, "profilePhotoAdded");
-        }
+        //protected override void OnDisappearing()
+        //{
+        //    base.OnDisappearing();
+        //    MessagingCenter.Unsubscribe<AddCustomerPhotoPopup>(this, "profilePhotoAdded");
+        //}
 
         private void calenderBtn_Clicked(object sender, EventArgs e)
         {

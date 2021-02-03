@@ -558,14 +558,14 @@
                                     <On Platform="iOS">
                                         <OnIdiom
                                             x:TypeArguments="x:Double"
-                                            Phone="120"
-                                            Tablet="150" />
+                                            Phone="140"
+                                            Tablet="170" />
                                     </On>
                                     <On Platform="Android,Windows">
                                         <OnIdiom
                                             x:TypeArguments="x:Double"
-                                            Phone="120"
-                                            Tablet="150" />
+                                            Phone="140"
+                                            Tablet="170" />
                                     </On>
                                 </OnPlatform>
                             </Frame.HeightRequest>
@@ -596,7 +596,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
@@ -729,9 +729,14 @@
                             </Grid>
                         </Frame>
 
+
+
+
                         <ScrollView Grid.Row="3" Margin="0">
                             <Grid Margin="0,10">
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -772,11 +777,10 @@
                                     VerticalOptions="EndAndExpand"
                                     Color="{StaticResource MaxVonGray}" />
 
-
                                 <ListView
-                                    x:Name="RateList"
+                                    x:Name="RateListSelectLabel"
                                     Grid.Row="1"
-                                    RowHeight="65"
+                                    RowHeight="80"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never">
                                     <ListView.ItemTemplate>
@@ -784,7 +788,7 @@
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
-                                                        <RowDefinition Height="65" />
+                                                        <RowDefinition Height="80" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -819,7 +823,7 @@
                                                             Key="{Binding MiscChargeID}"
                                                             CheckChanged="CheckBox_CheckChanged"
                                                             FontFamily="Roboto-Bold"
-                                                            IsChecked="{Binding isSelected}"
+                                                            IsChecked="{Binding IsSelected}"
                                                             IsEnabled="{Binding IsMantatory}"
                                                             Text="{Binding Name}"
                                                             TextColor="{StaticResource MaxVonBlack}"
@@ -867,11 +871,304 @@
 
                                                         </Label>
                                                     </StackLayout>
+                                                    <!--<renders:ExtStepper
+                                                        Grid.Column="1"
+                                                        Margin="0"
+                                                        AddClicked="ExtStepper_AddClicked"
+                                                        IsVisible="{Binding isQuantity}"
+                                                        MinimumValue="1"
+                                                        SubClicked="ExtStepper_SubClicked"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        Value="{Binding Unit}" />-->
+
+                                                    <StackLayout x:Name="StkStepper"
+                                                                 Grid.Column="1"
+                                                                 Margin="0"
+                                                                 IsVisible="{Binding isQuantity}"
+                                                                 VerticalOptions="Center"
+                                                                 HeightRequest="60">
+                                                        <Frame
+                                                            x:Name="FrmStepper"
+                                                            Padding="0"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            VerticalOptions="FillAndExpand">
+                                                            <Frame
+                    x:Name="FrmSubStepper"
+                    Margin="2"
+                    Padding="0"
+                    BackgroundColor="White"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    WidthRequest="100">
+                                                                <Grid ColumnSpacing="0" HorizontalOptions="FillAndExpand">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*" />
+                                                                        <ColumnDefinition Width="*" />
+                                                                        <ColumnDefinition Width="*" />
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <Button
+                            x:Name="btnDecrease"
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{StaticResource MaxVonRed}"
+                            Clicked="btnDecrease_Clicked"
+                            FontSize="18"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="–"
+                            TextColor="{StaticResource MaxVonWhite}"
+                            VerticalOptions="CenterAndExpand" />
+
+                                                                    <BoxView
+                            x:Name="bx1"
+                            HorizontalOptions="EndAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            WidthRequest="2" />
+
+                                                                    <Label
+                            x:Name="lblCounter"
+                            Grid.Column="1"
+                            Margin="-5,0,0,0"
+                            FontSize="16"
+                            HorizontalOptions="FillAndExpand"
+                            HorizontalTextAlignment="Center"
+                            TextColor="Black"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" 
+                                                                        Text="{Binding Quantity}"/>
+
+                                                                    <BoxView
+                            x:Name="bx2"
+                            Grid.Column="1"
+                            HorizontalOptions="EndAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            WidthRequest="2" />
+
+                                                                    <Button
+                            x:Name="btnincrease"
+                            Grid.Column="2"
+                            Padding="0"
+                            BackgroundColor="{StaticResource MaxVonRed}"
+                            Clicked="btnincrease_Clicked"
+                            FontSize="18"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="+"
+                            TextColor="{StaticResource MaxVonWhite}"
+                            VerticalOptions="CenterAndExpand" />
+                                                                </Grid>
+
+                                                            </Frame>
+                                                        </Frame>
+                                                    </StackLayout>
+                                                    <Label
+                                                        Grid.Column="2"
+                                                        Margin="0,0,10,0"
+                                                        VerticalOptions="Center">
+                                                        <Label.Margin>
+                                                            <OnPlatform x:TypeArguments="Thickness">
+                                                                <On Platform="iOS">
+                                                                    <OnIdiom
+                                                                        x:TypeArguments="Thickness"
+                                                                        Phone="0,0,10,0"
+                                                                        Tablet="0,0,25,0" />
+                                                                </On>
+                                                                <On Platform="Android,Windows">
+                                                                    <OnIdiom
+                                                                        x:TypeArguments="Thickness"
+                                                                        Phone="0,0,10,0"
+                                                                        Tablet="0,0,20,0" />
+                                                                </On>
+                                                            </OnPlatform>
+                                                        </Label.Margin>
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span
+                                                                    FontFamily="Roboto-Regular"
+                                                                    Text="$"
+                                                                    TextColor="{StaticResource MaxVonBlack}">
+                                                                    <Span.FontSize>
+                                                                        <OnPlatform x:TypeArguments="x:Double">
+                                                                            <On Platform="iOS">
+                                                                                <OnIdiom
+                                                                                    x:TypeArguments="x:Double"
+                                                                                    Phone="16"
+                                                                                    Tablet="20" />
+                                                                            </On>
+                                                                            <On Platform="Android,Windows">
+                                                                                <OnIdiom
+                                                                                    x:TypeArguments="x:Double"
+                                                                                    Phone="18"
+                                                                                    Tablet="22" />
+                                                                            </On>
+                                                                        </OnPlatform>
+                                                                    </Span.FontSize>
+                                                                </Span>
+                                                                <Span
+                                                                    FontFamily="Roboto-Regular"
+                                                                    Text="{Binding price}"
+                                                                    TextColor="{StaticResource MaxVonBlack}">
+                                                                    <Span.FontSize>
+                                                                        <OnPlatform x:TypeArguments="x:Double">
+                                                                            <On Platform="iOS">
+                                                                                <OnIdiom
+                                                                                    x:TypeArguments="x:Double"
+                                                                                    Phone="16"
+                                                                                    Tablet="20" />
+                                                                            </On>
+                                                                            <On Platform="Android,Windows">
+                                                                                <OnIdiom
+                                                                                    x:TypeArguments="x:Double"
+                                                                                    Phone="18"
+                                                                                    Tablet="22" />
+                                                                            </On>
+                                                                        </OnPlatform>
+                                                                    </Span.FontSize>
+                                                                </Span>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                    <BoxView
+                                                        Grid.Column="0"
+                                                        Grid.ColumnSpan="3"
+                                                        Margin="0,10,0,0"
+                                                        HeightRequest="1"
+                                                        VerticalOptions="EndAndExpand"
+                                                        Color="{StaticResource MaxVonGray}" />
+                                                </Grid>
+                                            </renders:ExtendedViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+
+
+                                </ListView>
+
+
+                                <ListView
+                                    x:Name="RateList"
+                                    Grid.Row="2"
+                                    RowHeight="65"
+                                    SeparatorVisibility="None"
+                                    VerticalScrollBarVisibility="Never">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="65" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="100" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+
+
+                                                    <!--  Row1  -->
+
+                                                    <StackLayout Padding="0"
+                                                                 Orientation="Horizontal"
+                                                                 Spacing="10">
+                                                        <StackLayout
+                                                        Grid.Column="0"
+                                                        Spacing="0"
+                                                        VerticalOptions="CenterAndExpand">
+                                                            <StackLayout.Margin>
+                                                                <OnPlatform x:TypeArguments="Thickness">
+                                                                    <On Platform="iOS">
+                                                                        <OnIdiom
+                                                                        x:TypeArguments="Thickness"
+                                                                        Phone="10,0,0,0"
+                                                                        Tablet="20,0,0,0" />
+                                                                    </On>
+                                                                    <On Platform="Android,Windows">
+                                                                        <OnIdiom
+                                                                        x:TypeArguments="Thickness"
+                                                                        Phone="10,0,0,0"
+                                                                        Tablet="20,0,0,0" />
+                                                                    </On>
+                                                                </OnPlatform>
+                                                            </StackLayout.Margin>
+                                                            <Label
+                                                            FontFamily="Roboto-Bold"
+                                                            IsEnabled="{Binding IsMantatory}"
+                                                            Text="{Binding Name}"
+                                                            TextColor="{StaticResource MaxVonBlack}">
+                                                                <Label.FontSize>
+                                                                    <OnPlatform x:TypeArguments="x:Double">
+                                                                        <On Platform="iOS">
+                                                                            <OnIdiom
+                                                                            x:TypeArguments="x:Double"
+                                                                            Phone="15"
+                                                                            Tablet="18" />
+                                                                        </On>
+                                                                        <On Platform="Android,Windows">
+                                                                            <OnIdiom
+                                                                            x:TypeArguments="x:Double"
+                                                                            Phone="15"
+                                                                            Tablet="18" />
+                                                                        </On>
+                                                                    </OnPlatform>
+                                                                </Label.FontSize>
+                                                            </Label>
+
+                                                            <Label
+                                                            Margin="0"
+                                                            FontFamily="Roboto-Regular"
+                                                            Text="{Binding ViewString}"
+                                                            TextColor="{StaticResource MaxVonBlack}">
+                                                                <Label.FontSize>
+                                                                    <OnPlatform x:TypeArguments="x:Double">
+                                                                        <On Platform="iOS">
+                                                                            <OnIdiom
+                                                                            x:TypeArguments="x:Double"
+                                                                            Phone="12"
+                                                                            Tablet="16" />
+                                                                        </On>
+                                                                        <On Platform="Android,Windows">
+                                                                            <OnIdiom
+                                                                            x:TypeArguments="x:Double"
+                                                                            Phone="12"
+                                                                            Tablet="16" />
+                                                                        </On>
+                                                                    </OnPlatform>
+                                                                </Label.FontSize>
+
+                                                            </Label>
+                                                        </StackLayout>
+                                                        <Image
+                                                            Aspect="AspectFit"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            Source="{local:EmbeddedImage ResourceId=MaxVonGrafKftMobile.Assets.iconInfoRed.png}"
+                                                            VerticalOptions="Center">
+                                                            <Image.WidthRequest>
+                                                                <OnPlatform x:TypeArguments="x:Double">
+                                                                    <On Platform="iOS">
+                                                                        <OnIdiom
+                                                                            x:TypeArguments="x:Double"
+                                                                            Phone="25"
+                                                                            Tablet="30" />
+                                                                    </On>
+                                                                    <On Platform="Android,Windows">
+                                                                        <OnIdiom
+                                                                            x:TypeArguments="x:Double"
+                                                                            Phone="25"
+                                                                            Tablet="30" />
+                                                                    </On>
+                                                                </OnPlatform>
+                                                            </Image.WidthRequest>
+                                                            <Image.GestureRecognizers>
+                                                                <TapGestureRecognizer
+                                                                    x:Name="descriptionBtn"
+                                                                    NumberOfTapsRequired="1"
+                                                                    Tapped="descriptionBtn_Tapped"
+                                                                    CommandParameter="{Binding .}"/>
+                                                            </Image.GestureRecognizers>
+                                                        </Image>
+                                                    </StackLayout>
                                                     <renders:ExtStepper
                                                         Grid.Column="1"
                                                         Margin="0"
                                                         AddClicked="ExtStepper_AddClicked"
-                                                        IsVisible="{Binding IsQuantity}"
+                                                        IsVisible="{Binding isQuantity}"
                                                         MinimumValue="0"
                                                         SubClicked="ExtStepper_SubClicked"
                                                         VerticalOptions="CenterAndExpand"
@@ -921,7 +1218,7 @@
                                                                 </Span>
                                                                 <Span
                                                                     FontFamily="Roboto-Regular"
-                                                                    Text="{Binding Value}"
+                                                                    Text="{Binding price}"
                                                                     TextColor="{StaticResource MaxVonBlack}">
                                                                     <Span.FontSize>
                                                                         <OnPlatform x:TypeArguments="x:Double">
@@ -1522,7 +1819,7 @@
                                 </Grid>
 
                                 <Label
-                                    Grid.Row="2"
+                                    Grid.Row="3"
                                     Margin="0,10,0,0"
                                     FontAttributes="Bold"
                                     FontFamily="Roboto-Bold"
@@ -1549,7 +1846,7 @@
                                 </Label>
 
                                 <Grid
-                                    Grid.Row="3"
+                                    Grid.Row="4"
                                     Margin="20,0,20,20"
                                     ColumnSpacing="10"
                                     HorizontalOptions="Fill">
@@ -1604,7 +1901,7 @@
                                             <ImageButton
                                                 Margin="10,0,0,0"
                                                 BackgroundColor="Transparent"
-                                                Source="{local:EmbeddedImage ResourceId=NativeCamperVans.Assets.iconDiscount.png}"
+                                                Source="{local:EmbeddedImage ResourceId=MaxVonGrafKftMobile.Assets.iconDiscount.png}"
                                                 VerticalOptions="CenterAndExpand" />
 
 
@@ -1647,6 +1944,22 @@
                                                 Text="Enter"
                                                 TextColor="White"
                                                 VerticalOptions="CenterAndExpand">
+                                                <Button.Padding>
+                                                    <OnPlatform x:TypeArguments="Thickness">
+                                                        <On Platform="iOS">
+                                                            <OnIdiom
+                                                    x:TypeArguments="Thickness"
+                                                    Phone="10,0,10,0"
+                                                    Tablet="10,0,10,0" />
+                                                        </On>
+                                                        <On Platform="Android,Windows">
+                                                            <OnIdiom
+                                                    x:TypeArguments="Thickness"
+                                                    Phone="10,0,10,0"
+                                                    Tablet="10,0,10,0" />
+                                                        </On>
+                                                    </OnPlatform>
+                                                </Button.Padding>
                                                 <Button.HeightRequest>
                                                     <OnPlatform x:TypeArguments="x:Double">
                                                         <On Platform="iOS">
@@ -1685,14 +1998,15 @@
                                 </Grid>
 
                                 <Label
-                                    Grid.Row="4"
+                                    Grid.Row="5"
                                     Margin="0"
                                     FontAttributes="Bold"
                                     FontFamily="Roboto-Bold"
                                     HorizontalOptions="Center"
                                     Text="Tax charges"
                                     TextColor="{StaticResource MaxVonBlack}"
-                                    VerticalOptions="CenterAndExpand">
+                                    VerticalOptions="CenterAndExpand"
+                                    x:Name="taxHeadingLabel">
                                     <Label.FontSize>
                                         <OnPlatform x:TypeArguments="x:Double">
                                             <On Platform="iOS">
@@ -1714,7 +2028,7 @@
 
                                 <ListView
                                     x:Name="taxList"
-                                    Grid.Row="5"
+                                    Grid.Row="6"
                                     RowHeight="65"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never">
@@ -1774,7 +2088,8 @@
                                                             Type="Check"
                                                             VerticalOptions="Center"
                                                             Color="{StaticResource MaxVonYellow}"
-                                                            IsVisible="False"/>
+                                                            IsVisible="{Binding IsOption}"/>
+
 
                                                         <Label
                                                             Grid.Row="0"
@@ -1784,7 +2099,20 @@
                                                             Text="{Binding Name}"
                                                             TextColor="{StaticResource MaxVonBlack}"
                                                             FontSize="15"
-                                                            VerticalOptions="Center"/>
+                                                            VerticalOptions="Center"
+                                                            IsVisible="{Binding isMantatory}"/>
+
+
+                                                        <Label
+                                                            Grid.Row="0"
+                                                            Grid.ColumnSpan="2"
+                                                            FontFamily="Roboto-Bold"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            Text="{Binding Name}"
+                                                            TextColor="{StaticResource MaxVonBlack}"
+                                                            FontSize="15"
+                                                            VerticalOptions="Center"
+                                                            IsVisible="false"/>
 
 
 
@@ -1822,7 +2150,7 @@
                                                             <FormattedString>
                                                                 <Span
                                                                     FontFamily="Roboto-Regular"
-                                                                    Text="{Binding Value}"
+                                                                    Text="{Binding DisplayValue}"
                                                                     TextColor="{StaticResource MaxVonBlack}">
                                                                     <Span.FontSize>
                                                                         <OnPlatform x:TypeArguments="x:Double">
@@ -1880,6 +2208,7 @@
                                 </ListView>
                             </Grid>
                         </ScrollView>
+
 
                         <Button
                             Grid.Row="4"

@@ -57,6 +57,10 @@ namespace NativeCamperVans.Views
         {
             base.OnAppearing();
 
+            loginSpinner.IsRunning = false;
+            loginSpinnerFrame.IsVisible = false;
+            LoginButton.IsVisible = true;
+
             if (PopupNavigation.Instance.PopupStack.Count > 0)
             {
                 if (PopupNavigation.Instance.PopupStack[PopupNavigation.Instance.PopupStack.Count - 1].GetType() == typeof(ErrorWithClosePagePopup))
@@ -122,10 +126,8 @@ namespace NativeCamperVans.Views
                     finally
                     {
                         busy = false;
-                        loginSpinner.IsRunning = false;
-                        loginSpinnerFrame.IsVisible = false;
 
-                        LoginButton.IsVisible = true;
+                       
                         if (cutomerAuthContext.CustomerId > 0)
                         {
                             Constants.IsRegisteredandNotLogin = false;
@@ -176,8 +178,12 @@ namespace NativeCamperVans.Views
                         else
                         {
                             await PopupNavigation.Instance.PushAsync(new Error_popup("Log in failed . Please try again"));
+
+                            loginSpinner.IsRunning = false;
+                            loginSpinnerFrame.IsVisible = false;
                             loginPassword.Text = null;
                             errorLabel.IsVisible = false;
+                            LoginButton.IsVisible = true;
                         }
 
                     }

@@ -199,6 +199,11 @@ namespace NativeCamperVans.Views
 
                                 totalRentalFeeEntry.Text = "$" + summaryMobileResponsecs.rate.RateTotal.ToString("0.00");
 
+                                if (summaryMobileResponsecs.rate.ReservationSummary.PromoDiscount != null)
+                                {
+                                    DiscountEntry.Text = "[$" + summaryMobileResponsecs.rate.ReservationSummary.PromoDiscount.ToString() + "]";
+                                }
+
                                 totalMisChargeEntry.Text = "$" + (Convert.ToDecimal(summaryMobileResponsecs.rate.ReservationSummary.TotacMiscNonTaxable) + Convert.ToDecimal(summaryMobileResponsecs.rate.ReservationSummary.TotacMiscTaxable)).ToString();
 
                                 if (summaryMobileResponsecs.rate.ReservationSummary.TotalTax == null)
@@ -220,6 +225,12 @@ namespace NativeCamperVans.Views
                                 {
                                     totalAmountEntry.Text = "$" + summaryMobileResponsecs.rate.ReservationSummary.EstimatedTotal;
                                 }
+
+                                if (summaryMobileResponsecs.rate.ReservationSummary.PromotionList != null && reservationView.PromotionList != null)
+                                {
+                                    reservationView.PromotionList = summaryMobileResponsecs.rate.ReservationSummary.PromotionList;
+                                }
+
 
                             }
                             else

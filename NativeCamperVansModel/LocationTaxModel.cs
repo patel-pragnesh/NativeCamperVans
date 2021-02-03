@@ -13,6 +13,14 @@ namespace NativeCamperVansModel
         public string Description { get; set; }
         public decimal Value { get; set; }
 
+        public string DisplayValue
+        {
+            get
+            {
+                return Value.ToString("0.00");
+            }
+        }
+
         public decimal TaxValue { get; set; }
         public string LocationName { get; set; }
         public int LocationTaxID { get; set; }

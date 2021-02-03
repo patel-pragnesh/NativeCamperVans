@@ -101,7 +101,8 @@
                     FontFamily="Roboto-Regular"
                     Text="No discriptions."
                     TextColor="{StaticResource MaxVonBlack}"
-                    VerticalOptions="Start">
+                    VerticalOptions="Start"
+                    IsVisible="false">
                     <Label.FontSize>
                         <OnPlatform x:TypeArguments="x:Double">
                             <On Platform="iOS">
@@ -119,6 +120,12 @@
                         </OnPlatform>
                     </Label.FontSize>
                 </Label>
+
+
+                <WebView x:Name="webView" HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+                          Grid.Row="1"
+                    Margin="15,0"
+                         />
 
                 <Grid
                     Grid.Row="2"

@@ -465,7 +465,7 @@
                     HorizontalOptions="CenterAndExpand"
                     Orientation="Horizontal"
                     Spacing="1"
-                    IsVisible="false">
+                    IsVisible="true">
                     <Label
                         Margin="0,0,1,0"
                         FontFamily="Roboto-Bold"
