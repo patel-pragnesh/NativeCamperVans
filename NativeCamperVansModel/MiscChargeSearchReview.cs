@@ -103,6 +103,7 @@ namespace NativeCamperVansModel
                 if (isQuantity)
                 {
                     price= Value * Quantity;
+                    OnPropertyChanged();
                     PropertyChanged(this, new PropertyChangedEventArgs("_price"));
                 }
                 else
@@ -122,6 +123,7 @@ namespace NativeCamperVansModel
                 if (Quantity != value)
                 {
                     Quantity = value;
+                    OnPropertyChanged();
                     PropertyChanged(this, new PropertyChangedEventArgs("_Quantity"));
                 }
             }
