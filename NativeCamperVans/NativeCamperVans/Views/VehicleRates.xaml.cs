@@ -248,7 +248,7 @@ namespace NativeCamperVans.Views
 
                     if (misChargeResultsSelectable.Count() > 0)
                     {
-                            RateListSelectLabel.BindingContext = misChargeResultsSelectable;
+                            RateListSelectLabel.ItemsSource = misChargeResultsSelectable;
                             RateListSelectLabel.HeightRequest = misChargeResultsSelectable.Count() * 80;
                     }
                     if (misChargeResultsSelectable.Count() == 0)
@@ -466,10 +466,10 @@ namespace NativeCamperVans.Views
             var objGrid = (Grid)obj.Parent;
             var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            //List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+            ObservableCollection<MiscChargeSearchReview> newList = misChargeResultsSelectable;
 
             var data = objGrid.BindingContext as MiscChargeSearchReview;
-            foreach (MiscChargeSearchReview msrm in misChargeResultsSelectable)
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
@@ -478,9 +478,9 @@ namespace NativeCamperVans.Views
                  
                 }
             }
-            //RateListSelectLabel.ItemsSource = null;
-            //RateListSelectLabel.ItemsSource = newList;
-            //RateListSelectLabel.HeightRequest = newList.Count() * 80;
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
 
         private void ExtStepper_SubClicked(object sender, EventArgs e)
@@ -489,10 +489,10 @@ namespace NativeCamperVans.Views
             var objGrid = (Grid)obj.Parent;
             var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            //List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+            ObservableCollection<MiscChargeSearchReview> newList = misChargeResultsSelectable;
 
             var data = viewCell.BindingContext as MiscChargeSearchReview;
-            foreach (MiscChargeSearchReview msrm in misChargeResultsSelectable)
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
@@ -505,9 +505,9 @@ namespace NativeCamperVans.Views
                 }
             }
 
-            //RateListSelectLabel.ItemsSource = null;
-            //RateListSelectLabel.ItemsSource = newList;
-            //RateListSelectLabel.HeightRequest = newList.Count() * 80;
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
 
         private void descriptionBtn_Tapped(object sender, EventArgs e)
@@ -519,12 +519,12 @@ namespace NativeCamperVans.Views
         {
             var obj = (Button)sender;
             var objGrid = (Grid)obj.Parent;
-//            var viewCell = (ExtendedViewCell)objGrid.Parent;
+            //            var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            //List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+            ObservableCollection<MiscChargeSearchReview> newList = misChargeResultsSelectable;
 
             var data = objGrid.BindingContext as MiscChargeSearchReview;
-            foreach (MiscChargeSearchReview msrm in misChargeResultsSelectable)
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
@@ -537,9 +537,9 @@ namespace NativeCamperVans.Views
                 }
             }
 
-            //RateListSelectLabel.ItemsSource = null;
-            //RateListSelectLabel.ItemsSource = newList;
-            //RateListSelectLabel.HeightRequest = newList.Count() * 80;
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
 
         private void btnincrease_Clicked(object sender, EventArgs e)
@@ -548,10 +548,10 @@ namespace NativeCamperVans.Views
             var objGrid = (Grid)obj.Parent;
    //         var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            //List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+            ObservableCollection<MiscChargeSearchReview> newList = misChargeResultsSelectable;
 
             var data = objGrid.BindingContext as MiscChargeSearchReview;
-            foreach (MiscChargeSearchReview msrm in misChargeResultsSelectable)
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
@@ -560,9 +560,9 @@ namespace NativeCamperVans.Views
 
                 }
             }
-            //RateListSelectLabel.ItemsSource = null;
-            //RateListSelectLabel.ItemsSource = newList;
-            //RateListSelectLabel.HeightRequest = newList.Count() * 80;
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
     }
 }
