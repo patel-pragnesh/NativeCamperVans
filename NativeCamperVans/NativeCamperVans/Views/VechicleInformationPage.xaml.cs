@@ -41,10 +41,8 @@ namespace NativeCamperVans.Views
             if (selectedVehicle.HtmlContent != null)
             {
                 var htmlSource = new HtmlWebViewSource();
-                htmlSource.Html = @"<html><body>
-  <h1>Xamarin.Forms</h1>
-  <p>Welcome to WebView.</p>
-  </body></html>";
+                htmlSource.Html = @"<html><body>"+selectedVehicle.HtmlContent+ " </body></html>"; 
+
                 webView.Source = htmlSource;
                 VehicleDiscription.Text = selectedVehicle.HtmlContent.Replace("<p>", "").Replace("</p>", "").Replace("&nbsp;&nbsp;", "");
             }
