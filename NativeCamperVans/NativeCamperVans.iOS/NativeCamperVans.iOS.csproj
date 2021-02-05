@@ -250,7 +250,9 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations">
       <Version>2.4.11.982</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
+    <PackageReference Include="Xamarin.Forms">
+      <Version>4.8.0.1560</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms.InputKit">
       <Version>3.0.15</Version>
     </PackageReference>

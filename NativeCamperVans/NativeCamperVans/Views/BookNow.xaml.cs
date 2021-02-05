@@ -392,7 +392,7 @@ namespace NativeCamperVans.Views
                                 reservationView.RateDetailsList = rateDewtails;
                                 reservationView.TotalDays = rates.TotalDays;
                                 selectedVehicle.RateDetail = rvsv.RateDetail;
-
+                                break;
                             }
                         }
                     }
