@@ -28,6 +28,10 @@ namespace NativeCamperVans.Views
         List<MiscChargeSearchReview> misChargeResults;
         ObservableCollection<MiscChargeSearchReview> misChargeResultsNonSelectable;
         ObservableCollection<MiscChargeSearchReview> misChargeResultsSelectable;
+        ObservableCollection<MiscChargeSearchReview> misChargeResultsSelectableDeducible;
+        ObservableCollection<MiscChargeSearchReview> misChargeResultsSelectableDeducibleThree;
+        ObservableCollection<MiscChargeSearchReview> misChargeResultsSelectableDeducibleFour;
+        ObservableCollection<MiscChargeSearchReview> misChargeResultsSelectableDeducibleFive;
         GetMischargeSearchDetailsMobileResponse misChargeResponse;
         List<LocationTaxModel> taxResults;
         GetTaxMobileListResponse taxResponse;
@@ -178,6 +182,10 @@ namespace NativeCamperVans.Views
                         misChargeResults = misChargeResponse.MischargeResultList;
                         misChargeResultsSelectable = new ObservableCollection<MiscChargeSearchReview>();
                         misChargeResultsNonSelectable = new ObservableCollection<MiscChargeSearchReview>();
+                        misChargeResultsSelectableDeducible = new ObservableCollection<MiscChargeSearchReview>();
+                        misChargeResultsSelectableDeducibleThree = new ObservableCollection<MiscChargeSearchReview>();
+                        misChargeResultsSelectableDeducibleFour = new ObservableCollection<MiscChargeSearchReview>();
+                        misChargeResultsSelectableDeducibleFive = new ObservableCollection<MiscChargeSearchReview>();
                         if (misChargeResults != null)
                         {
                             foreach (MiscChargeSearchReview m in misChargeResults)
@@ -216,15 +224,59 @@ namespace NativeCamperVans.Views
                                             }
                                         }
                                     }
-                                    misChargeResultsSelectable.Add(m);
+                                    if (m.IsDeductible)
+                                    {
+                                        if (m.MisChargeOptionList.Count == 2)
+                                        {
+                                            misChargeResultsSelectableDeducible.Add(m);
+                                        }
+                                        if (m.MisChargeOptionList.Count == 3)
+                                        {
+                                            misChargeResultsSelectableDeducibleThree.Add(m);
+                                        }
+                                        if (m.MisChargeOptionList.Count == 4)
+                                        {
+                                            misChargeResultsSelectableDeducibleFour.Add(m);
+                                        }
+                                        if (m.MisChargeOptionList.Count == 5)
+                                        {
+                                            misChargeResultsSelectableDeducibleFive.Add(m);
+                                        }
 
+                                    }
+                                    else
+                                    {
+                                        misChargeResultsSelectable.Add(m);
+                                    }
                                 }
                                 else
                                 {
                                     m.IsSelected = true;
 
-                                    misChargeResultsNonSelectable.Add(m);
+                                    if (m.IsDeductible)
+                                    {
+                                        if (m.MisChargeOptionList.Count == 2)
+                                        {
+                                            misChargeResultsSelectableDeducible.Add(m);
+                                        }
+                                        if (m.MisChargeOptionList.Count == 3)
+                                        {
+                                            misChargeResultsSelectableDeducibleThree.Add(m);
+                                        }
+                                        if (m.MisChargeOptionList.Count == 4)
+                                        {
+                                            misChargeResultsSelectableDeducibleFour.Add(m);
+                                        }
+                                        if (m.MisChargeOptionList.Count == 5)
+                                        {
+                                            misChargeResultsSelectableDeducibleFive.Add(m);
+                                        }
 
+                                    }
+                                    else
+                                    {
+                                        misChargeResultsNonSelectable.Add(m);
+                                    }
                                 }
                             }
                         }
@@ -248,7 +300,7 @@ namespace NativeCamperVans.Views
 
                     if (misChargeResultsSelectable.Count() > 0)
                     {
-                            RateListSelectLabel.BindingContext = misChargeResultsSelectable;
+                            RateListSelectLabel.ItemsSource = misChargeResultsSelectable;
                             RateListSelectLabel.HeightRequest = misChargeResultsSelectable.Count() * 80;
                     }
                     if (misChargeResultsSelectable.Count() == 0)
@@ -266,6 +318,46 @@ namespace NativeCamperVans.Views
                         taxList.IsVisible = false;
                         taxHeadingLabel.IsVisible = false;
                     }
+
+
+
+                    if (misChargeResultsSelectableDeducible.Count() > 0)
+                    {
+                        RateListSelectLabelDeducible.ItemsSource = misChargeResultsNonSelectable;
+                    }
+                    if (misChargeResultsSelectableDeducible.Count() == 0)
+                    {
+                        RateListSelectLabelDeducible.IsVisible = false;
+                    }
+
+                    if (misChargeResultsSelectableDeducibleThree.Count() > 0)
+                    {
+                        RateListSelectLabelDeducibleThree.ItemsSource = misChargeResultsNonSelectable;
+                    }
+                    if (misChargeResultsSelectableDeducibleThree.Count() == 0)
+                    {
+                        RateListSelectLabelDeducibleThree.IsVisible = false;
+                    }
+
+                    if (misChargeResultsSelectableDeducibleFour.Count() > 0)
+                    {
+                        RateListSelectLabelDeducibleFour.ItemsSource = misChargeResultsNonSelectable;
+                    }
+                    if (misChargeResultsSelectableDeducibleFour.Count() == 0)
+                    {
+                        RateListSelectLabelDeducibleFour.IsVisible = false;
+                    }
+
+
+                    if (misChargeResultsSelectableDeducibleFive.Count() > 0)
+                    {
+                        RateListSelectLabelDeducibleFive.ItemsSource = misChargeResultsNonSelectable;
+                    }
+                    if (misChargeResultsSelectableDeducibleFive.Count() == 0)
+                    {
+                        RateListSelectLabelDeducibleFive.IsVisible = false;
+                    }
+
 
                 }
 
@@ -466,10 +558,10 @@ namespace NativeCamperVans.Views
             var objGrid = (Grid)obj.Parent;
             var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            //List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+            ObservableCollection<MiscChargeSearchReview> newList = misChargeResultsSelectable;
 
             var data = objGrid.BindingContext as MiscChargeSearchReview;
-            foreach (MiscChargeSearchReview msrm in misChargeResultsSelectable)
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
@@ -478,9 +570,9 @@ namespace NativeCamperVans.Views
                  
                 }
             }
-            //RateListSelectLabel.ItemsSource = null;
-            //RateListSelectLabel.ItemsSource = newList;
-            //RateListSelectLabel.HeightRequest = newList.Count() * 80;
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
 
         private void ExtStepper_SubClicked(object sender, EventArgs e)
@@ -489,10 +581,10 @@ namespace NativeCamperVans.Views
             var objGrid = (Grid)obj.Parent;
             var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            //List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+            ObservableCollection<MiscChargeSearchReview> newList = misChargeResultsSelectable;
 
             var data = viewCell.BindingContext as MiscChargeSearchReview;
-            foreach (MiscChargeSearchReview msrm in misChargeResultsSelectable)
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
@@ -505,9 +597,9 @@ namespace NativeCamperVans.Views
                 }
             }
 
-            //RateListSelectLabel.ItemsSource = null;
-            //RateListSelectLabel.ItemsSource = newList;
-            //RateListSelectLabel.HeightRequest = newList.Count() * 80;
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
 
         private void descriptionBtn_Tapped(object sender, EventArgs e)
@@ -519,12 +611,12 @@ namespace NativeCamperVans.Views
         {
             var obj = (Button)sender;
             var objGrid = (Grid)obj.Parent;
-//            var viewCell = (ExtendedViewCell)objGrid.Parent;
+            //            var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            //List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+            ObservableCollection<MiscChargeSearchReview> newList = misChargeResultsSelectable;
 
             var data = objGrid.BindingContext as MiscChargeSearchReview;
-            foreach (MiscChargeSearchReview msrm in misChargeResultsSelectable)
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
@@ -537,9 +629,9 @@ namespace NativeCamperVans.Views
                 }
             }
 
-            //RateListSelectLabel.ItemsSource = null;
-            //RateListSelectLabel.ItemsSource = newList;
-            //RateListSelectLabel.HeightRequest = newList.Count() * 80;
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
         }
 
         private void btnincrease_Clicked(object sender, EventArgs e)
@@ -548,10 +640,10 @@ namespace NativeCamperVans.Views
             var objGrid = (Grid)obj.Parent;
    //         var viewCell = (ExtendedViewCell)objGrid.Parent;
 
-            //List<MiscChargeSearchReview> newList = misChargeResultsSelectable;
+            ObservableCollection<MiscChargeSearchReview> newList = misChargeResultsSelectable;
 
             var data = objGrid.BindingContext as MiscChargeSearchReview;
-            foreach (MiscChargeSearchReview msrm in misChargeResultsSelectable)
+            foreach (MiscChargeSearchReview msrm in newList)
             {
                 if (data.MiscChargeID == msrm.MiscChargeID)
                 {
@@ -560,9 +652,14 @@ namespace NativeCamperVans.Views
 
                 }
             }
-            //RateListSelectLabel.ItemsSource = null;
-            //RateListSelectLabel.ItemsSource = newList;
-            //RateListSelectLabel.HeightRequest = newList.Count() * 80;
+            RateListSelectLabel.ItemsSource = null;
+            RateListSelectLabel.ItemsSource = newList;
+            RateListSelectLabel.HeightRequest = newList.Count() * 80;
+        }
+
+        private void misDeduRadiaBtnGroup_SelectedItemChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

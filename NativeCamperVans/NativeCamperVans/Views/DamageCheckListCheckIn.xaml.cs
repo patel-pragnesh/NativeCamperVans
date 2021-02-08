@@ -18,6 +18,7 @@ using Xamarin.Forms.Xaml;
 
 namespace NativeCamperVans.Views
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DamageCheckListCheckIn : ContentPage
     {
         private int agreementId;
