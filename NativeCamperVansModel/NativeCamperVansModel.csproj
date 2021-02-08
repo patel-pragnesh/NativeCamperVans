@@ -25,7 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Alexander\AppData\Local\Temp\vsD70F.tmp\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Thanah\AppData\Local\Temp\vsF04.tmp\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IntermediateOutputPath>C:\Users\Alexander\AppData\Local\Temp\vsD70F.tmp\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Thanah\AppData\Local\Temp\vsF04.tmp\Release\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

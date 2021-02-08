@@ -66,10 +66,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NativeCamperVansModel\NativeCamperVansModel.csproj">
-      <Project>{49EDA53E-E3FC-4AED-8C12-F83C323C3F9C}</Project>
-      <Name>NativeCamperVansModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NativeCamperVansServices\NativeCamperVansServices.csproj">
       <Project>{5C3F8A9B-A542-4DA6-8CCD-A090A452A226}</Project>
       <Name>NativeCamperVansServices</Name>
