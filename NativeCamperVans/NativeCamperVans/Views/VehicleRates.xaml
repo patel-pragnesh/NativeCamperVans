@@ -1275,8 +1275,7 @@
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
                                     RowHeight="140"
-                                    BackgroundColor="White"
-                                          RowHeight="120">
+                                    BackgroundColor="White">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
