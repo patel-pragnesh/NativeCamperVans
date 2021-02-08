@@ -781,7 +781,7 @@
                                     Grid.Column="0"
                                     HeightRequest="1"
                                     VerticalOptions="EndAndExpand"
-                                    Color="{StaticResource MaxVonGray}" />
+                                    Color="{StaticResource Black}" />
 
                                 <ListView
                                     x:Name="RateListSelectLabel"
@@ -1041,7 +1041,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource MaxVonGray}" />
+                                                        Color="{StaticResource Black}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -1258,7 +1258,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource MaxVonGray}" />
+                                                        Color="{StaticResource Black}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -1274,18 +1274,15 @@
                                     HasUnevenRows="True"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
-<<<<<<< HEAD
-                                    BackgroundColor="White">
-=======
-                                    RowHeight="120">
->>>>>>> c4e7466d72216d4279da7b0226fdda5a8981c0b8
+                                    BackgroundColor="White"
+                                    RowHeight="125">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
-                                                        <RowDefinition Height="40" />
+                                                        <RowDefinition Height="45" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -1424,7 +1421,7 @@
                                                                 </Span>
                                                                 <Span
                                                                     FontFamily="Roboto-Regular"
-                                                                    Text="{Binding price}"
+                                                                    Text="{Binding Source={x:Reference radiogrouptwo},  Path=price}"
                                                                     TextColor="{StaticResource MaxVonBlack}">
                                                                     <Span.FontSize>
                                                                         <OnPlatform x:TypeArguments="x:Double">
@@ -1448,6 +1445,7 @@
                                                     </Label>
 
                                                     <input:RadioButtonGroupView
+                                                        x:Name="radiogrouptwo"
                                                     Grid.Row="1"
                                                         Grid.ColumnSpan="3"
                                                         Grid.Column="0"
@@ -1455,11 +1453,12 @@
                                                     Orientation="Horizontal"
                                                      Spacing="5"
                                                         SelectedIndex="0"                                                        
-                                                        Margin="10">
+                                                        Margin="10"
+                                                        SelectedItem="{Binding price, Mode=TwoWay}">
                                                         <input:RadioButton
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[0].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="Black"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -1481,7 +1480,7 @@
                                                         <input:RadioButton
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[1].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -1511,7 +1510,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource MaxVonGray}" />
+                                                        Color="{StaticResource Black}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -1629,7 +1628,6 @@
 
 
                                                     <Label
-                                                        IsVisible="false"
                                                         Grid.Column="2"
                                                         Margin="0,0,10,0"
                                                         VerticalOptions="Center">
@@ -1674,7 +1672,7 @@
                                                                 </Span>
                                                                 <Span
                                                                     FontFamily="Roboto-Regular"
-                                                                    Text="{Binding price}"
+                                                                    Text="{Binding Source={x:Reference radiogroupThree},  Path=price}"
                                                                     TextColor="{StaticResource MaxVonBlack}">
                                                                     <Span.FontSize>
                                                                         <OnPlatform x:TypeArguments="x:Double">
@@ -1698,6 +1696,8 @@
                                                     </Label>
 
                                                     <input:RadioButtonGroupView
+                                                        x:Name="radiogroupThree"
+                                                        SelectedItem="{Binding price, Mode=TwoWay}"
                                                     Grid.Row="1"
                                                         Grid.ColumnSpan="3"
                                                         Grid.Column="0"
@@ -1789,7 +1789,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource MaxVonGray}" />
+                                                        Color="{StaticResource Black}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -1986,7 +1986,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[0].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[0].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2009,7 +2009,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[1].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[1].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2032,7 +2032,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[2].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[2].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[2].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2056,7 +2056,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[3].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[3].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[3].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2086,7 +2086,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource MaxVonGray}" />
+                                                        Color="{StaticResource Black}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -2283,7 +2283,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[0].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[0].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2306,7 +2306,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[1].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[1].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2329,7 +2329,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[2].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[2].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[2].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2353,7 +2353,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[3].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[3].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[3].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2377,7 +2377,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[4].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[4].Name}"
-                                                        TextColor="{StaticResource MaxVonGray}"
+                                                        TextColor="{StaticResource Black}"
                                                         Value="{Binding MisChargeOptionList[4].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2407,7 +2407,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource MaxVonGray}" />
+                                                        Color="{StaticResource Black}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -2439,7 +2439,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="StartAndExpand"
-                                        Color="{StaticResource MaxVonGray}" />
+                                        Color="{StaticResource Black}" />
                                     <StackLayout
                                         Grid.Column="0"
                                         Margin="10,0,0,0"
@@ -2525,7 +2525,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource MaxVonGray}" />
+                                        Color="{StaticResource Black}" />
 
 
                                     <!--  Row 2  -->
@@ -2614,7 +2614,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource MaxVonGray}" />
+                                        Color="{StaticResource Black}" />
 
                                     <!--  Row 3  -->
                                     <StackLayout
@@ -2706,7 +2706,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource MaxVonGray}" />
+                                        Color="{StaticResource Black}" />
 
                                     <!--  Row 4  -->
                                     <StackLayout
@@ -2794,7 +2794,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource MaxVonGray}" />
+                                        Color="{StaticResource Black}" />
 
                                     <!--  Row 5  -->
                                     <StackLayout
@@ -2886,7 +2886,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource MaxVonGray}" />
+                                        Color="{StaticResource Black}" />
 
 
                                     <!--  Row 6  -->
@@ -2976,7 +2976,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource MaxVonGray}" />
+                                        Color="{StaticResource Black}" />
                                 </Grid>
 
                                 <Label
@@ -3215,7 +3215,7 @@
                                                         Grid.ColumnSpan="3"
                                                         HeightRequest="1"
                                                         VerticalOptions="StartAndExpand"
-                                                        Color="{StaticResource MaxVonGray}" />
+                                                        Color="{StaticResource Black}" />
                                                     <StackLayout
                                                         Grid.Column="0"
                                                         Spacing="1"
@@ -3361,7 +3361,7 @@
                                                         Grid.ColumnSpan="3"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource MaxVonGray}" />
+                                                        Color="{StaticResource Black}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -3484,7 +3484,7 @@
                                         FontSize="Small"
                                         HorizontalOptions="End"
                                         Text="{Binding Value}"
-                                        TextColor="{StaticResource MaxVonGray}"
+                                        TextColor="{StaticResource Black}"
                                         VerticalOptions="Center" />
                                     </Grid>
                                 </renders:ExtendedViewCell>
@@ -3523,8 +3523,8 @@
                                 Margin="10,0,0,0"
                                 FontSize="Small"
                                 Placeholder="Enter promo code"
-                                PlaceholderColor="{StaticResource MaxVonGray}"
-                                TextColor="{StaticResource MaxVonGray}" />
+                                PlaceholderColor="{StaticResource Black}"
+                                TextColor="{StaticResource Black}" />
                             <Button
                                 x:Name="PromoBtn"
                                 Grid.Row="0"
@@ -3598,7 +3598,7 @@
                                         FontSize="Small"
                                         HorizontalOptions="End"
                                         Text="{Binding Value}"
-                                        TextColor="{StaticResource MaxVonGray}"
+                                        TextColor="{StaticResource Black}"
                                         VerticalOptions="Center" />
                                     </Grid>
                                 </renders:ExtendedViewCell>
@@ -3622,7 +3622,7 @@
                         FontSize="Body"
                         HorizontalOptions="EndAndExpand"
                         Text="9999.99"
-                        TextColor="{StaticResource MaxVonGray}" />
+                        TextColor="{StaticResource Black}" />
                     </StackLayout>
                     <Grid
                     Grid.Row="6"
