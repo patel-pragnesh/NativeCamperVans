@@ -248,6 +248,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <Frame
+                                    BackgroundColor="White"
                                 Margin="10,10"
                                 Padding="0"
                                 BorderColor="LightGray"
@@ -1340,7 +1341,8 @@
                 BorderColor="LightGray"
                 CornerRadius="10"
                 HasShadow="False"
-                HeightRequest="400">
+                HeightRequest="400"
+                    BackgroundColor="White">
                     <Grid Margin="5,10" Padding="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="45" />

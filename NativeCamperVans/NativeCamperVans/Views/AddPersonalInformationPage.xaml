@@ -530,6 +530,7 @@
                                     </Image>
 
                                     <renders:CustomEntry
+                                        BackgroundColor="Transparent"
                                         x:Name="FirstNameEntry"
                                         Grid.Column="1"
                                         Margin="10,0,0,0"
@@ -621,7 +622,8 @@
                                         Keyboard="Email"
                                         Placeholder="Last Name"
                                         PlaceholderColor="{StaticResource MaxVonBlack}"
-                                        TextColor="{StaticResource MaxVonBlack}" />
+                                        TextColor="{StaticResource MaxVonBlack}"
+                                        BackgroundColor="Transparent"/>
                                 </Grid>
                             </Frame>
 
@@ -703,7 +705,8 @@
                                         Keyboard="Telephone"
                                         Placeholder="Contact Number"
                                         PlaceholderColor="{StaticResource MaxVonBlack}"
-                                        TextColor="{StaticResource MaxVonBlack}" />
+                                        TextColor="{StaticResource MaxVonBlack}"
+                                        BackgroundColor="Transparent"/>
                                 </Grid>
 
                             </Frame>
@@ -786,7 +789,8 @@
                                         FontFamily="Roboto-Medium"
                                         FontSize="Medium"
                                         Placeholder="Date Of Birth"
-                                        TextColor="{StaticResource MaxVonBlack}" />
+                                        TextColor="{StaticResource MaxVonBlack}"
+                                        BackgroundColor="Transparent"/>
 
                                     <ImageButton
                                         Grid.Column="2"
@@ -908,7 +912,8 @@
                                         FontSize="Medium"
                                         Placeholder="Address"
                                         PlaceholderColor="{StaticResource MaxVonBlack}"
-                                        TextColor="{StaticResource MaxVonBlack}" />
+                                        TextColor="{StaticResource MaxVonBlack}"
+                                        BackgroundColor="Transparent"/>
                                 </Grid>
                             </Frame>
 
@@ -989,7 +994,8 @@
                                         FontSize="Medium"
                                         Placeholder="City"
                                         PlaceholderColor="{StaticResource MaxVonBlack}"
-                                        TextColor="{StaticResource MaxVonBlack}" />
+                                        TextColor="{StaticResource MaxVonBlack}"
+                                        BackgroundColor="Transparent"/>
                                 </Grid>
                             </Frame>
 
@@ -1237,7 +1243,8 @@
                                         FontSize="Medium"
                                         Placeholder="Zip/Postal Code"
                                         PlaceholderColor="{StaticResource MaxVonBlack}"
-                                        TextColor="{StaticResource MaxVonBlack}" />
+                                        TextColor="{StaticResource MaxVonBlack}"
+                                        BackgroundColor="Transparent"/>
                                 </Grid>
 
                             </Frame>

@@ -427,7 +427,8 @@
                                                 Keyboard="Email"
                                                 Placeholder="License Number"
                                                 PlaceholderColor="{StaticResource MaxVonBlack}"
-                                                TextColor="{StaticResource MaxVonBlack}" />
+                                                TextColor="{StaticResource MaxVonBlack}"
+                                                BackgroundColor="Transparent"/>
                                         </Grid>
 
                                     </Frame>
@@ -557,7 +558,8 @@
                                                 FontFamily="Roboto-Bold"
                                                 FontSize="Small"
                                                 HorizontalOptions="Center"
-                                                Text="Front image" />
+                                                Text="Front image"
+                                                TextColor="Black"/>
                                         </StackLayout>
 
                                         <StackLayout
@@ -584,7 +586,8 @@
                                                 FontFamily="Roboto-Bold"
                                                 FontSize="Small"
                                                 HorizontalOptions="Center"
-                                                Text="Back image" />
+                                                Text="Back image"
+                                                TextColor="Black"/>
 
                                         </StackLayout>
                                     </Grid>
