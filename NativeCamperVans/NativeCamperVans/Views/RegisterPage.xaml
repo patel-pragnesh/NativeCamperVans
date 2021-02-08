@@ -371,6 +371,7 @@
                                     </Image>
 
                                     <renders:CustomEntry
+                                        TextColor="Black"
                                         x:Name="emailEntry"
                                         Grid.Column="1"
                                         Margin="10,0,0,0"
@@ -378,7 +379,8 @@
                                         FontSize="Medium"
                                         Keyboard="Email"
                                         Placeholder="Email Address"
-                                        PlaceholderColor="{StaticResource Black}" />
+                                        PlaceholderColor="{StaticResource Black}"
+                                        BackgroundColor="Transparent"/>
                                 </Grid>
                             </Frame>
 
@@ -458,7 +460,8 @@
                                 BorderColor="{StaticResource Black}"
                                 CornerRadius="10"
                                 HasShadow="False"
-                                HeightRequest="50">
+                                HeightRequest="50"
+                                >
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -506,6 +509,7 @@
                                     </Image>
 
                                     <renders:CustomEntry
+                                        TextColor="Black"
                                         x:Name="PasswordEntry"
                                         Grid.Column="1"
                                         Margin="10,0,0,0"
@@ -513,7 +517,8 @@
                                         FontSize="Medium"
                                         IsPassword="True"
                                         Placeholder="Password"
-                                        PlaceholderColor="{StaticResource Black}" />
+                                        PlaceholderColor="{StaticResource Black}"
+                                        BackgroundColor="Transparent"/>
 
                                     <ImageButton
                                         x:Name="passwordvisible"
@@ -628,7 +633,9 @@
                                         FontSize="Medium"
                                         IsPassword="True"
                                         Placeholder="Confirm password"
-                                        PlaceholderColor="{StaticResource Black}" />
+                                        PlaceholderColor="{StaticResource Black}"
+                                        BackgroundColor="Transparent"
+                                        TextColor="Black"/>
 
 
                                     <ImageButton
