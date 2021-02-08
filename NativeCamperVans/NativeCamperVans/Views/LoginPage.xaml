@@ -12,7 +12,7 @@
     NavigationPage.HasNavigationBar="False"
     mc:Ignorable="d">
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView>    
             <StackLayout
                 Margin="20,30,20,20"
                 HorizontalOptions="FillAndExpand"
@@ -149,6 +149,8 @@
                             </Image>
 
                             <renders:CustomEntry
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
                                 x:Name="loginEmailAddress"
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -265,12 +267,14 @@
                             </Image>
 
                             <renders:CustomEntry
+                                BackgroundColor="Transparent"
                                 x:Name="loginPassword"
                                 Grid.Column="1"
                                 Margin="10,0,0,0"
                                 FontFamily="Roboto-Medium"
                                 IsPassword="True"
                                 Placeholder="Password"
+                                TextColor="Black"
                                 PlaceholderColor="{StaticResource Black}">
                                 <renders:CustomEntry.FontSize>
                                     <OnPlatform x:TypeArguments="x:Double">

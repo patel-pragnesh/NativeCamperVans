@@ -20,6 +20,7 @@ namespace NativeCamperVansModel
         public int? VehicleType { get; set; }
         public int? Unit { get; set; }
         public int? LocationID { get; set; }
+        public bool IsSelect { get; set; }
 
     }
 }
