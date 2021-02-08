@@ -206,7 +206,9 @@
                                 FontSize="Medium"
                                 Keyboard="Numeric"
                                 Placeholder="Price"
-                                PlaceholderColor="{StaticResource Black}" />
+                                PlaceholderColor="{StaticResource Black}"
+                                TextColor="Black"
+                                BackgroundColor="Transparent"/>
                         </Grid>
                     </Frame>
 
@@ -240,7 +242,9 @@
                                 FontSize="Medium"
                                 Keyboard="Numeric"
                                 Placeholder="Minimum price"
-                                PlaceholderColor="{StaticResource Black}" />
+                                PlaceholderColor="{StaticResource Black}"
+                                TextColor="Black"
+                                BackgroundColor="Transparent"/>
                         </Grid>
                     </Frame>
 
@@ -274,7 +278,9 @@
                                 FontSize="Medium"
                                 Keyboard="Numeric"
                                 Placeholder="Number of Seats"
-                                PlaceholderColor="{StaticResource Black}" />
+                                PlaceholderColor="{StaticResource Black}"
+                                TextColor="Black"
+                                BackgroundColor="Transparent"/>
                         </Grid>
                     </Frame>
 
@@ -308,7 +314,9 @@
                                 FontSize="Medium"
                                 Keyboard="Numeric"
                                 Placeholder="Number of Baggages"
-                                PlaceholderColor="{StaticResource Black}" />
+                                PlaceholderColor="{StaticResource Black}"
+                                TextColor="Black"
+                                BackgroundColor="Transparent"/>
                         </Grid>
                     </Frame>
 
@@ -342,7 +350,9 @@
                                 FontSize="Medium"
                                 Keyboard="Numeric"
                                 Placeholder="Number of Doors"
-                                PlaceholderColor="{StaticResource Black}" />
+                                PlaceholderColor="{StaticResource Black}"
+                                TextColor="Black"
+                                BackgroundColor="Transparent"/>
                         </Grid>
                     </Frame>
 

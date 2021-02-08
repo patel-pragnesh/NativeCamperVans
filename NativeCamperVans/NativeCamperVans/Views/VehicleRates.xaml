@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="NativeCamperVans.Views.VehicleRates"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -324,7 +324,8 @@
                                 Padding="0"
                                 Orientation="Horizontal"
                                 Spacing="2"
-                                VerticalOptions="CenterAndExpand">
+                                VerticalOptions="CenterAndExpand"
+                                BackgroundColor="Transparent">
                                 <Label
                                     FontAttributes="Bold"
                                     FontFamily="Roboto-Black"
@@ -530,6 +531,7 @@
                         </Grid>
 
                         <Frame
+                            BackgroundColor="Transparent"
                             Grid.Row="2"
                             Padding="0"
                             BorderColor="{StaticResource MaxVonBlack}"
@@ -786,11 +788,12 @@
                                     Grid.Row="1"
                                     RowHeight="80"
                                     SeparatorVisibility="None"
-                                    VerticalScrollBarVisibility="Never">
+                                    VerticalScrollBarVisibility="Never"
+                                    BackgroundColor="White">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
-                                                <Grid>
+                                            <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}" >
+                                                <Grid BackgroundColor="Transparent">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
                                                     </Grid.RowDefinitions>
@@ -806,7 +809,8 @@
                                                     <StackLayout
                                                         Grid.Column="0"
                                                         Spacing="0"
-                                                        VerticalOptions="CenterAndExpand">
+                                                        VerticalOptions="CenterAndExpand"
+                                                        BackgroundColor="Transparent">
                                                         <StackLayout.Margin>
                                                             <OnPlatform x:TypeArguments="Thickness">
                                                                 <On Platform="iOS">
@@ -824,6 +828,7 @@
                                                             </OnPlatform>
                                                         </StackLayout.Margin>
                                                         <input:CheckBox
+                                                            BackgroundColor="Transparent"
                                                             Key="{Binding MiscChargeID}"
                                                             CheckChanged="CheckBox_CheckChanged"
                                                             FontFamily="Roboto-Bold"
@@ -1053,7 +1058,8 @@
                                     Grid.Row="2"
                                     RowHeight="65"
                                     SeparatorVisibility="None"
-                                    VerticalScrollBarVisibility="Never">
+                                    VerticalScrollBarVisibility="Never"
+                                    BackgroundColor="White">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
@@ -1268,7 +1274,11 @@
                                     HasUnevenRows="True"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
+<<<<<<< HEAD
+                                    BackgroundColor="White">
+=======
                                     RowHeight="120">
+>>>>>>> c4e7466d72216d4279da7b0226fdda5a8981c0b8
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
@@ -1511,6 +1521,7 @@
                                 </ListView>
 
                                 <ListView
+                                    BackgroundColor="White"
                                     x:Name="RateListSelectLabelDeducibleThree"
                                     Grid.Row="4"
                                     HasUnevenRows="True"
@@ -1788,6 +1799,7 @@
                                 </ListView>
 
                                 <ListView
+                                    BackgroundColor="White"
                                     x:Name="RateListSelectLabelDeducibleFour"
                                     Grid.Row="5"
                                     HasUnevenRows="True"
@@ -2084,6 +2096,7 @@
                                 </ListView>
 
                                 <ListView
+                                    BackgroundColor="White"
                                     x:Name="RateListSelectLabelDeducibleFive"
                                     Grid.Row="6"
                                     HasUnevenRows="True"
@@ -3054,6 +3067,7 @@
 
 
                                             <renders:CustomEntry
+                                                BackgroundColor="White"
                                                 x:Name="promoCodeEntry"
                                                 Grid.Column="1"
                                                 Margin="0,0,0,0"
@@ -3175,6 +3189,7 @@
 
 
                                 <ListView
+                                    BackgroundColor="White"
                                     x:Name="taxList"
                                     Grid.Row="10"
                                     RowHeight="65"
