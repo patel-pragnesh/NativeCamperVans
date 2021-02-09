@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="NativeCamperVans.Views.VehicleRates"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+     xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:NativeCamperVans.MarkupExtensions"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:renders="clr-namespace:NativeCamperVans.Renders"
-    BackgroundColor="{StaticResource MaxVonWhite}"
-    mc:Ignorable="d">
+    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             mc:Ignorable="d"
+    BackgroundColor="{StaticResource MaxVonWhite}">
     <!--<ContentPage.ToolbarItems>
         <ToolbarItem
             x:Name="loginIcon"
@@ -324,7 +324,8 @@
                                 Padding="0"
                                 Orientation="Horizontal"
                                 Spacing="2"
-                                VerticalOptions="CenterAndExpand">
+                                VerticalOptions="CenterAndExpand"
+                                BackgroundColor="Transparent">
                                 <Label
                                     FontAttributes="Bold"
                                     FontFamily="Roboto-Black"
@@ -530,7 +531,7 @@
                         </Grid>
 
                         <Frame
-                            BackgroundColor="white"
+                            BackgroundColor="Transparent"
                             Grid.Row="2"
                             Padding="0"
                             BorderColor="{StaticResource MaxVonBlack}"
@@ -782,16 +783,17 @@
                                     VerticalOptions="EndAndExpand"
                                     Color="{StaticResource MaxVonGray}" />
 
-                                <ListView BackgroundColor="white"
+                                <ListView
                                     x:Name="RateListSelectLabel"
                                     Grid.Row="1"
                                     RowHeight="80"
                                     SeparatorVisibility="None"
-                                    VerticalScrollBarVisibility="Never">
+                                    VerticalScrollBarVisibility="Never"
+                                    BackgroundColor="White">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
-                                                <Grid>
+                                            <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}" >
+                                                <Grid BackgroundColor="Transparent">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
                                                     </Grid.RowDefinitions>
@@ -807,7 +809,8 @@
                                                     <StackLayout
                                                         Grid.Column="0"
                                                         Spacing="0"
-                                                        VerticalOptions="CenterAndExpand">
+                                                        VerticalOptions="CenterAndExpand"
+                                                        BackgroundColor="Transparent">
                                                         <StackLayout.Margin>
                                                             <OnPlatform x:TypeArguments="Thickness">
                                                                 <On Platform="iOS">
@@ -825,6 +828,7 @@
                                                             </OnPlatform>
                                                         </StackLayout.Margin>
                                                         <input:CheckBox
+                                                            BackgroundColor="Transparent"
                                                             Key="{Binding MiscChargeID}"
                                                             CheckChanged="CheckBox_CheckChanged"
                                                             FontFamily="Roboto-Bold"
@@ -1050,12 +1054,12 @@
 
 
                                 <ListView
-                                    BackgroundColor="white"
                                     x:Name="RateList"
                                     Grid.Row="2"
                                     RowHeight="65"
                                     SeparatorVisibility="None"
-                                    VerticalScrollBarVisibility="Never">
+                                    VerticalScrollBarVisibility="Never"
+                                    BackgroundColor="White">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
@@ -1264,7 +1268,7 @@
                                 </ListView>
 
 
-                                <ListView 
+                                <ListView
                                     x:Name="RateListSelectLabelDeducible"
                                     Grid.Row="3"
                                     HasUnevenRows="True"
@@ -1272,7 +1276,6 @@
                                     VerticalScrollBarVisibility="Never"
                                     RowHeight="140"
                                     BackgroundColor="White">
-
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
@@ -1375,9 +1378,9 @@
                                                     
                                                     <Label
                                                         Grid.Column="2"
-                                                        IsVisible="false"
                                                         Margin="0,0,10,0"
-                                                        VerticalOptions="Center">
+                                                        VerticalOptions="Center"
+                                                        IsVisible="false">
                                                         <Label.Margin>
                                                             <OnPlatform x:TypeArguments="Thickness">
                                                                 <On Platform="iOS">
@@ -1450,10 +1453,10 @@
                                                     Orientation="Horizontal"
                                                      Spacing="5"
                                                         SelectedIndex="0"                                                        
-                                                        Margin="10">
-                                                        <input:RadioButton
-                                                        IsEnabled="False"
-                                                        Text="{Binding MisChargeOptionList[0].Name}"
+                                                        Margin="10"
+                                                        SelectedItemChanged="RadioButtonGroupView_SelectedItemChanged">
+                                                        <input:RadioButton                                                        
+                                                            IsChecked="{Binding MisChargeOptionList[0].IsSelect}" Text="{Binding MisChargeOptionList[0].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
                                                             <input:RadioButton.TextFontSize>
@@ -1474,8 +1477,8 @@
                                                             </input:RadioButton.TextFontSize>
                                                         </input:RadioButton>
                                                         <input:RadioButton
-                                                        IsEnabled="False"
-                                                        Text="{Binding MisChargeOptionList[1].Name}"
+                                                            IsChecked="{Binding MisChargeOptionList[1].IsSelect}"
+                                                            Text="{Binding MisChargeOptionList[1].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
                                                             <input:RadioButton.TextFontSize>
@@ -1515,7 +1518,8 @@
 
                                 </ListView>
 
-                                <ListView BackgroundColor="white"
+                                <ListView
+                                    BackgroundColor="White"
                                     x:Name="RateListSelectLabelDeducibleThree"
                                     Grid.Row="4"
                                     HasUnevenRows="True"
@@ -1692,6 +1696,7 @@
                                                     </Label>
 
                                                     <input:RadioButtonGroupView
+                                                        SelectedItemChanged="RadioButtonGroupView_SelectedItemChanged"
                                                     Grid.Row="1"
                                                         Grid.ColumnSpan="3"
                                                         Grid.Column="0"
@@ -1792,7 +1797,8 @@
 
                                 </ListView>
 
-                                <ListView BackgroundColor="white"
+                                <ListView
+                                    BackgroundColor="White"
                                     x:Name="RateListSelectLabelDeducibleFour"
                                     Grid.Row="5"
                                     HasUnevenRows="True"
@@ -1899,10 +1905,10 @@
 
 
                                                     <Label
-                                                        IsVisible="false"
                                                         Grid.Column="2"
                                                         Margin="0,0,10,0"
-                                                        VerticalOptions="Center">
+                                                        VerticalOptions="Center"
+                                                        IsVisible="false">
                                                         <Label.Margin>
                                                             <OnPlatform x:TypeArguments="Thickness">
                                                                 <On Platform="iOS">
@@ -1975,10 +1981,10 @@
                                                     Orientation="Horizontal"
                                                     Spacing="5"
                                                         SelectedIndex="0"                                                        
-                                                        Margin="10">
+                                                        Margin="10"
+                                                        SelectedItemChanged="RadioButtonGroupView_SelectedItemChanged">
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[0].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[0].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
@@ -2001,7 +2007,6 @@
                                                         </input:RadioButton>
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[1].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[1].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
@@ -2024,7 +2029,6 @@
                                                         </input:RadioButton>
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[2].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[2].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[2].Value}">
@@ -2048,7 +2052,6 @@
 
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[3].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[3].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[3].Value}">
@@ -2089,7 +2092,8 @@
 
                                 </ListView>
 
-                                <ListView BackgroundColor="white"
+                                <ListView
+                                    BackgroundColor="White"
                                     x:Name="RateListSelectLabelDeducibleFive"
                                     Grid.Row="6"
                                     HasUnevenRows="True"
@@ -2272,10 +2276,10 @@
                                                     Orientation="Horizontal"
                                                      Spacing="5"
                                                         SelectedIndex="0"                                                        
-                                                        Margin="10">
+                                                        Margin="10"
+                                                        SelectedItemChanged="RadioButtonGroupView_SelectedItemChanged">
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[0].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[0].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
@@ -2298,7 +2302,6 @@
                                                         </input:RadioButton>
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[1].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[1].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
@@ -2321,7 +2324,6 @@
                                                         </input:RadioButton>
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[2].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[2].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[2].Value}">
@@ -2345,7 +2347,6 @@
 
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[3].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[3].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[3].Value}">
@@ -2369,7 +2370,6 @@
 
                                                         <input:RadioButton
                                                         IsChecked="{Binding MisChargeOptionList[4].IsSelect}"
-                                                        IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[4].Name}"
                                                         TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[4].Value}">
@@ -3061,7 +3061,7 @@
 
 
                                             <renders:CustomEntry
-                                                BackgroundColor="white"
+                                                BackgroundColor="White"
                                                 x:Name="promoCodeEntry"
                                                 Grid.Column="1"
                                                 Margin="0,0,0,0"
@@ -3182,7 +3182,8 @@
                                 </Label>
 
 
-                                <ListView BackgroundColor="white"
+                                <ListView
+                                    BackgroundColor="White"
                                     x:Name="taxList"
                                     Grid.Row="10"
                                     RowHeight="65"

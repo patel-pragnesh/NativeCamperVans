@@ -3,6 +3,7 @@ using NativeCamperVans.Renders;
 using NativeCamperVansController;
 using NativeCamperVansModel;
 using NativeCamperVansModel.AccessModels;
+using Plugin.InputKit.Shared.Controls;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -39,6 +39,7 @@ namespace NativeCamperVans.Views
         string token;
         private ReservationView reservationView;
         private VehicleViewByTypeForMobile selectedVehicle;
+        Dictionary<int, string> selectedDeductibleMiscValues;
 
 
 
@@ -69,13 +70,14 @@ namespace NativeCamperVans.Views
             endDateLabel.Text = ((DateTime)reservationView.EndDate).ToString("ddd MM/dd/yyyy");
             startTimeLabel.Text = ((DateTime)reservationView.StartDate).ToString("hh:mm tt");
             endTimeLabel.Text = ((DateTime)reservationView.EndDate).ToString("hh:mm tt");
-            if(selectedVehicle.VehicleTypeImageUrl != null)
+            if (selectedVehicle.VehicleTypeImageUrl != null)
             {
                 vehilcleTypeImage.Source = ImageSource.FromUri(new Uri(selectedVehicle.VehicleTypeImageUrl));
             }
             vehicleSampleLabel.Text = selectedVehicle.sample;
             vehilcleTypeLabel.Text = selectedVehicle.VehicleType;
             priceLabel.Text = "$ " + selectedVehicle.RateDetail.RateTotal.ToString();
+            selectedDeductibleMiscValues = new Dictionary<int, string>();
         }
 
         protected override async void OnAppearing()
@@ -168,7 +170,7 @@ namespace NativeCamperVans.Views
                             {
                                 t.IsSelected = true;
                             }
-                           
+
                         }
                     };
                     if (taxResponse.message.ErrorCode != "200")
@@ -205,11 +207,11 @@ namespace NativeCamperVans.Views
                                             m.price = (decimal)m.Value * (decimal)selectedVehicle.RateDetail.TotalDays;
                                             break;
                                         }
-                                       
+
                                     case "Fixed":
                                         if (m.IsDeductible)
                                         {
-                                            m.ViewString = "( " + m.CalculationType +  " )";
+                                            m.ViewString = "( " + m.CalculationType + " )";
                                             m.price = m.Value;
                                             break;
                                         }
@@ -219,7 +221,7 @@ namespace NativeCamperVans.Views
                                             m.price = m.Value;
                                             break;
                                         }
-                                        
+
                                 }
 
                                 //if (m.IsQuantity) { m.price=(decimal)m.Value *(decimal)m.Unit; }
@@ -263,6 +265,17 @@ namespace NativeCamperVans.Views
                                             misChargeResultsSelectableDeducibleFive.Add(m);
                                         }
 
+                                        if (selectedDeductibleMiscValues.ContainsKey(m.MiscChargeID))
+                                        {
+                                            foreach (MisChargeOption mscp in m.MisChargeOptionList)
+                                            {
+                                                if (mscp.Value.ToString() == selectedDeductibleMiscValues[m.MiscChargeID])
+                                                {
+                                                    mscp.IsSelect = true;
+                                                }
+                                            }
+                                        }
+
                                     }
                                     else
                                     {
@@ -290,6 +303,17 @@ namespace NativeCamperVans.Views
                                         if (m.MisChargeOptionList.Count == 5)
                                         {
                                             misChargeResultsSelectableDeducibleFive.Add(m);
+                                        }
+
+                                        if (selectedDeductibleMiscValues.ContainsKey(m.MiscChargeID))
+                                        {
+                                            foreach (MisChargeOption mscp in m.MisChargeOptionList)
+                                            {
+                                                if (mscp.Value.ToString() == selectedDeductibleMiscValues[m.MiscChargeID])
+                                                {
+                                                    mscp.IsSelect = true;
+                                                }
+                                            }
                                         }
 
                                     }
@@ -320,8 +344,8 @@ namespace NativeCamperVans.Views
 
                     if (misChargeResultsSelectable.Count() > 0)
                     {
-                            RateListSelectLabel.ItemsSource = misChargeResultsSelectable;
-                            RateListSelectLabel.HeightRequest = misChargeResultsSelectable.Count() * 80;
+                        RateListSelectLabel.ItemsSource = misChargeResultsSelectable;
+                        RateListSelectLabel.HeightRequest = misChargeResultsSelectable.Count() * 80;
                     }
                     if (misChargeResultsSelectable.Count() == 0)
                     {
@@ -344,7 +368,7 @@ namespace NativeCamperVans.Views
                     if (misChargeResultsSelectableDeducible.Count() > 0)
                     {
                         RateListSelectLabelDeducible.ItemsSource = misChargeResultsSelectableDeducible;
-                        RateListSelectLabelDeducible.HeightRequest = misChargeResultsSelectableDeducible.Count*120;
+                        RateListSelectLabelDeducible.HeightRequest = misChargeResultsSelectableDeducible.Count * 140;
                     }
                     if (misChargeResultsSelectableDeducible.Count() == 0)
                     {
@@ -354,7 +378,7 @@ namespace NativeCamperVans.Views
                     if (misChargeResultsSelectableDeducibleThree.Count() > 0)
                     {
                         RateListSelectLabelDeducibleThree.ItemsSource = misChargeResultsSelectableDeducibleThree;
-                        RateListSelectLabelDeducibleThree.HeightRequest = misChargeResultsSelectableDeducibleThree.Count * 120;
+                        RateListSelectLabelDeducibleThree.HeightRequest = misChargeResultsSelectableDeducibleThree.Count * 140;
                     }
                     if (misChargeResultsSelectableDeducibleThree.Count() == 0)
                     {
@@ -364,7 +388,7 @@ namespace NativeCamperVans.Views
                     if (misChargeResultsSelectableDeducibleFour.Count() > 0)
                     {
                         RateListSelectLabelDeducibleFour.ItemsSource = misChargeResultsSelectableDeducibleFour;
-                        RateListSelectLabelDeducibleFour.HeightRequest = misChargeResultsSelectableDeducibleFour.Count * 120;
+                        RateListSelectLabelDeducibleFour.HeightRequest = misChargeResultsSelectableDeducibleFour.Count * 140;
                     }
                     if (misChargeResultsSelectableDeducibleFour.Count() == 0)
                     {
@@ -375,7 +399,7 @@ namespace NativeCamperVans.Views
                     if (misChargeResultsSelectableDeducibleFive.Count() > 0)
                     {
                         RateListSelectLabelDeducibleFive.ItemsSource = misChargeResultsSelectableDeducibleFive;
-                        RateListSelectLabelDeducibleFive.HeightRequest = misChargeResultsSelectableDeducibleFive.Count * 120;
+                        RateListSelectLabelDeducibleFive.HeightRequest = misChargeResultsSelectableDeducibleFive.Count * 140;
                     }
                     if (misChargeResultsSelectableDeducibleFive.Count() == 0)
                     {
@@ -458,9 +482,34 @@ namespace NativeCamperVans.Views
                 }
             }
 
+            if (misChargeResultsSelectableDeducible.Count > 0)
+            {
+                List<MiscChargeSearchReview> itemListMisde2 = RateListSelectLabelDeducible.ItemsSource as List<MiscChargeSearchReview>;
+                foreach (MiscChargeSearchReview msr in itemListMisde2)
+                {
+
+                    msr.StartDate = (DateTime)reservationView.StartDate;
+                    msr.EndDate = (DateTime)reservationView.EndDate;
+                    msr.StartDateString = reservationView.StartDateStr;
+                    msr.EndDateString = reservationView.EndDateStr;
+                    if (msr.IsSelected)
+                    {
+                        if (selectedDeductibleMiscValues != null)
+                        {
+                            if (selectedDeductibleMiscValues.ContainsKey(msr.MiscChargeID))
+                            {
+                                msr.Value = decimal.Parse(selectedDeductibleMiscValues[msr.MiscChargeID]);
+                            }
+                        }
+                        miscChargeSearchReviews.Add(msr);
+                    }
+
+                }
+            }
+
             if (misChargeResultsSelectableDeducibleThree.Count > 0)
             {
-                List<MiscChargeSearchReview> itemListMisde3= RateListSelectLabelDeducibleThree.ItemsSource as List<MiscChargeSearchReview>;
+                List<MiscChargeSearchReview> itemListMisde3 = RateListSelectLabelDeducibleThree.ItemsSource as List<MiscChargeSearchReview>;
                 foreach (MiscChargeSearchReview msr in itemListMisde3)
                 {
 
@@ -470,11 +519,62 @@ namespace NativeCamperVans.Views
                     msr.EndDateString = reservationView.EndDateStr;
                     if (msr.IsSelected)
                     {
-                        foreach(MisChargeOption mcp in msr.MisChargeOptionList)
+                        if (selectedDeductibleMiscValues != null)
                         {
-                            if (mcp.IsSelect)
+                            if (selectedDeductibleMiscValues.ContainsKey(msr.MiscChargeID))
                             {
-                                msr.Value = (decimal)mcp.Value;
+                                msr.Value = decimal.Parse(selectedDeductibleMiscValues[msr.MiscChargeID]);
+                            }
+                        }
+                        miscChargeSearchReviews.Add(msr);
+                    }
+
+                }
+            }
+
+            if (misChargeResultsSelectableDeducibleFour.Count > 0)
+            {
+                List<MiscChargeSearchReview> itemListMisde4 = RateListSelectLabelDeducibleFour.ItemsSource as List<MiscChargeSearchReview>;
+                foreach (MiscChargeSearchReview msr in itemListMisde4)
+                {
+
+                    msr.StartDate = (DateTime)reservationView.StartDate;
+                    msr.EndDate = (DateTime)reservationView.EndDate;
+                    msr.StartDateString = reservationView.StartDateStr;
+                    msr.EndDateString = reservationView.EndDateStr;
+                    if (msr.IsSelected)
+                    {
+                        if (selectedDeductibleMiscValues != null)
+                        {
+                            if (selectedDeductibleMiscValues.ContainsKey(msr.MiscChargeID))
+                            {
+                                msr.Value = decimal.Parse(selectedDeductibleMiscValues[msr.MiscChargeID]);
+                            }
+                        }
+                        miscChargeSearchReviews.Add(msr);
+                    }
+
+                }
+            }
+
+
+            if (misChargeResultsSelectableDeducibleFive.Count > 0)
+            {
+                List<MiscChargeSearchReview> itemListMisde5 = RateListSelectLabelDeducibleFive.ItemsSource as List<MiscChargeSearchReview>;
+                foreach (MiscChargeSearchReview msr in itemListMisde5)
+                {
+
+                    msr.StartDate = (DateTime)reservationView.StartDate;
+                    msr.EndDate = (DateTime)reservationView.EndDate;
+                    msr.StartDateString = reservationView.StartDateStr;
+                    msr.EndDateString = reservationView.EndDateStr;
+                    if (msr.IsSelected)
+                    {
+                        if (selectedDeductibleMiscValues != null)
+                        {
+                            if (selectedDeductibleMiscValues.ContainsKey(msr.MiscChargeID))
+                            {
+                                msr.Value = decimal.Parse(selectedDeductibleMiscValues[msr.MiscChargeID]);
                             }
                         }
                         miscChargeSearchReviews.Add(msr);
@@ -513,7 +613,7 @@ namespace NativeCamperVans.Views
 
         private void CheckBox_CheckChanged(object sender, EventArgs e)
         {
-            
+
         }
         private async void PromoBtn_Clicked(object sender, EventArgs e)
         {
@@ -581,7 +681,7 @@ namespace NativeCamperVans.Views
 
         private void TaxCheckbox_CheckChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void ExtStepper_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -615,7 +715,7 @@ namespace NativeCamperVans.Views
                 {
                     msrm._Quantity = msrm.Quantity + 1;
                     msrm._price = msrm.Value * msrm._Quantity;
-                 
+
                 }
             }
             RateListSelectLabel.ItemsSource = null;
@@ -641,7 +741,7 @@ namespace NativeCamperVans.Views
                         msrm._Quantity = msrm.Quantity - 1;
                         msrm._price = msrm.Value * msrm._Quantity;
                     }
-                    
+
                 }
             }
 
@@ -709,5 +809,30 @@ namespace NativeCamperVans.Views
         {
 
         }
+
+        private void RadioButtonGroupView_SelectedItemChanged(object sender, EventArgs e)
+        {
+
+            var obj = (RadioButtonGroupView)sender;
+            var objGrid = (Grid)obj.Parent;
+            MiscChargeSearchReview misChargeOption = objGrid.BindingContext as MiscChargeSearchReview;
+            int value = obj.SelectedIndex;
+
+            if (misChargeOption != null)
+            {
+                decimal val = (decimal)misChargeOption.MisChargeOptionList[value].Value;
+                if (selectedDeductibleMiscValues.ContainsKey(misChargeOption.MiscChargeID))
+                {
+                    selectedDeductibleMiscValues[misChargeOption.MiscChargeID] = val.ToString();
+                }
+                else
+                {
+                    selectedDeductibleMiscValues.Add(misChargeOption.MiscChargeID, val.ToString());
+                }
+            }
+
+
+            //DisplayAlert("iadh.", value.ToString(), "sdh");
+        }
     }
-}
+}         
