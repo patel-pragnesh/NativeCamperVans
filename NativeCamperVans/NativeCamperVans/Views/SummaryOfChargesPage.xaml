@@ -528,7 +528,7 @@
                         </StackLayout>
                     </Grid>
 
-                    <Frame
+                    <Frame BackgroundColor="White"
                         Grid.Row="2"
                         Padding="0" HasShadow="False"
                         BorderColor="{StaticResource MaxVonBlack}"

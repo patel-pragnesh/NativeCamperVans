@@ -324,8 +324,7 @@
                                 Padding="0"
                                 Orientation="Horizontal"
                                 Spacing="2"
-                                VerticalOptions="CenterAndExpand"
-                                BackgroundColor="Transparent">
+                                VerticalOptions="CenterAndExpand">
                                 <Label
                                     FontAttributes="Bold"
                                     FontFamily="Roboto-Black"
@@ -531,7 +530,7 @@
                         </Grid>
 
                         <Frame
-                            BackgroundColor="Transparent"
+                            BackgroundColor="white"
                             Grid.Row="2"
                             Padding="0"
                             BorderColor="{StaticResource MaxVonBlack}"
@@ -781,19 +780,18 @@
                                     Grid.Column="0"
                                     HeightRequest="1"
                                     VerticalOptions="EndAndExpand"
-                                    Color="{StaticResource Black}" />
+                                    Color="{StaticResource MaxVonGray}" />
 
-                                <ListView
+                                <ListView BackgroundColor="white"
                                     x:Name="RateListSelectLabel"
                                     Grid.Row="1"
                                     RowHeight="80"
                                     SeparatorVisibility="None"
-                                    VerticalScrollBarVisibility="Never"
-                                    BackgroundColor="White">
+                                    VerticalScrollBarVisibility="Never">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}" >
-                                                <Grid BackgroundColor="Transparent">
+                                            <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
+                                                <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
                                                     </Grid.RowDefinitions>
@@ -809,8 +807,7 @@
                                                     <StackLayout
                                                         Grid.Column="0"
                                                         Spacing="0"
-                                                        VerticalOptions="CenterAndExpand"
-                                                        BackgroundColor="Transparent">
+                                                        VerticalOptions="CenterAndExpand">
                                                         <StackLayout.Margin>
                                                             <OnPlatform x:TypeArguments="Thickness">
                                                                 <On Platform="iOS">
@@ -828,7 +825,6 @@
                                                             </OnPlatform>
                                                         </StackLayout.Margin>
                                                         <input:CheckBox
-                                                            BackgroundColor="Transparent"
                                                             Key="{Binding MiscChargeID}"
                                                             CheckChanged="CheckBox_CheckChanged"
                                                             FontFamily="Roboto-Bold"
@@ -1041,7 +1037,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource Black}" />
+                                                        Color="{StaticResource MaxVonGray}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -1054,12 +1050,12 @@
 
 
                                 <ListView
+                                    BackgroundColor="white"
                                     x:Name="RateList"
                                     Grid.Row="2"
                                     RowHeight="65"
                                     SeparatorVisibility="None"
-                                    VerticalScrollBarVisibility="Never"
-                                    BackgroundColor="White">
+                                    VerticalScrollBarVisibility="Never">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
@@ -1258,7 +1254,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource Black}" />
+                                                        Color="{StaticResource MaxVonGray}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -1268,21 +1264,22 @@
                                 </ListView>
 
 
-                                <ListView
+                                <ListView 
                                     x:Name="RateListSelectLabelDeducible"
                                     Grid.Row="3"
                                     HasUnevenRows="True"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
-                                    BackgroundColor="White"
-                                    RowHeight="125">
+                                    RowHeight="140"
+                                    BackgroundColor="White">
+
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
-                                                        <RowDefinition Height="45" />
+                                                        <RowDefinition Height="60" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -1378,6 +1375,7 @@
                                                     
                                                     <Label
                                                         Grid.Column="2"
+                                                        IsVisible="false"
                                                         Margin="0,0,10,0"
                                                         VerticalOptions="Center">
                                                         <Label.Margin>
@@ -1421,7 +1419,7 @@
                                                                 </Span>
                                                                 <Span
                                                                     FontFamily="Roboto-Regular"
-                                                                    Text="{Binding Source={x:Reference radiogrouptwo},  Path=price}"
+                                                                    Text="{Binding price}"
                                                                     TextColor="{StaticResource MaxVonBlack}">
                                                                     <Span.FontSize>
                                                                         <OnPlatform x:TypeArguments="x:Double">
@@ -1445,7 +1443,6 @@
                                                     </Label>
 
                                                     <input:RadioButtonGroupView
-                                                        x:Name="radiogrouptwo"
                                                     Grid.Row="1"
                                                         Grid.ColumnSpan="3"
                                                         Grid.Column="0"
@@ -1453,12 +1450,11 @@
                                                     Orientation="Horizontal"
                                                      Spacing="5"
                                                         SelectedIndex="0"                                                        
-                                                        Margin="10"
-                                                        SelectedItem="{Binding price, Mode=TwoWay}">
+                                                        Margin="10">
                                                         <input:RadioButton
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[0].Name}"
-                                                        TextColor="Black"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -1480,7 +1476,7 @@
                                                         <input:RadioButton
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[1].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -1510,7 +1506,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource Black}" />
+                                                        Color="{StaticResource MaxVonGray}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -1519,21 +1515,20 @@
 
                                 </ListView>
 
-                                <ListView
-                                    BackgroundColor="White"
+                                <ListView BackgroundColor="white"
                                     x:Name="RateListSelectLabelDeducibleThree"
                                     Grid.Row="4"
                                     HasUnevenRows="True"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
-                                    RowHeight="120">
+                                    RowHeight="140">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
-                                                        <RowDefinition Height="40" />
+                                                        <RowDefinition Height="60" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -1628,6 +1623,7 @@
 
 
                                                     <Label
+                                                        IsVisible="false"
                                                         Grid.Column="2"
                                                         Margin="0,0,10,0"
                                                         VerticalOptions="Center">
@@ -1672,7 +1668,7 @@
                                                                 </Span>
                                                                 <Span
                                                                     FontFamily="Roboto-Regular"
-                                                                    Text="{Binding Source={x:Reference radiogroupThree},  Path=price}"
+                                                                    Text="{Binding price}"
                                                                     TextColor="{StaticResource MaxVonBlack}">
                                                                     <Span.FontSize>
                                                                         <OnPlatform x:TypeArguments="x:Double">
@@ -1696,8 +1692,6 @@
                                                     </Label>
 
                                                     <input:RadioButtonGroupView
-                                                        x:Name="radiogroupThree"
-                                                        SelectedItem="{Binding price, Mode=TwoWay}"
                                                     Grid.Row="1"
                                                         Grid.ColumnSpan="3"
                                                         Grid.Column="0"
@@ -1789,7 +1783,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource Black}" />
+                                                        Color="{StaticResource MaxVonGray}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -1798,21 +1792,20 @@
 
                                 </ListView>
 
-                                <ListView
-                                    BackgroundColor="White"
+                                <ListView BackgroundColor="white"
                                     x:Name="RateListSelectLabelDeducibleFour"
                                     Grid.Row="5"
                                     HasUnevenRows="True"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
-                                    RowHeight="120">
+                                    RowHeight="140">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
-                                                        <RowDefinition Height="40" />
+                                                        <RowDefinition Height="60" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -1906,6 +1899,7 @@
 
 
                                                     <Label
+                                                        IsVisible="false"
                                                         Grid.Column="2"
                                                         Margin="0,0,10,0"
                                                         VerticalOptions="Center">
@@ -1986,7 +1980,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[0].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[0].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2009,7 +2003,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[1].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[1].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2032,7 +2026,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[2].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[2].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[2].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2056,7 +2050,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[3].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[3].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[3].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2086,7 +2080,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource Black}" />
+                                                        Color="{StaticResource MaxVonGray}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -2095,21 +2089,20 @@
 
                                 </ListView>
 
-                                <ListView
-                                    BackgroundColor="White"
+                                <ListView BackgroundColor="white"
                                     x:Name="RateListSelectLabelDeducibleFive"
                                     Grid.Row="6"
                                     HasUnevenRows="True"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
-                                    RowHeight="120">
+                                    RowHeight="140">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
-                                                        <RowDefinition Height="40" />
+                                                        <RowDefinition Height="60" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -2205,7 +2198,8 @@
                                                     <Label
                                                         Grid.Column="2"
                                                         Margin="0,0,10,0"
-                                                        VerticalOptions="Center">
+                                                        VerticalOptions="Center"
+                                                        IsVisible="false">
                                                         <Label.Margin>
                                                             <OnPlatform x:TypeArguments="Thickness">
                                                                 <On Platform="iOS">
@@ -2283,7 +2277,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[0].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[0].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[0].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2306,7 +2300,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[1].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[1].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[1].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2329,7 +2323,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[2].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[2].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[2].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2353,7 +2347,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[3].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[3].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[3].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2377,7 +2371,7 @@
                                                         IsChecked="{Binding MisChargeOptionList[4].IsSelect}"
                                                         IsEnabled="False"
                                                         Text="{Binding MisChargeOptionList[4].Name}"
-                                                        TextColor="{StaticResource Black}"
+                                                        TextColor="{StaticResource MaxVonGray}"
                                                         Value="{Binding MisChargeOptionList[4].Value}">
                                                             <input:RadioButton.TextFontSize>
                                                                 <OnPlatform x:TypeArguments="x:Double">
@@ -2407,7 +2401,7 @@
                                                         Margin="0,10,0,0"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource Black}" />
+                                                        Color="{StaticResource MaxVonGray}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -2439,7 +2433,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="StartAndExpand"
-                                        Color="{StaticResource Black}" />
+                                        Color="{StaticResource MaxVonGray}" />
                                     <StackLayout
                                         Grid.Column="0"
                                         Margin="10,0,0,0"
@@ -2525,7 +2519,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource Black}" />
+                                        Color="{StaticResource MaxVonGray}" />
 
 
                                     <!--  Row 2  -->
@@ -2614,7 +2608,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource Black}" />
+                                        Color="{StaticResource MaxVonGray}" />
 
                                     <!--  Row 3  -->
                                     <StackLayout
@@ -2706,7 +2700,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource Black}" />
+                                        Color="{StaticResource MaxVonGray}" />
 
                                     <!--  Row 4  -->
                                     <StackLayout
@@ -2794,7 +2788,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource Black}" />
+                                        Color="{StaticResource MaxVonGray}" />
 
                                     <!--  Row 5  -->
                                     <StackLayout
@@ -2886,7 +2880,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource Black}" />
+                                        Color="{StaticResource MaxVonGray}" />
 
 
                                     <!--  Row 6  -->
@@ -2976,7 +2970,7 @@
                                         Grid.ColumnSpan="3"
                                         HeightRequest="1"
                                         VerticalOptions="EndAndExpand"
-                                        Color="{StaticResource Black}" />
+                                        Color="{StaticResource MaxVonGray}" />
                                 </Grid>
 
                                 <Label
@@ -3067,7 +3061,7 @@
 
 
                                             <renders:CustomEntry
-                                                BackgroundColor="White"
+                                                BackgroundColor="white"
                                                 x:Name="promoCodeEntry"
                                                 Grid.Column="1"
                                                 Margin="0,0,0,0"
@@ -3188,8 +3182,7 @@
                                 </Label>
 
 
-                                <ListView
-                                    BackgroundColor="White"
+                                <ListView BackgroundColor="white"
                                     x:Name="taxList"
                                     Grid.Row="10"
                                     RowHeight="65"
@@ -3215,7 +3208,7 @@
                                                         Grid.ColumnSpan="3"
                                                         HeightRequest="1"
                                                         VerticalOptions="StartAndExpand"
-                                                        Color="{StaticResource Black}" />
+                                                        Color="{StaticResource MaxVonGray}" />
                                                     <StackLayout
                                                         Grid.Column="0"
                                                         Spacing="1"
@@ -3361,7 +3354,7 @@
                                                         Grid.ColumnSpan="3"
                                                         HeightRequest="1"
                                                         VerticalOptions="EndAndExpand"
-                                                        Color="{StaticResource Black}" />
+                                                        Color="{StaticResource MaxVonGray}" />
                                                 </Grid>
                                             </renders:ExtendedViewCell>
                                         </DataTemplate>
@@ -3484,7 +3477,7 @@
                                         FontSize="Small"
                                         HorizontalOptions="End"
                                         Text="{Binding Value}"
-                                        TextColor="{StaticResource Black}"
+                                        TextColor="{StaticResource MaxVonGray}"
                                         VerticalOptions="Center" />
                                     </Grid>
                                 </renders:ExtendedViewCell>
@@ -3523,8 +3516,8 @@
                                 Margin="10,0,0,0"
                                 FontSize="Small"
                                 Placeholder="Enter promo code"
-                                PlaceholderColor="{StaticResource Black}"
-                                TextColor="{StaticResource Black}" />
+                                PlaceholderColor="{StaticResource MaxVonGray}"
+                                TextColor="{StaticResource MaxVonGray}" />
                             <Button
                                 x:Name="PromoBtn"
                                 Grid.Row="0"
@@ -3598,7 +3591,7 @@
                                         FontSize="Small"
                                         HorizontalOptions="End"
                                         Text="{Binding Value}"
-                                        TextColor="{StaticResource Black}"
+                                        TextColor="{StaticResource MaxVonGray}"
                                         VerticalOptions="Center" />
                                     </Grid>
                                 </renders:ExtendedViewCell>
@@ -3622,7 +3615,7 @@
                         FontSize="Body"
                         HorizontalOptions="EndAndExpand"
                         Text="9999.99"
-                        TextColor="{StaticResource Black}" />
+                        TextColor="{StaticResource MaxVonGray}" />
                     </StackLayout>
                     <Grid
                     Grid.Row="6"
