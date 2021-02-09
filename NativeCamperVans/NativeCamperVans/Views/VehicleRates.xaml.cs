@@ -368,7 +368,7 @@ namespace NativeCamperVans.Views
                     if (misChargeResultsSelectableDeducible.Count() > 0)
                     {
                         RateListSelectLabelDeducible.ItemsSource = misChargeResultsSelectableDeducible;
-                        RateListSelectLabelDeducible.HeightRequest = misChargeResultsSelectableDeducible.Count* 140;
+                        RateListSelectLabelDeducible.HeightRequest = misChargeResultsSelectableDeducible.Count* 142;
                     }
                     if (misChargeResultsSelectableDeducible.Count() == 0)
                     {
@@ -378,7 +378,7 @@ namespace NativeCamperVans.Views
                     if (misChargeResultsSelectableDeducibleThree.Count() > 0)
                     {
                         RateListSelectLabelDeducibleThree.ItemsSource = misChargeResultsSelectableDeducibleThree;
-                        RateListSelectLabelDeducibleThree.HeightRequest = misChargeResultsSelectableDeducibleThree.Count * 140;
+                        RateListSelectLabelDeducibleThree.HeightRequest = misChargeResultsSelectableDeducibleThree.Count * 142;
                     }
                     if (misChargeResultsSelectableDeducibleThree.Count() == 0)
                     {
@@ -388,7 +388,7 @@ namespace NativeCamperVans.Views
                     if (misChargeResultsSelectableDeducibleFour.Count() > 0)
                     {
                         RateListSelectLabelDeducibleFour.ItemsSource = misChargeResultsSelectableDeducibleFour;
-                        RateListSelectLabelDeducibleFour.HeightRequest = misChargeResultsSelectableDeducibleFour.Count * 140;
+                        RateListSelectLabelDeducibleFour.HeightRequest = misChargeResultsSelectableDeducibleFour.Count * 162;
                     }
                     if (misChargeResultsSelectableDeducibleFour.Count() == 0)
                     {
@@ -399,7 +399,7 @@ namespace NativeCamperVans.Views
                     if (misChargeResultsSelectableDeducibleFive.Count() > 0)
                     {
                         RateListSelectLabelDeducibleFive.ItemsSource = misChargeResultsSelectableDeducibleFive;
-                        RateListSelectLabelDeducibleFive.HeightRequest = misChargeResultsSelectableDeducibleFive.Count * 140;
+                        RateListSelectLabelDeducibleFive.HeightRequest = misChargeResultsSelectableDeducibleFive.Count * 172;
                     }
                     if (misChargeResultsSelectableDeducibleFive.Count() == 0)
                     {
