@@ -15,6 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NativeCamperVans", "NativeC
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeCamperVansServices", "NativeCamperVansServices\NativeCamperVansServices.csproj", "{5C3F8A9B-A542-4DA6-8CCD-A090A452A226}"
+	ProjectSection(ProjectDependencies) = postProject
+		{49EDA53E-E3FC-4AED-8C12-F83C323C3F9C} = {49EDA53E-E3FC-4AED-8C12-F83C323C3F9C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeCamperVansController", "NativeCamperVansController\NativeCamperVansController.csproj", "{D18187E8-7767-4517-92DD-A986EE51DD04}"
 	ProjectSection(ProjectDependencies) = postProject

@@ -1695,7 +1695,7 @@
                                                         </Label.FormattedText>
                                                     </Label>
 
-                                                    <
+                                                    <input:RadioButtonGroupView
                                                         SelectedItemChanged="RadioButtonGroupView_SelectedItemChanged"
                                                     Grid.Row="1"
                                                         Grid.ColumnSpan="3"
@@ -1778,7 +1778,7 @@
                                                             </input:RadioButton.TextFontSize>
                                                         </input:RadioButton>
 
-                                                    </>
+                                                    </input:RadioButtonGroupView>
 
 
                                                     <BoxView
@@ -1804,14 +1804,14 @@
                                     HasUnevenRows="True"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
-                                    RowHeight="140">
+                                    RowHeight="160">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
-                                                        <RowDefinition Height="60" />
+                                                        <RowDefinition Height="80" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -2099,14 +2099,14 @@
                                     HasUnevenRows="True"
                                     SeparatorVisibility="None"
                                     VerticalScrollBarVisibility="Never"
-                                    RowHeight="140">
+                                    RowHeight="170">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <renders:ExtendedViewCell SelectedBackgroundColor="{StaticResource MaxVonWhite}">
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="80" />
-                                                        <RowDefinition Height="60" />
+                                                        <RowDefinition Height="90" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
@@ -3061,7 +3061,7 @@
 
 
                                             <renders:CustomEntry
-                                                BackgroundColor="White"
+                                                BackgroundColor="Transparent"
                                                 x:Name="promoCodeEntry"
                                                 Grid.Column="1"
                                                 Margin="0,0,0,0"
